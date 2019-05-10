@@ -13,7 +13,7 @@ import {
 import { Table, Row, Rows } from 'react-native-table-component'
 const shortid = require('shortid')
 
-export default class HomeScreen extends React.Component {
+export default class Ingredients extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -78,33 +78,28 @@ export default class HomeScreen extends React.Component {
             onPress={() => this.add(this.state.name, this.state.amount)}
             title='Add'
             disabled={!(this.state.name && this.state.amount)}
-            // style={{
-            //   textAlign: 'right'
-            // }}
           />
         </View>
 
-        <View style={styles.container}>
-          <Table borderStyle={{ borderColor: 'transparent' }}>
-            <Row
-              data={['Name', 'Amount (g)']}
-              flexArr={[3, 1]}
-              style={[styles.head]}
-              textStyle={[styles.text, styles.boldText]}
-            />
-            {this.state.ingredients.map((ingredient, index) => (
-              <Row
-                key={shortid.generate()}
-                data={[ingredient.name, ingredient.amount]}
-                flexArr={[3, 1]}
-                style={{
-                  height: 40,
+        <View>
+          <View style={[styles.head, styles.row]}>
+            <Text style={styles.bold}>Name</Text>
+            <Text style={styles.bold}>Amount (g)</Text>
+          </View>
+          {this.state.ingredients.map((ingredient, index) => (
+            <View
+              style={[
+                styles.row,
+                {
                   backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa'
-                }}
-                textStyle={styles.text}
-              />
-            ))}
-          </Table>
+                }
+              ]}
+              key={shortid.generate()}
+            >
+              <Text>{ingredient.name}</Text>
+              <Text>{ingredient.amount}</Text>
+            </View>
+          ))}
         </View>
       </View>
     )
@@ -119,11 +114,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   head: {
-    height: 40,
+    marginTop: 20,
     backgroundColor: '#f6f6f6',
     borderColor: '#bbb',
     borderWidth: StyleSheet.hairlineWidth
   },
-  text: { margin: 6 },
-  boldText: { fontWeight: '500' }
+  row: {
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    justifyContent: 'space-between'
+  },
+  bold: { fontWeight: '500' }
 })
