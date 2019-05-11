@@ -90,26 +90,28 @@ export default class Ingredients extends React.Component {
             />
           </View>
 
-          <View style={styles.container}>
-            <View style={[styles.head, styles.row]}>
-              <Text style={styles.bold}>Name</Text>
-              <Text style={styles.bold}>Amount (g)</Text>
-            </View>
-            {this.state.ingredients.map((ingredient, index) => (
-              <View
-                style={[
-                  styles.row,
-                  {
-                    backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa'
-                  }
-                ]}
-                key={shortid.generate()}
-              >
-                <Text>{ingredient.name}</Text>
-                <Text>{ingredient.amount}</Text>
+          {this.state.ingredients.length ? (
+            <View style={styles.container}>
+              <View style={[styles.head, styles.row]}>
+                <Text style={styles.bold}>Name</Text>
+                <Text style={styles.bold}>Amount (g)</Text>
               </View>
-            ))}
-          </View>
+              {this.state.ingredients.map((ingredient, index) => (
+                <View
+                  style={[
+                    styles.row,
+                    {
+                      backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa'
+                    }
+                  ]}
+                  key={shortid.generate()}
+                >
+                  <Text>{ingredient.name}</Text>
+                  <Text>{ingredient.amount}</Text>
+                </View>
+              ))}
+            </View>
+          ) : null}
         </View>
       </DismissKeyboard>
     )
