@@ -27,11 +27,12 @@ export default class Ingredients extends React.Component {
     this.state = {
       name: '',
       amount: '',
-      ingredients: []
+      ingredients: [],
+      autoFocus: ''
     }
   }
 
-  add = (name, amount) => {
+  addIngredient = (name, amount) => {
     const updatedIngredients = this.state.ingredients.concat({ name, amount })
     this.setState({
       ingredients: updatedIngredients,
@@ -41,10 +42,26 @@ export default class Ingredients extends React.Component {
     this.name.focus()
   }
 
+  updateIngredientField = (text, index, field) => {
+    const updatedIngredients = this.state.ingredients.map((ingredient, idx) => {
+      if (idx === index) {
+        ingredient[field] = text
+        return ingredient
+      } else {
+        return ingredient
+      }
+    })
+    // this.setState({ [`updated${field}`]: text })
+    if (this.state.autoFocus !== index + field) {
+      this.setState({ autoFocus: index + field })
+    }
+    this.setState({ ingredients: updatedIngredients })
+  }
+
   render() {
     return (
       <DismissKeyboard>
-        <View style={{ flex: 1 }}>
+        <View>
           <View
             style={{
               alignItems: 'center'
@@ -90,12 +107,11 @@ export default class Ingredients extends React.Component {
               }}
             />
             <Button
-              onPress={() => this.add(this.state.name, this.state.amount)}
+              onPress={() =>
+                this.addIngredient(this.state.name, this.state.amount)
+              }
               title='Add'
               disabled={!(this.state.name && this.state.amount)}
-              // onPress={() => {
-              //   this.name.focus()
-              // }}
             />
           </View>
 
@@ -115,8 +131,21 @@ export default class Ingredients extends React.Component {
                   ]}
                   key={shortid.generate()}
                 >
-                  <Text>{ingredient.name}</Text>
-                  <Text>{ingredient.amount}</Text>
+                  <TextInput
+                    onChangeText={(text, idx = index, field) =>
+                      this.updateIngredientField(text, idx, 'name')
+                    }
+                    value={ingredient.name}
+                    autoFocus={index + 'name' === this.state.autoFocus}
+                  />
+                  <TextInput
+                    keyboardType='numeric'
+                    onChangeText={(text, idx = index, field) =>
+                      this.updateIngredientField(text, idx, 'amount')
+                    }
+                    value={ingredient.amount}
+                    autoFocus={index + 'amount' === this.state.autoFocus}
+                  />
                 </View>
               ))}
             </View>
