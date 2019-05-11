@@ -59,6 +59,7 @@ export default class Ingredients extends React.Component {
               Ingredients
             </Text>
           </View>
+
           <View
             style={{
               flexDirection: 'row',
@@ -89,7 +90,7 @@ export default class Ingredients extends React.Component {
             />
           </View>
 
-          <View>
+          <View style={styles.container}>
             <View style={[styles.head, styles.row]}>
               <Text style={styles.bold}>Name</Text>
               <Text style={styles.bold}>Amount (g)</Text>
@@ -117,20 +118,17 @@ export default class Ingredients extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 10,
-    backgroundColor: '#fff'
-  },
-  head: {
-    marginTop: 20,
-    backgroundColor: '#f6f6f6',
+    margin: 20,
     borderColor: '#bbb',
     borderWidth: StyleSheet.hairlineWidth
   },
+  head: {
+    backgroundColor: '#f6f6f6',
+    borderBottomColor: '#bbb',
+    borderBottomWidth: StyleSheet.hairlineWidth
+  },
   row: {
     flexDirection: 'row',
-    marginHorizontal: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
     justifyContent: 'space-between'
