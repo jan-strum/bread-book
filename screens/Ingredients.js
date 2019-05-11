@@ -32,13 +32,13 @@ export default class Ingredients extends React.Component {
   }
 
   add = (name, amount) => {
+    const updatedIngredients = this.state.ingredients.concat({ name, amount })
     this.setState({
-      ingredients: [...this.state.ingredients, { name, amount }],
+      ingredients: updatedIngredients,
       name: '',
       amount: ''
     })
-    this.name.clear()
-    this.amount.clear()
+    this.name.focus()
   }
 
   render() {
@@ -71,14 +71,20 @@ export default class Ingredients extends React.Component {
             <TextInput
               placeholder='Add an ingredient...'
               onChangeText={name => this.setState({ name })}
+              value={this.state.name}
+              returnKeyType='next'
               ref={input => {
                 this.name = input
+              }}
+              onSubmitEditing={() => {
+                this.amount.focus()
               }}
             />
             <TextInput
               placeholder='Specify the amount...'
               keyboardType='numeric'
               onChangeText={amount => this.setState({ amount })}
+              value={this.state.amount}
               ref={input => {
                 this.amount = input
               }}
@@ -87,6 +93,9 @@ export default class Ingredients extends React.Component {
               onPress={() => this.add(this.state.name, this.state.amount)}
               title='Add'
               disabled={!(this.state.name && this.state.amount)}
+              // onPress={() => {
+              //   this.name.focus()
+              // }}
             />
           </View>
 
