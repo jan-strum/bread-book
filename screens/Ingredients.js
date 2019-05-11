@@ -6,12 +6,20 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
   View,
   TextInput,
   Button
 } from 'react-native'
 import { Table, Row, Rows } from 'react-native-table-component'
 const shortid = require('shortid')
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+)
 
 export default class Ingredients extends React.Component {
   constructor() {
@@ -35,73 +43,74 @@ export default class Ingredients extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            alignItems: 'center'
-          }}
-        >
-          <Text
+      <DismissKeyboard>
+        <View style={{ flex: 1 }}>
+          <View
             style={{
-              padding: 20,
-              fontSize: 20
+              alignItems: 'center'
             }}
           >
-            Ingredients
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingHorizontal: 20
-          }}
-        >
-          <TextInput
-            placeholder='Add an ingredient...'
-            onChangeText={name => this.setState({ name })}
-            ref={input => {
-              this.name = input
-            }}
-          />
-          <TextInput
-            placeholder='Specify the amount...'
-            keyboardType='numeric'
-            onChangeText={amount => this.setState({ amount })}
-            ref={input => {
-              this.amount = input
-            }}
-          />
-          <Button
-            onPress={() => this.add(this.state.name, this.state.amount)}
-            title='Add'
-            disabled={!(this.state.name && this.state.amount)}
-          />
-        </View>
-
-        <View>
-          <View style={[styles.head, styles.row]}>
-            <Text style={styles.bold}>Name</Text>
-            <Text style={styles.bold}>Amount (g)</Text>
-          </View>
-          {this.state.ingredients.map((ingredient, index) => (
-            <View
-              style={[
-                styles.row,
-                {
-                  backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa'
-                }
-              ]}
-              key={shortid.generate()}
+            <Text
+              style={{
+                padding: 20,
+                fontSize: 20
+              }}
             >
-              <Text>{ingredient.name}</Text>
-              <Text>{ingredient.amount}</Text>
+              Ingredients
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingHorizontal: 20
+            }}
+          >
+            <TextInput
+              placeholder='Add an ingredient...'
+              onChangeText={name => this.setState({ name })}
+              ref={input => {
+                this.name = input
+              }}
+            />
+            <TextInput
+              placeholder='Specify the amount...'
+              keyboardType='numeric'
+              onChangeText={amount => this.setState({ amount })}
+              ref={input => {
+                this.amount = input
+              }}
+            />
+            <Button
+              onPress={() => this.add(this.state.name, this.state.amount)}
+              title='Add'
+              disabled={!(this.state.name && this.state.amount)}
+            />
+          </View>
+
+          <View>
+            <View style={[styles.head, styles.row]}>
+              <Text style={styles.bold}>Name</Text>
+              <Text style={styles.bold}>Amount (g)</Text>
             </View>
-          ))}
+            {this.state.ingredients.map((ingredient, index) => (
+              <View
+                style={[
+                  styles.row,
+                  {
+                    backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa'
+                  }
+                ]}
+                key={shortid.generate()}
+              >
+                <Text>{ingredient.name}</Text>
+                <Text>{ingredient.amount}</Text>
+              </View>
+            ))}
+          </View>
         </View>
-      </View>
+      </DismissKeyboard>
     )
   }
 }
