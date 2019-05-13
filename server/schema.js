@@ -1,13 +1,6 @@
 const { gql } = require('apollo-server')
 
 const typeDefs = gql`
-  type Query {
-    recipes: [Recipe]
-    recipe(id: ID!): Recipe
-
-    # me: User
-  }
-
   type Recipe {
     id: ID!
     name: String
@@ -22,6 +15,15 @@ const typeDefs = gql`
     quantity: Float
     # isDry
     # isFlour
+  }
+
+  # # #
+
+  type Query {
+    recipes: [Recipe]
+    recipe(id: ID!): Recipe
+
+    # me: User
   }
 
   # # #
