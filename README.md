@@ -8,3 +8,4 @@ A recipe book application intended for sourdough bread bakers. Eventually, I int
 - Convert times for each task (e.g. mixing, autolyse, etc.) given a start or end/bake time.
 - Ability to use and customize recipe templates.
 - Ability to save ingredients for easy lookup and reuse.
+- Photo-taking and uploading capability for documenting each stage in the bread-making process.
