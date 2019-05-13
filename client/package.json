@@ -1,0 +1,36 @@
+{
+  "name": "client",
+  "main": "node_modules/expo/AppEntry.js",
+  "dependencies": {
+    "@expo/samples": "2.1.1",
+    "@reach/router": "^1.2.1",
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link-http": "^1.5.14",
+    "expo": "^32.0.0",
+    "graphql": "^14.3.0",
+    "graphql-tag": "^2.10.1",
+    "react": "^16.5.0",
+    "react-apollo": "^2.5.5",
+    "react-dom": "^16.8.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-table-component": "^1.2.0",
+    "react-navigation": "^3.0.9",
+    "shortid": "^2.2.14"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+    "test": "node ./node_modules/jest/bin/jest.js --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0",
+    "jest-expo": "^32.0.0"
+  },
+  "private": true
+}
