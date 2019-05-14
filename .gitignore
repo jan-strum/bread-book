@@ -1,5 +1,6 @@
 node_modules
 .expo
+secrets.js
 npm-debug.*
 *.jks
 *.p12

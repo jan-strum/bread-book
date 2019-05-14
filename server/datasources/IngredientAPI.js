@@ -9,7 +9,7 @@ class IngredientAPI extends DataSource {
   initialize(config) {
     this.context = config.context
   }
-  findOrCreateIngredient = async ({ name: nameArg }) => {
+  async findOrCreateIngredient({ name: nameArg }) {
     const ingredient =
       this.context && this.context.ingredient
         ? this.context.ingredient.name
@@ -20,9 +20,13 @@ class IngredientAPI extends DataSource {
     })
     return ingredients && ingredients[0] ? ingredients[0] : null
   }
-
-  // updateRecipe
-  // deleteRecipe
+  async getAllIngredients() {
+    const ingredients = await this.store.recipes.findAll()
+    // console.log('ingredients', ingredients)
+    return ingredients
+  }
+  // updateIngredient
+  // deleteIngredient
 }
 
 module.exports = IngredientAPI

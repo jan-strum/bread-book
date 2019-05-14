@@ -23,6 +23,7 @@ const typeDefs = gql`
   type Query {
     recipes: [Recipe]
     recipe(id: ID!): Recipe
+    ingredients: [Ingredient]
 
     # me: User
   }
@@ -31,11 +32,22 @@ const typeDefs = gql`
 
   type Mutation {
     createRecipe(id: ID!, name: String, ingredients: [Int]): Recipe!
+    updateRecipe(id: ID!, name: String, ingredients: [Int]): Recipe!
+    deleteRecipe(id: ID!): Recipe!
+
     addIngredient(
+      id: ID!
       name: String
       description: String # Text?
       quantity: Float
     ): Ingredient!
+    updateIngredient(
+      id: ID!
+      name: String
+      description: String # Text?
+      quantity: Float
+    ): Ingredient!
+    deleteIngredient(id: ID!): Ingredient!
   }
 `
 
