@@ -12,12 +12,13 @@ const typeDefs = gql`
   type Ingredient {
     id: ID!
     name: String
+    description: String # Text?
     quantity: Float
     # isDry
     # isFlour
   }
 
-  # # #
+  # # #s
 
   type Query {
     recipes: [Recipe]
@@ -30,7 +31,11 @@ const typeDefs = gql`
 
   type Mutation {
     createRecipe(id: ID!, name: String, ingredients: [Int]): Recipe!
-    addIngredient(name: String, quantity: Float): Ingredient!
+    addIngredient(
+      name: String
+      description: String # Text?
+      quantity: Float
+    ): Ingredient!
   }
 `
 
