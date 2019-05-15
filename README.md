@@ -1,4 +1,6 @@
-# Description
+# Bread Book
+
+## Description
 
 A recipe book application intended for sourdough bread bakers. Eventually, I intend to turn this application into a social media platform for sharing recipes of all kinds, but for now, you can find a list of some of the intended basic features below.
 
