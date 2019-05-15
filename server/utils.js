@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const { username, password } = '/secrets.js'
 
-module.exports.createStore = () => {
+module.exports.createStore = async () => {
   const db = new Sequelize('bread-book', username, password, {
     dialect: 'postgres',
     logging: false
@@ -26,6 +26,30 @@ module.exports.createStore = () => {
   db.authenticate()
     .then(() => console.log('Database connected...'))
     .catch(error => console.log('Database not connected...', error))
+
+  async function seed() {
+    await db.sync({ force: true })
+    console.log('Database synced...')
+
+    const twentyPercentSpelt = await recipes.create({
+      name: 'Twenty Percent Spelt'
+    })
+    const twentyPercentRye = await recipes.create({
+      name: 'Twenty Percent Rye'
+    })
+    const twentyPercentWholeWheat = await recipes.create({
+      name: 'Twenty Percent Whole Wheat '
+    })
+
+    const spelt = await ingredients.create({ name: 'spelt', quantity: 60 })
+    const rye = await ingredients.create({ name: 'rye', quantity: 60 })
+    const wholeWheat = await ingredients.create({
+      name: 'whole wheat',
+      quantity: 60
+    })
+  }
+
+  seed()
 
   db.sync()
 
