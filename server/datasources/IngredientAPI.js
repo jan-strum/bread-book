@@ -21,8 +21,7 @@ class IngredientAPI extends DataSource {
     return ingredients && ingredients[0] ? ingredients[0] : null
   }
   async getAllIngredients() {
-    const ingredients = await this.store.recipes.findAll()
-    // console.log('ingredients', ingredients)
+    const ingredients = await this.store.ingredients.findAll()
     return ingredients
   }
   // updateIngredient

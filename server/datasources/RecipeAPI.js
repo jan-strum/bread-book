@@ -17,10 +17,13 @@ class RecipeAPI extends DataSource {
     return recipes && recipes[0] ? recipes[0] : null
   }
   async getAllRecipes() {
-    const recipes = await this.store.recipes.findAll()
-    // .then(() => console.log('recipes', recipes))
-    // console.log('recipes', recipes)
-    return recipes
+    try {
+      const recipes = await this.store.recipes.findAll()
+      console.log('recipes', recipes)
+      return recipes
+    } catch (e) {
+      console.log(e)
+    }
   }
   // getRecipeById
   // updateRecipe

@@ -1,10 +1,11 @@
 const Sequelize = require('sequelize')
 const { username, password } = '/secrets.js'
 
-module.exports.createStore = async () => {
+module.exports.createStore = () => {
   const db = new Sequelize('bread-book', username, password, {
     dialect: 'postgres',
-    logging: false
+    logging: false,
+    query: { raw: true }
   })
 
   const recipes = db.define('recipe', {
@@ -41,17 +42,24 @@ module.exports.createStore = async () => {
       name: 'Twenty Percent Whole Wheat '
     })
 
-    const spelt = await ingredients.create({ name: 'spelt', quantity: 60 })
-    const rye = await ingredients.create({ name: 'rye', quantity: 60 })
+    const spelt = await ingredients.create({
+      name: 'spelt',
+      quantity: 60,
+      description: 'Not Sifted.'
+    })
+    const rye = await ingredients.create({
+      name: 'rye',
+      quantity: 60,
+      description: 'Sifted.'
+    })
     const wholeWheat = await ingredients.create({
       name: 'whole wheat',
-      quantity: 60
+      quantity: 60,
+      description: 'Not Sifted.'
     })
   }
 
   seed()
-
-  db.sync()
 
   return { recipes, ingredients }
 }
