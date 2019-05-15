@@ -9,12 +9,22 @@ class RecipeAPI extends DataSource {
   initialize(config) {
     this.context = config.context
   }
-  async findOrCreateRecipe({ name: nameArg }) {
-    const recipe =
-      this.context && this.context.recipe ? this.context.recipe.name : nameArg
+  async findOrCreateRecipe(name) {
+    // const recipe =
+    //   this.context && this.context.recipe ? this.context.recipe.name : nameArg
 
-    const recipes = await this.store.recipes.findOrCreate({ where: { recipe } })
-    return recipes && recipes[0] ? recipes[0] : null
+    // const recipes = await this.store.recipes.findOrCreate({ where: { recipe } })
+    // return recipes && recipes[0] ? recipes[0] : null
+
+    try {
+      const recipe = await this.store.recipes.findOrCreate({
+        where: { name }
+      })
+      console.log('recipe', recipe[0])
+      return recipe[0]
+    } catch (e) {
+      console.log(e)
+    }
   }
   async getAllRecipes() {
     try {

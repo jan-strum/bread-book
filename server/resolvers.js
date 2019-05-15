@@ -1,19 +1,27 @@
 module.exports = {
   Query: {
-    recipes: (_, __, { dataSources }) => {
+    recipes: async (_, __, { dataSources }) => {
       // console.log('dataSources', dataSources)
-      const recipes = dataSources.recipeAPI.getAllRecipes()
+      const recipes = await dataSources.recipeAPI.getAllRecipes()
+      console.log('recipes', recipes)
       return recipes
     },
-    ingredients: (_, __, { dataSources }) => {
-      const ingredients = dataSources.ingredientAPI.getAllIngredients()
+    ingredients: async (_, __, { dataSources }) => {
+      const ingredients = await dataSources.ingredientAPI.getAllIngredients()
+      console.log('ingredients', ingredients)
       return ingredients
     }
   },
   Mutation: {
-    createRecipe: async (_, { name }, { dataSources }) => {
-      const recipe = await dataSources.recipeAPI.findOrCreateRecipe({ name })
+    findOrCreateRecipe: async (_, { name }, { dataSources }) => {
+      const recipe = await dataSources.recipeAPI.findOrCreateRecipe(name)
       return recipe
+    },
+    findOrCreateIngredient: async (_, { name }, { dataSources }) => {
+      const ingredient = await dataSources.ingredientAPI.findOrCreateIngredient(
+        name
+      )
+      return ingredient
     }
   }
 }
