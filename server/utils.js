@@ -4,8 +4,8 @@ const { username, password } = '/secrets.js'
 module.exports.createStore = () => {
   const db = new Sequelize('bread-book', username, password, {
     dialect: 'postgres',
-    logging: false,
-    query: { raw: true }
+    logging: false
+    // query: { raw: true }
   })
 
   const recipes = db.define('recipe', {

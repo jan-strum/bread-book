@@ -35,7 +35,17 @@ class RecipeAPI extends DataSource {
       console.log(e)
     }
   }
-  // updateRecipe
+  async updateRecipe(id, name) {
+    try {
+      const recipeToUpdate = await this.findRecipeById(id)
+      console.log('recipeToUpdate', recipeToUpdate)
+      const updatedRecipe = await recipeToUpdate.update({ name })
+      console.log('updatedRecipe', updatedRecipe)
+      return updatedRecipe
+    } catch (e) {
+      console.log(e)
+    }
+  }
   // deleteRecipe
 }
 
