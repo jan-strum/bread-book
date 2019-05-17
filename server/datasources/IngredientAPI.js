@@ -28,7 +28,7 @@ class IngredientAPI extends DataSource {
       console.log(e)
     }
   }
-  async getAllIngredients() {
+  async findAllIngredients() {
     const ingredients = await this.store.ingredients.findAll()
     return ingredients
   }

@@ -21,10 +21,10 @@ const typeDefs = gql`
   # # #s
 
   type Query {
-    recipes: [Recipe]
-    recipe(id: ID, name: String): Recipe
-    ingredients: [Ingredient]
-    ingredient(id: ID, name: String): Ingredient
+    findAllRecipes: [Recipe]
+    findRecipeById(id: ID): Recipe
+    findAllIngredients: [Ingredient]
+    findIngredientById(id: ID): Ingredient
 
     # me: User
   }

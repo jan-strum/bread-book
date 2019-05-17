@@ -20,22 +20,30 @@ class RecipeAPI extends DataSource {
       const recipe = await this.store.recipes.findOrCreate({
         where: { name }
       })
-      console.log('recipe', recipe[0])
+      // console.log('recipe', recipe[0])
       return recipe[0]
     } catch (e) {
       console.log(e)
     }
   }
-  async getAllRecipes() {
+  async findAllRecipes() {
     try {
       const recipes = await this.store.recipes.findAll()
-      console.log('recipes', recipes)
+      // console.log('recipes', recipes)
       return recipes
     } catch (e) {
       console.log(e)
     }
   }
-  // getRecipeById
+  async findRecipeById(id) {
+    try {
+      const recipe = await this.store.recipes.findByPk(id)
+      // console.log('recipe'.recipe)
+      return recipe
+    } catch (e) {
+      console.log(e)
+    }
+  }
   // updateRecipe
   // deleteRecipe
 }

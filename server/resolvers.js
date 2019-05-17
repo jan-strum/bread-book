@@ -1,13 +1,17 @@
 module.exports = {
   Query: {
-    recipes: async (_, __, { dataSources }) => {
-      // console.log('dataSources', dataSources)
-      const recipes = await dataSources.recipeAPI.getAllRecipes()
+    findAllRecipes: async (_, __, { dataSources }) => {
+      const recipes = await dataSources.recipeAPI.findAllRecipes()
       console.log('recipes', recipes)
       return recipes
     },
-    ingredients: async (_, __, { dataSources }) => {
-      const ingredients = await dataSources.ingredientAPI.getAllIngredients()
+    findRecipeById: async (_, { id }, { dataSources }) => {
+      const recipe = await dataSources.recipeAPI.findRecipeById(id)
+      console.log('recipe', recipe)
+      return recipe
+    },
+    findAllIngredients: async (_, __, { dataSources }) => {
+      const ingredients = await dataSources.ingredientAPI.findAllIngredients()
       console.log('ingredients', ingredients)
       return ingredients
     }
