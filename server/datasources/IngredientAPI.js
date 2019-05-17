@@ -38,15 +38,12 @@ class IngredientAPI extends DataSource {
     }
     try {
       const ingredientToUpdate = await this.findIngredientById(id)
-      // console.log('ingredientToUpdate', ingredientToUpdate)
       const updatedIngredient = await ingredientToUpdate.update(updateInfo)
-      // console.log('updatedIngredient', updatedIngredient)
       return updatedIngredient
     } catch (e) {
       console.log(e)
     }
   }
-  // updateIngredient
   // deleteIngredient
 }
 

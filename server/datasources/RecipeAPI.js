@@ -44,7 +44,15 @@ class RecipeAPI extends DataSource {
       console.log(e)
     }
   }
-  // deleteRecipe
+  async deleteRecipe(id) {
+    try {
+      const recipeToDelete = await this.findRecipeById(id)
+      await recipeToDelete.destroy()
+      return recipeToDelete
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 
 module.exports = RecipeAPI

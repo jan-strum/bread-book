@@ -30,6 +30,11 @@ module.exports = {
       const updatedRecipe = await dataSources.recipeAPI.updateRecipe(id, name)
       return updatedRecipe
     },
+    deleteRecipe: async (_, { id }, { dataSources }) => {
+      const recipeToDelete = await dataSources.recipeAPI.deleteRecipe(id)
+      return recipeToDelete
+    },
+
     findOrCreateIngredient: async (_, { name }, { dataSources }) => {
       const ingredient = await dataSources.ingredientAPI.findOrCreateIngredient(
         name
