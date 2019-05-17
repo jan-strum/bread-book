@@ -53,6 +53,12 @@ module.exports = {
         quantity
       )
       return updatedIngredient
+    },
+    deleteIngredient: async (_, { id }, { dataSources }) => {
+      const ingredientToDelete = await dataSources.ingredientAPI.deleteIngredient(
+        id
+      )
+      return ingredientToDelete
     }
   }
 }

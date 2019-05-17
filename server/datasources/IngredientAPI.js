@@ -44,7 +44,15 @@ class IngredientAPI extends DataSource {
       console.log(e)
     }
   }
-  // deleteIngredient
+  async deleteIngredient(id) {
+    try {
+      const ingredientToDelete = await this.findIngredientById(id)
+      await ingredientToDelete.destroy()
+      return ingredientToDelete
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 
 module.exports = IngredientAPI
