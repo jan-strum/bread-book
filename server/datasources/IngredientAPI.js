@@ -10,15 +10,6 @@ class IngredientAPI extends DataSource {
     this.context = config.context
   }
   async findOrCreateIngredient(name) {
-    // const ingredient =
-    //   this.context && this.context.ingredient
-    //     ? this.context.ingredient.name
-    //     : nameArg
-
-    // const ingredients = await this.store.ingredient.findOrCreate({
-    //   where: { ingredient }
-    // })
-    // return ingredients && ingredients[0] ? ingredients[0] : null
     try {
       const ingredient = await this.store.ingredients.findOrCreate({
         where: { name }
@@ -31,6 +22,14 @@ class IngredientAPI extends DataSource {
   async findAllIngredients() {
     const ingredients = await this.store.ingredients.findAll()
     return ingredients
+  }
+  async findIngredientById(id) {
+    try {
+      const ingredient = await this.store.ingredients.findByPk(id)
+      return ingredient
+    } catch (e) {
+      console.log(e)
+    }
   }
   // updateIngredient
   // deleteIngredient

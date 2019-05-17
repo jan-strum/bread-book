@@ -14,6 +14,11 @@ module.exports = {
       const ingredients = await dataSources.ingredientAPI.findAllIngredients()
       console.log('ingredients', ingredients)
       return ingredients
+    },
+    findIngredientById: async (_, { id }, { dataSources }) => {
+      const ingredient = await dataSources.ingredientAPI.findIngredientById(id)
+      console.log('ingredient', ingredient)
+      return ingredient
     }
   },
   Mutation: {
