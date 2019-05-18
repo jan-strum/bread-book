@@ -5,20 +5,18 @@ const typeDefs = gql`
     id: ID
     name: String
     ingredients: [Ingredient]
-    # dateCreated
-    # dateUpdated
   }
 
   type Ingredient {
     id: ID
     name: String
     description: String # Text?
+    hydration: Float
     quantity: Float
-    # isDry
-    # isFlour
+    recipeId: ID
   }
 
-  # # #s
+  # # #
 
   type Query {
     findAllRecipes: [Recipe]

@@ -15,10 +15,12 @@ module.exports.createStore = () => {
   const ingredients = db.define('ingredient', {
     name: Sequelize.STRING,
     description: Sequelize.TEXT,
+    hydration: Sequelize.DECIMAL(10, 2),
     quantity: Sequelize.DECIMAL(10, 2)
   })
 
-  recipes.hasMany(ingredients)
+  ingredients.belongsToMany(recipes, { through: 'recipes_ingredients' })
+  recipes.belongsToMany(ingredients, { through: 'recipes_ingredients' })
   // console.log(Object.keys(recipes.__proto__))
 
   db.authenticate()
@@ -40,24 +42,52 @@ module.exports.createStore = () => {
     })
 
     const spelt = await ingredients.create({
-      name: 'spelt',
-      quantity: 60,
-      description: 'Not Sifted.'
+      name: 'Spelt',
+      description: 'Not Sifted.',
+      hydration: 0,
+      quantity: 60
     })
     const rye = await ingredients.create({
-      name: 'rye',
-      quantity: 60,
-      description: 'Sifted.'
+      name: 'Rye',
+      description: 'Sifted.',
+      hydration: 0,
+      quantity: 60
     })
     const wholeWheat = await ingredients.create({
-      name: 'whole wheat',
-      quantity: 60,
-      description: 'Not Sifted.'
+      name: 'Whole Wheat',
+      description: 'Not Sifted.',
+      hydration: 0,
+      quantity: 60
     })
 
-    await twentyPercentSpelt.setIngredients(spelt)
-    await twentyPercentRye.setIngredients(rye)
-    await twentyPercentWholeWheat.setIngredients(wholeWheat)
+    const water = await ingredients.create({
+      name: 'Water',
+      description: 'Warm.',
+      hydration: 100,
+      quantity: 240
+    })
+
+    const levain = await ingredients.create({
+      name: 'Levain',
+      description: 'Room temperature.',
+      hydration: 50,
+      quantity: 60
+    })
+
+    const salt = await ingredients.create({
+      name: 'Salt',
+      description: 'Sea salt.',
+      quantity: 6
+    })
+
+    await twentyPercentSpelt.setIngredients([spelt, water, levain, salt])
+    await twentyPercentRye.setIngredients([rye, water, levain, salt])
+    await twentyPercentWholeWheat.setIngredients([
+      wholeWheat,
+      water,
+      levain,
+      salt
+    ])
   }
 
   seed()

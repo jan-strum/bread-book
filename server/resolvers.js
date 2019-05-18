@@ -43,14 +43,16 @@ module.exports = {
     },
     updateIngredient: async (
       _,
-      { id, name, description, quantity },
+      { id, name, description, hydration, quantity, recipeId },
       { dataSources }
     ) => {
       const updatedIngredient = await dataSources.ingredientAPI.updateIngredient(
         id,
         name,
         description,
-        quantity
+        hydration,
+        quantity,
+        recipeId
       )
       return updatedIngredient
     },
