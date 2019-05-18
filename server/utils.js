@@ -57,6 +57,10 @@ module.exports.createStore = () => {
       quantity: 60,
       description: 'Not Sifted.'
     })
+
+    await spelt.setRecipes(twentyPercentSpelt)
+    await rye.setRecipes(twentyPercentRye)
+    await wholeWheat.setRecipes(twentyPercentWholeWheat)
   }
 
   seed()
