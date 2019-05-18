@@ -18,10 +18,7 @@ module.exports.createStore = () => {
     quantity: Sequelize.DECIMAL(10, 2)
   })
 
-  // recipes.hasMany(ingredients, { foreignKey: 'recipeId', targetKey: 'id' })
-  ingredients.belongsToMany(recipes, { through: 'recipes_ingredients' })
-  recipes.belongsToMany(ingredients, { through: 'recipes_ingredients' })
-
+  recipes.hasMany(ingredients)
   // console.log(Object.keys(recipes.__proto__))
 
   db.authenticate()
@@ -58,9 +55,9 @@ module.exports.createStore = () => {
       description: 'Not Sifted.'
     })
 
-    await spelt.setRecipes(twentyPercentSpelt)
-    await rye.setRecipes(twentyPercentRye)
-    await wholeWheat.setRecipes(twentyPercentWholeWheat)
+    await twentyPercentSpelt.setIngredients(spelt)
+    await twentyPercentRye.setIngredients(rye)
+    await twentyPercentWholeWheat.setIngredients(wholeWheat)
   }
 
   seed()
