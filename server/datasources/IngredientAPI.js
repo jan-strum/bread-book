@@ -31,8 +31,15 @@ class IngredientAPI extends DataSource {
       console.log(e)
     }
   }
-  async updateIngredient(id, name, description, quantity, recipeId) {
-    const updateInfo = { name, description, quantity, recipeId }
+  async updateIngredient(
+    id,
+    name,
+    description,
+    hydration,
+    quantity,
+    isComplex
+  ) {
+    const updateInfo = { name, description, hydration, quantity, isComplex }
     for (let key in updateInfo) {
       if (!updateInfo[key]) delete updateInfo[key]
     }

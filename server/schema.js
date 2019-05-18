@@ -13,7 +13,7 @@ const typeDefs = gql`
     description: String # Text?
     hydration: Float
     quantity: Float
-    recipeId: ID
+    isComplex: Boolean
   }
 
   # # #
@@ -38,12 +38,14 @@ const typeDefs = gql`
       name: String
       description: String # Text?
       quantity: Float
+      isComplex: Boolean
     ): Ingredient!
     updateIngredient(
       id: ID!
       name: String
       description: String # Text?
       quantity: Float
+      isComplex: Boolean
     ): Ingredient!
     deleteIngredient(id: ID!): Ingredient!
   }

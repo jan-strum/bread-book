@@ -16,11 +16,19 @@ module.exports.createStore = () => {
     name: Sequelize.STRING,
     description: Sequelize.TEXT,
     hydration: Sequelize.DECIMAL(10, 2),
+    quantity: Sequelize.DECIMAL(10, 2),
+    isComplex: Sequelize.BOOLEAN
+  })
+  const subIngredients = db.define('subIngredient', {
+    name: Sequelize.STRING,
+    description: Sequelize.TEXT,
+    hydration: Sequelize.DECIMAL(10, 2),
     quantity: Sequelize.DECIMAL(10, 2)
   })
 
   ingredients.belongsToMany(recipes, { through: 'recipes_ingredients' })
   recipes.belongsToMany(ingredients, { through: 'recipes_ingredients' })
+  subIngredients.belongsTo(ingredients)
   // console.log(Object.keys(recipes.__proto__))
 
   db.authenticate()
@@ -45,39 +53,58 @@ module.exports.createStore = () => {
       name: 'Spelt',
       description: 'Not Sifted.',
       hydration: 0,
-      quantity: 60
+      quantity: 60,
+      isComplex: false
     })
     const rye = await ingredients.create({
       name: 'Rye',
       description: 'Sifted.',
       hydration: 0,
-      quantity: 60
+      quantity: 60,
+      isComplex: false
     })
     const wholeWheat = await ingredients.create({
       name: 'Whole Wheat',
       description: 'Not Sifted.',
       hydration: 0,
-      quantity: 60
+      quantity: 60,
+      isComplex: false
     })
-
     const water = await ingredients.create({
       name: 'Water',
       description: 'Warm.',
       hydration: 100,
-      quantity: 240
+      quantity: 240,
+      isComplex: false
     })
-
     const levain = await ingredients.create({
       name: 'Levain',
       description: 'Room temperature.',
       hydration: 50,
-      quantity: 60
+      quantity: 60, // This should be a computation of the subIngredients hydrations because isComplex is true.
+      isComplex: true
     })
-
     const salt = await ingredients.create({
       name: 'Salt',
       description: 'Sea salt.',
-      quantity: 6
+      quantity: 6,
+      isComplex: false
+    })
+
+    const levainBreadFlour = await subIngredients.create({
+      name: 'Levain Bread Flour',
+      quantity: 50,
+      hydration: 0
+    })
+    const levainRyeFlour = await subIngredients.create({
+      name: 'Levain Rye Flour',
+      quantity: 10,
+      hydration: 0
+    })
+    const levainWater = await subIngredients.create({
+      name: 'Levain Water',
+      quantity: 60,
+      hydration: 100
     })
 
     await twentyPercentSpelt.setIngredients([spelt, water, levain, salt])
@@ -88,6 +115,10 @@ module.exports.createStore = () => {
       levain,
       salt
     ])
+
+    await levainBreadFlour.setIngredient(levain)
+    await levainRyeFlour.setIngredient(levain)
+    await levainWater.setIngredient(levain)
   }
 
   seed()
