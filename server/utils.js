@@ -17,23 +17,13 @@ module.exports.createStore = () => {
     description: Sequelize.TEXT,
     hydration: Sequelize.DECIMAL(10, 2),
     quantity: Sequelize.DECIMAL(10, 2),
-    isComplex: Sequelize.BOOLEAN
-  })
-  const subIngredients = db.define('subIngredient', {
-    name: Sequelize.STRING,
-    description: Sequelize.TEXT,
-    hydration: Sequelize.DECIMAL(10, 2),
-    quantity: Sequelize.DECIMAL(10, 2),
-    isComplex: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    }
+    isComplex: { type: Sequelize.BOOLEAN, defaultValue: false }
   })
 
   ingredients.belongsToMany(recipes, { through: 'recipes_ingredients' })
   recipes.belongsToMany(ingredients, { through: 'recipes_ingredients' })
-  subIngredients.belongsTo(ingredients)
-  // console.log(Object.keys(recipes.__proto__))
+  ingredients.belongsTo(ingredients, { as: 'superIngredient' })
+  // console.log(Object.keys(ingredients.__proto__))
 
   db.authenticate()
     .then(() => console.log('Database connected...'))
@@ -95,17 +85,17 @@ module.exports.createStore = () => {
       isComplex: false
     })
 
-    const levainBreadFlour = await subIngredients.create({
+    const levainBreadFlour = await ingredients.create({
       name: 'Levain Bread Flour',
       quantity: 50,
       hydration: 0
     })
-    const levainRyeFlour = await subIngredients.create({
+    const levainRyeFlour = await ingredients.create({
       name: 'Levain Rye Flour',
       quantity: 10,
       hydration: 0
     })
-    const levainWater = await subIngredients.create({
+    const levainWater = await ingredients.create({
       name: 'Levain Water',
       quantity: 60,
       hydration: 100
@@ -120,12 +110,12 @@ module.exports.createStore = () => {
       salt
     ])
 
-    await levainBreadFlour.setIngredient(levain)
-    await levainRyeFlour.setIngredient(levain)
-    await levainWater.setIngredient(levain)
+    await levainBreadFlour.setSuperIngredient(levain)
+    await levainRyeFlour.setSuperIngredient(levain)
+    await levainWater.setSuperIngredient(levain)
   }
 
   seed()
 
-  return { recipes, ingredients, subIngredients }
+  return { recipes, ingredients }
 }

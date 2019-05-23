@@ -20,13 +20,16 @@ class IngredientAPI extends DataSource {
     }
   }
   async findAllIngredients() {
-    const ingredients = await this.store.ingredients.findAll({ raw: true })
+    const ingredients = await this.store.ingredients.findAll({
+      raw: true,
+      where: { superIngredientId: null }
+    })
     ingredients.forEach(ingredient => {
       ingredient.isComplex
-        ? (ingredient.subIngredients = this.store.subIngredients.findAll({
-            where: { ingredientId: ingredient.id }
+        ? (ingredient.subIngredients = this.store.ingredients.findAll({
+            where: { superIngredientId: ingredient.id }
           }))
-        : (ingredient.subIngredients = null)
+        : (ingredient.subIngredients = [])
     })
     return ingredients
   }
