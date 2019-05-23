@@ -23,7 +23,11 @@ module.exports.createStore = () => {
     name: Sequelize.STRING,
     description: Sequelize.TEXT,
     hydration: Sequelize.DECIMAL(10, 2),
-    quantity: Sequelize.DECIMAL(10, 2)
+    quantity: Sequelize.DECIMAL(10, 2),
+    isComplex: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    }
   })
 
   ingredients.belongsToMany(recipes, { through: 'recipes_ingredients' })
@@ -123,5 +127,5 @@ module.exports.createStore = () => {
 
   seed()
 
-  return { recipes, ingredients }
+  return { recipes, ingredients, subIngredients }
 }
