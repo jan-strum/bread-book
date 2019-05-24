@@ -9,6 +9,7 @@ const FIND_ALL_RECIPES = gql`
     findAllRecipes {
       id
       name
+      createdAt
     }
   }
 `

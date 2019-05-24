@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Recipe {
     id: ID
     name: String
+    createdAt: String
     ingredients: [Ingredient]
   }
 
