@@ -1,6 +1,12 @@
 const Sequelize = require('sequelize')
 const { username, password } = '/secrets.js'
 
+const today = new Date()
+let yesterday = new Date()
+yesterday = yesterday.setDate(today.getDate() - 1)
+let tomorrow = new Date()
+tomorrow = tomorrow.setDate(today.getDate() + 1)
+
 module.exports.createStore = () => {
   const db = new Sequelize('bread-book', username, password, {
     dialect: 'postgres',
@@ -34,13 +40,16 @@ module.exports.createStore = () => {
     console.log('Database synced...')
 
     const twentyPercentSpelt = await recipes.create({
-      name: 'Twenty Percent Spelt'
+      name: 'Twenty Percent Spelt',
+      createdAt: yesterday
     })
     const twentyPercentRye = await recipes.create({
-      name: 'Twenty Percent Rye'
+      name: 'Twenty Percent Rye',
+      createdAt: today
     })
     const twentyPercentWholeWheat = await recipes.create({
-      name: 'Twenty Percent Whole Wheat '
+      name: 'Twenty Percent Whole Wheat ',
+      createdAt: tomorrow
     })
 
     const spelt = await ingredients.create({

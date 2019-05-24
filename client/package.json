@@ -14,6 +14,7 @@
     "react-apollo": "^2.5.5",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-material-dropdown": "^0.11.1",
     "react-native-table-component": "^1.2.0",
     "react-navigation": "^3.0.9",
     "shortid": "^2.2.14"

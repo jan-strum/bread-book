@@ -11,6 +11,20 @@ import Ingredients from '../screens/Ingredients'
 import Recipes from '../screens/Recipes'
 import SettingsScreen from '../screens/SettingsScreen'
 
+const RecipesStack = createStackNavigator({
+  Links: Recipes
+})
+
+RecipesStack.navigationOptions = {
+  tabBarLabel: 'Recipes',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+    />
+  )
+}
+
 const IngredientsStack = createStackNavigator({
   Home: Ingredients
 })
@@ -25,20 +39,6 @@ IngredientsStack.navigationOptions = {
           ? `ios-information-circle${focused ? '' : '-outline'}`
           : 'md-information-circle'
       }
-    />
-  )
-}
-
-const RecipesStack = createStackNavigator({
-  Links: Recipes
-})
-
-RecipesStack.navigationOptions = {
-  tabBarLabel: 'Recipes',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
     />
   )
 }

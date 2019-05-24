@@ -30,6 +30,10 @@ export default class Ingredients extends React.Component {
     }
   }
 
+  static navigationOptions = {
+    title: 'Ingredients'
+  }
+
   addIngredient = (name, amount) => {
     const updatedIngredients = this.state.ingredients.concat({ name, amount })
     this.setState({
@@ -60,21 +64,6 @@ export default class Ingredients extends React.Component {
     return (
       <DismissKeyboard>
         <View>
-          <View
-            style={{
-              alignItems: 'center'
-            }}
-          >
-            <Text
-              style={{
-                padding: 20,
-                fontSize: 20
-              }}
-            >
-              Ingredients
-            </Text>
-          </View>
-
           <View
             style={{
               flexDirection: 'row',
