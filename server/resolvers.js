@@ -12,12 +12,12 @@ module.exports = {
     },
     findAllIngredients: async (_, __, { dataSources }) => {
       const ingredients = await dataSources.ingredientAPI.findAllIngredients()
-      console.log('ingredients', ingredients)
+      // console.log('ingredients', ingredients)
       return ingredients
     },
     findIngredientById: async (_, { id }, { dataSources }) => {
       const ingredient = await dataSources.ingredientAPI.findIngredientById(id)
-      console.log('ingredient', ingredient)
+      // console.log('ingredient', ingredient)
       return ingredient
     }
   },

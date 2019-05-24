@@ -4,6 +4,7 @@ const typeDefs = gql`
   type Recipe {
     id: ID
     name: String
+    createdAt: Int
     ingredients: [Ingredient]
   }
 
@@ -17,16 +18,6 @@ const typeDefs = gql`
     subIngredients: [Ingredient]
     ingredientId: ID
   }
-
-  # type SubIngredient {
-  #   id: ID
-  #   name: String
-  #   description: String # Text?
-  #   hydration: Float
-  #   quantity: Float
-  #   isComplex: Boolean
-  #   ingredientId: ID
-  # }
 
   # # #
 
