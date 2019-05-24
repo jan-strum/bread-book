@@ -1,7 +1,8 @@
 import React from 'react'
-import { ScrollView, Text, StyleSheet } from 'react-native'
+import { FlatList, Text, StyleSheet } from 'react-native'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import SingleRecipe from '../components/SingleRecipe'
 
 const FIND_ALL_RECIPES = gql`
   query findAllRecipes {
@@ -12,22 +13,14 @@ const FIND_ALL_RECIPES = gql`
   }
 `
 
-const FIND_INGREDIENT_BY_ID = gql`
-  query findIngredientById {
-    findIngredientById(id: 3) {
-      id
-      name
-      description
-      quantity
-      isComplex
-    }
-  }
-`
-
 export default class Recipes extends React.Component {
   static navigationOptions = {
     title: 'Recipes'
   }
+
+  keyExtractor = item => item.id
+
+  renderItem = ({ item }) => <SingleRecipe props={item} />
 
   render() {
     return (
@@ -39,12 +32,16 @@ export default class Recipes extends React.Component {
             return <Text>Error!</Text>
           }
           return (
-            <ScrollView style={styles.container}>
-              {data.findAllRecipes.map(recipe => (
+            <FlatList
+              data={data.findAllRecipes}
+              keyExtractor={this.keyExtractor}
+              renderItem={this.renderItem}
+              style={styles.container}
+            >
+              {/* {data.findAllRecipes.map(recipe => (
                 <Text key={recipe.id}>{recipe.name}</Text>
-              ))}
-              {/* <Text>{data.findIngredientById.name}</Text> */}
-            </ScrollView>
+              ))} */}
+            </FlatList>
           )
         }}
       </Query>
