@@ -4,7 +4,7 @@ const typeDefs = gql`
   type Recipe {
     id: ID
     name: String
-    createdAt: Int
+    createdAt: String
     ingredients: [Ingredient]
   }
 
