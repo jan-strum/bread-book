@@ -2,6 +2,22 @@ import React from 'react'
 import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { AppLoading, Asset, Font, Icon } from 'expo'
 import AppNavigator from './navigation/AppNavigator'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { HttpLink } from 'apollo-link-http'
+import { ApolloProvider } from 'react-apollo'
+
+// 192.168.0.4
+// 2601:241:8303:720:9947:c6de:4db4:1180
+
+const cache = new InMemoryCache()
+const link = new HttpLink({
+  uri: 'http://192.168.0.4:4000/'
+})
+const client = new ApolloClient({
+  cache,
+  link
+})
 
 export default class App extends React.Component {
   state = {
@@ -9,22 +25,22 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
+    return !this.state.isLoadingComplete && !this.props.skipLoadingScreen ? (
+      <ApolloProvider client={client}>
         <AppLoading
           startAsync={this._loadResourcesAsync}
           onError={this._handleLoadingError}
           onFinish={this._handleFinishLoading}
         />
-      )
-    } else {
-      return (
+      </ApolloProvider>
+    ) : (
+      <ApolloProvider client={client}>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
           <AppNavigator />
         </View>
-      )
-    }
+      </ApolloProvider>
+    )
   }
 
   _loadResourcesAsync = async () => {

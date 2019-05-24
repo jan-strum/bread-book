@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from 'react'
 import { Platform } from 'react-native'
 import {
@@ -7,15 +8,15 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon'
 import Ingredients from '../screens/Ingredients'
-import LinksScreen from '../screens/LinksScreen'
+import Recipes from '../screens/Recipes'
 import SettingsScreen from '../screens/SettingsScreen'
 
-const HomeStack = createStackNavigator({
+const IngredientsStack = createStackNavigator({
   Home: Ingredients
 })
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+IngredientsStack.navigationOptions = {
+  tabBarLabel: 'Ingredients',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -28,12 +29,12 @@ HomeStack.navigationOptions = {
   )
 }
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
+const RecipesStack = createStackNavigator({
+  Links: Recipes
 })
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+RecipesStack.navigationOptions = {
+  tabBarLabel: 'Recipes',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -57,7 +58,7 @@ SettingsStack.navigationOptions = {
 }
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  LinksStack: RecipesStack,
+  HomeStack: IngredientsStack,
   SettingsStack
 })

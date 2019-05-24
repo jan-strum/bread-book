@@ -18,16 +18,6 @@ const typeDefs = gql`
     ingredientId: ID
   }
 
-  # type SubIngredient {
-  #   id: ID
-  #   name: String
-  #   description: String # Text?
-  #   hydration: Float
-  #   quantity: Float
-  #   isComplex: Boolean
-  #   ingredientId: ID
-  # }
-
   # # #
 
   type Query {
