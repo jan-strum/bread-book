@@ -26,41 +26,45 @@ export default class AddRecipe extends React.Component {
     }
   }
 
-  submitRecipe = name => {}
-
   render() {
     return (
-      <View style={styles.form}>
-        <Text style={styles.label}>Name:</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-          }}
-        >
-          <View>
-            <TextInput
-              placeholder='Enter the recipe name here...'
-              onChangeText={name => this.setState({ name })}
-              value={this.state.name}
-            />
-          </View>
-          <View>
-            <TouchableOpacity
-              onPress={() => this.submitRecipe(this.state.name)}
-              color='black'
+      <Mutation mutation={FIND_OR_CREATE_RECIPE}>
+        {findOrCreateRecipe => (
+          <View style={styles.form}>
+            <Text style={styles.label}>Name:</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}
             >
-              <Text
-                style={{
-                  color: this.state.name ? 'black' : '#C7C7CD'
-                }}
-              >
-                Submit
-              </Text>
-            </TouchableOpacity>
+              <View>
+                <TextInput
+                  placeholder='Enter the recipe name here...'
+                  onChangeText={name => this.setState({ name })}
+                  value={this.state.name}
+                />
+              </View>
+              <View>
+                <TouchableOpacity
+                  onPress={() =>
+                    findOrCreateRecipe({ variables: { name: this.state.name } })
+                  }
+                  color='black'
+                >
+                  <Text
+                    style={{
+                      color: this.state.name ? 'black' : '#C7C7CD'
+                    }}
+                  >
+                    Submit
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
+        )}
+      </Mutation>
     )
   }
 }

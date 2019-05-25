@@ -30,7 +30,6 @@ export default class Recipes extends React.Component {
       sortDisplay: false,
       selectedField: '',
       newRecipeDropdown: false
-      // name: ''
     }
   }
 
