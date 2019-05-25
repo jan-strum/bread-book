@@ -13,7 +13,7 @@ import AddRecipe from '../components/AddRecipe'
 import SortRecipes from '../components/SortRecipes'
 import { TextInput } from 'react-native-gesture-handler'
 
-const FIND_ALL_RECIPES = gql`
+export const FIND_ALL_RECIPES = gql`
   query findAllRecipes {
     findAllRecipes {
       id

@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import { FIND_ALL_RECIPES } from '../screens/Recipes'
 
 const FIND_OR_CREATE_RECIPE = gql`
   mutation findOrCreateRecipe($name: String!) {
@@ -28,7 +29,17 @@ export default class AddRecipe extends React.Component {
 
   render() {
     return (
-      <Mutation mutation={FIND_OR_CREATE_RECIPE}>
+      <Mutation
+        mutation={FIND_OR_CREATE_RECIPE}
+        // update={(cache, { data: { findOrCreateRecipe } }) => {
+        //   const { recipes } = cache.readQuery({ query: FIND_ALL_RECIPES })
+        //   // console.log('cache', cache)
+        //   cache.writeQuery({
+        //     query: FIND_ALL_RECIPES,
+        //     data: { recipes: recipes.concat([findOrCreateRecipe]) }
+        //   })
+        // }}
+      >
         {findOrCreateRecipe => (
           <View style={styles.form}>
             <Text style={styles.label}>Name:</Text>
