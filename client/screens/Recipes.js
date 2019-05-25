@@ -4,12 +4,12 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
-  Button,
   StyleSheet
 } from 'react-native'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import SingleRecipe from '../components/SingleRecipe'
+import AddRecipe from '../components/AddRecipe'
 import SortRecipes from '../components/SortRecipes'
 import { TextInput } from 'react-native-gesture-handler'
 
@@ -23,23 +23,14 @@ const FIND_ALL_RECIPES = gql`
   }
 `
 
-const FIND_OR_CREATE_RECIPE = gql`
-  mutation findOrCreateRecipe($name: String!) {
-    findOrCreateRecipe(name: $name) {
-      id
-      name
-    }
-  }
-`
-
 export default class Recipes extends React.Component {
   constructor() {
     super()
     this.state = {
       sortDisplay: false,
       selectedField: '',
-      newRecipeDropdown: false,
-      name: ''
+      newRecipeDropdown: false
+      // name: ''
     }
   }
 
@@ -79,38 +70,39 @@ export default class Recipes extends React.Component {
                   )}
                 </TouchableOpacity>
                 {this.state.newRecipeDropdown ? (
-                  <View style={styles.form}>
-                    <Text style={styles.label}>Name:</Text>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between'
-                      }}
-                    >
-                      <View>
-                        <TextInput
-                          placeholder='Enter the recipe name here...'
-                          onChangeText={name => this.setState({ name })}
-                          value={this.state.name}
-                        />
-                      </View>
-                      <View>
-                        <TouchableOpacity
-                          onPress={() => this.submitRecipe(this.state.name)}
-                          color='black'
-                        >
-                          <Text
-                            style={{
-                              color: this.state.name ? 'black' : '#C7C7CD'
-                            }}
-                          >
-                            Submit
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                ) : null}
+                  <AddRecipe />
+                ) : // <View style={styles.form}>
+                //   <Text style={styles.label}>Name:</Text>
+                //   <View
+                //     style={{
+                //       flexDirection: 'row',
+                //       justifyContent: 'space-between'
+                //     }}
+                //   >
+                //     <View>
+                //       <TextInput
+                //         placeholder='Enter the recipe name here...'
+                //         onChangeText={name => this.setState({ name })}
+                //         value={this.state.name}
+                //       />
+                //     </View>
+                //     <View>
+                //       <TouchableOpacity
+                //         onPress={() => this.submitRecipe(this.state.name)}
+                //         color='black'
+                //       >
+                //         <Text
+                //           style={{
+                //             color: this.state.name ? 'black' : '#C7C7CD'
+                //           }}
+                //         >
+                //           Submit
+                //         </Text>
+                //       </TouchableOpacity>
+                //     </View>
+                //   </View>
+                // </View>
+                null}
               </View>
               {/* <SortRecipes /> */}
               <FlatList
@@ -135,15 +127,5 @@ const styles = StyleSheet.create({
     paddingRight: 25,
     fontSize: 35,
     fontWeight: '200'
-  },
-  form: {
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderBottomColor: '#bbb',
-    borderBottomWidth: StyleSheet.hairlineWidth
-  },
-  label: {
-    fontSize: 18,
-    paddingVertical: 10
   }
 })
