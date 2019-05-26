@@ -7,17 +7,8 @@ import {
   StyleSheet
 } from 'react-native'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-import { FIND_ALL_RECIPES } from '../screens/Recipes'
-
-const FIND_OR_CREATE_RECIPE = gql`
-  mutation findOrCreateRecipe($name: String!) {
-    findOrCreateRecipe(name: $name) {
-      id
-      name
-    }
-  }
-`
+import { FIND_ALL_RECIPES } from '../gql/queries'
+import { FIND_OR_CREATE_RECIPE } from '../gql/mutations'
 
 export default class AddRecipe extends React.Component {
   constructor() {

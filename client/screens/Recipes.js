@@ -7,28 +7,17 @@ import {
   StyleSheet
 } from 'react-native'
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import { FIND_ALL_RECIPES } from '../gql/queries'
 import SingleRecipe from '../components/SingleRecipe'
 import AddRecipe from '../components/AddRecipe'
 import SortRecipes from '../components/SortRecipes'
-import { TextInput } from 'react-native-gesture-handler'
-
-export const FIND_ALL_RECIPES = gql`
-  query findAllRecipes {
-    findAllRecipes {
-      id
-      name
-      createdAt
-    }
-  }
-`
 
 export default class Recipes extends React.Component {
   constructor() {
     super()
     this.state = {
-      sortDisplay: false,
-      selectedField: '',
+      // sortDisplay: false,
+      // selectedField: '',
       newRecipeDropdown: false
     }
   }

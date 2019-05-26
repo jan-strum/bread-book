@@ -7,9 +7,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloProvider } from 'react-apollo'
 
-// 192.168.0.4
-// 2601:241:8303:720:9947:c6de:4db4:1180
-
 const cache = new InMemoryCache()
 const link = new HttpLink({
   uri: 'http://192.168.0.4:4000/'
