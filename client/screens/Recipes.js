@@ -7,6 +7,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { Query } from 'react-apollo'
+
 import { FIND_ALL_RECIPES } from '../gql/queries'
 import SingleRecipe from '../components/SingleRecipe'
 import AddRecipe from '../components/AddRecipe'
@@ -41,7 +42,15 @@ export default class Recipes extends React.Component {
   render() {
     return (
       <Query query={FIND_ALL_RECIPES}>
-        {({ data, loading, error }) => {
+        {({ data, client, loading, error }) => {
+          // const { findAllRecipes } = client.readQuery({
+          //   query: FIND_ALL_RECIPES
+          // })
+          // client.writeQuery({ query: FIND_ALL_RECIPES, data: recipes })
+          // console.log(Object.keys(data))
+          // console.log(data.findAllRecipes)
+          client.writeData({ data })
+          console.log(Object.values(client.cache.data.data))
           if (loading) return <Text>Loading...</Text>
           if (error) {
             console.log('error', error)

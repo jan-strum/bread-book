@@ -5,6 +5,8 @@ import AppNavigator from './navigation/AppNavigator'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
+import { resolvers } from './resolvers'
+import { typeDefs } from './schema'
 import { ApolloProvider } from 'react-apollo'
 
 const cache = new InMemoryCache()
@@ -13,7 +15,9 @@ const link = new HttpLink({
 })
 const client = new ApolloClient({
   cache,
-  link
+  link,
+  typeDefs,
+  resolvers
 })
 
 export default class App extends React.Component {
