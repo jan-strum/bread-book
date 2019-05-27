@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { dateFormatter } from '../utils'
 
-export default class SingleRecipeScreen extends React.Component {
+export default class FullRecipeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { name, createdAt } = navigation.getParam('item')
     const date = (

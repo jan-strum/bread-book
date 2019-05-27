@@ -1,14 +1,12 @@
-const { createStore } = require('./db')
-const store = createStore()
+// const store = require('./index')
 
-module.exports.findSubIngredients = ingredientsArray => {
-  // console.log(ingredients)
-  console.log('store', store.ingredients)
-  ingredientsArray.forEach(ingredient => {
-    ingredient.isComplex
-      ? (ingredient.subIngredients = store.ingredients.findAll({
-          where: { superIngredientId: ingredient.id }
-        }))
-      : (ingredient.subIngredients = [])
-  })
-}
+// module.exports.findSubIngredients = ingredientsArray => {
+//   console.log('store', store)
+//   ingredientsArray.forEach(ingredient => {
+//     ingredient.isComplex
+//       ? (ingredient.subIngredients = store.ingredients.findAll({
+//           where: { superIngredientId: ingredient.id }
+//         }))
+//       : (ingredient.subIngredients = [])
+//   })
+// }

@@ -9,3 +9,30 @@ export const FIND_ALL_RECIPES = gql`
     }
   }
 `
+
+export const FIND_FULL_RECIPE = gql`
+  query findFullRecipe($id: ID) {
+    findFullRecipe(id: $id) {
+      id
+      name
+      ingredients {
+        id
+        name
+        description
+        hydration
+        quantity
+        superIngredientId
+        isComplex
+        subIngredients {
+          id
+          name
+          description
+          hydration
+          quantity
+          superIngredientId
+          isComplex
+        }
+      }
+    }
+  }
+`

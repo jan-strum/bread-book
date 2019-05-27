@@ -1,5 +1,4 @@
 const { DataSource } = require('apollo-datasource')
-const { findSubIngredients } = require('../utils')
 
 class IngredientAPI extends DataSource {
   constructor({ store }) {
@@ -10,6 +9,16 @@ class IngredientAPI extends DataSource {
   initialize(config) {
     this.context = config.context
   }
+  findSubIngredients(ingredientsArray) {
+    ingredientsArray.forEach(ingredient => {
+      ingredient.isComplex
+        ? (ingredient.subIngredients = this.store.ingredients.findAll({
+            where: { superIngredientId: ingredient.id }
+          }))
+        : (ingredient.subIngredients = [])
+    })
+  }
+
   async findOrCreateIngredient(name) {
     try {
       const ingredient = await this.store.ingredients.findOrCreate({
@@ -24,7 +33,7 @@ class IngredientAPI extends DataSource {
     const ingredients = await this.store.ingredients.findAll({
       where: { superIngredientId: null }
     })
-    findSubIngredients(ingredients)
+    this.findSubIngredients(ingredients)
     return ingredients
   }
   async findIngredientById(id) {

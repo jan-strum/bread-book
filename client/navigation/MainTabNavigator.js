@@ -9,12 +9,12 @@ import {
 import TabBarIcon from '../components/TabBarIcon'
 import AllIngredientsScreen from '../screens/AllIngredientsScreen'
 import AllRecipesScreen from '../screens/AllRecipesScreen'
-import SingleRecipeScreen from '../screens/SingleRecipeScreen'
+import FullRecipeScreen from '../screens/FullRecipeScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 
 const AllRecipesStack = createStackNavigator({
   AllRecipesScreen,
-  SingleRecipeScreen
+  FullRecipeScreen
 })
 AllRecipesStack.navigationOptions = {
   tabBarLabel: 'Recipes',
