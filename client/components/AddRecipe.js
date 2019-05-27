@@ -58,11 +58,15 @@ class AddRecipe extends React.Component {
                       </View>
                       <View>
                         <TouchableOpacity
-                          onPress={() =>
+                          onPress={() => {
                             findOrCreateRecipe({
                               variables: { name: this.state.name }
                             })
-                          }
+                            this.setState({
+                              name: '',
+                              newRecipeDropdown: !this.state.newRecipeDropdown
+                            })
+                          }}
                           color='black'
                         >
                           <Text
