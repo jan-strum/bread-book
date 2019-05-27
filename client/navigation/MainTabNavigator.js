@@ -3,17 +3,18 @@ import React from 'react'
 import { Platform } from 'react-native'
 import {
   createStackNavigator,
-  createBottomTabNavigator,
-  createSwitchNavigator
+  createBottomTabNavigator
 } from 'react-navigation'
 
 import TabBarIcon from '../components/TabBarIcon'
 import AllIngredientsScreen from '../screens/AllIngredientsScreen'
 import AllRecipesScreen from '../screens/AllRecipesScreen'
+import SingleRecipeScreen from '../screens/SingleRecipeScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 
 const AllRecipesStack = createStackNavigator({
-  Recipes: AllRecipesScreen
+  AllRecipesScreen,
+  SingleRecipeScreen
 })
 AllRecipesStack.navigationOptions = {
   tabBarLabel: 'Recipes',
@@ -26,7 +27,7 @@ AllRecipesStack.navigationOptions = {
 }
 
 const AllIngredientsStack = createStackNavigator({
-  Ingredients: AllIngredientsScreen
+  AllIngredientsScreen
 })
 AllIngredientsStack.navigationOptions = {
   tabBarLabel: 'Ingredients',
@@ -57,7 +58,7 @@ SettingsStack.navigationOptions = {
 }
 
 export default createBottomTabNavigator({
-  LinksStack: AllRecipesStack,
-  HomeStack: AllIngredientsStack,
+  AllRecipesStack,
+  AllIngredientsStack,
   SettingsStack
 })

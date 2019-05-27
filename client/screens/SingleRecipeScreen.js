@@ -1,10 +1,16 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const SingleRecipeScreen = () => (
-  <View>
-    <Text>Single Recipe</Text>
-  </View>
-)
+export default class SingleRecipeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Recipe'
+  }
 
-export default SingleRecipeScreen
+  render() {
+    return (
+      <View>
+        <Text>Single Recipe</Text>
+      </View>
+    )
+  }
+}

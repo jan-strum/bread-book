@@ -10,7 +10,7 @@ const SingleRecipe = ({ item, navigation }) => {
     <TouchableOpacity
       id={item.id}
       style={styles.row}
-      onPress={() => navigate('Recipe')}
+      onPress={() => navigate('SingleRecipeScreen')}
     >
       <Text>{item.name}</Text>
       <Text style={styles.date}>{dateFormatter(item.createdAt)}</Text>
