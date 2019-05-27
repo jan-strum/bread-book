@@ -13,11 +13,19 @@ const cache = new InMemoryCache()
 const link = new HttpLink({
   uri: 'http://192.168.0.4:4000/'
 })
+
+cache.writeData({
+  data: {
+    recipes: []
+  }
+})
+
 const client = new ApolloClient({
-  cache,
+  connectToDevTools: true,
   link,
-  typeDefs,
-  resolvers
+  // typeDefs,
+  // resolvers,
+  cache
 })
 
 export default class App extends React.Component {
