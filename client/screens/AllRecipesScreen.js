@@ -28,7 +28,9 @@ export default class Recipes extends React.Component {
 
   keyExtractor = item => item.id
 
-  renderItem = ({ item }) => <SingleRecipe props={item} />
+  renderItem = ({ item }) => (
+    <SingleRecipe item={item} navigation={this.props.navigation} />
+  )
 
   // toggleSortDropdown = () => {
   //   this.setState({ sortDisplay: !this.state.sortDisplay })
@@ -54,6 +56,7 @@ export default class Recipes extends React.Component {
                 data={data.findAllRecipes}
                 keyExtractor={this.keyExtractor}
                 renderItem={this.renderItem}
+                navigation={this.props.navigation}
               />
             </View>
           )

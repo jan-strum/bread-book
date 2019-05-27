@@ -1,13 +1,20 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { dateFormatter } from '../utils'
 
-const SingleRecipe = ({ props }) => {
+const SingleRecipe = ({ item, navigation }) => {
+  // console.log('navigation', navigation)
+  const { navigate } = navigation
+  // console.log(navigate)
   return (
-    <View id={props.id} style={styles.row}>
-      <Text>{props.name}</Text>
-      <Text style={styles.date}>{dateFormatter(props.createdAt)}</Text>
-    </View>
+    <TouchableOpacity
+      id={item.id}
+      style={styles.row}
+      onPress={() => navigate('Recipe')}
+    >
+      <Text>{item.name}</Text>
+      <Text style={styles.date}>{dateFormatter(item.createdAt)}</Text>
+    </TouchableOpacity>
   )
 }
 

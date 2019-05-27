@@ -3,19 +3,19 @@ import React from 'react'
 import { Platform } from 'react-native'
 import {
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
+  createSwitchNavigator
 } from 'react-navigation'
 
 import TabBarIcon from '../components/TabBarIcon'
-import Ingredients from '../screens/Ingredients'
-import Recipes from '../screens/Recipes'
+import AllIngredientsScreen from '../screens/AllIngredientsScreen'
+import AllRecipesScreen from '../screens/AllRecipesScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 
-const RecipesStack = createStackNavigator({
-  Links: Recipes
+const AllRecipesStack = createStackNavigator({
+  Recipes: AllRecipesScreen
 })
-
-RecipesStack.navigationOptions = {
+AllRecipesStack.navigationOptions = {
   tabBarLabel: 'Recipes',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -25,11 +25,10 @@ RecipesStack.navigationOptions = {
   )
 }
 
-const IngredientsStack = createStackNavigator({
-  Home: Ingredients
+const AllIngredientsStack = createStackNavigator({
+  Ingredients: AllIngredientsScreen
 })
-
-IngredientsStack.navigationOptions = {
+AllIngredientsStack.navigationOptions = {
   tabBarLabel: 'Ingredients',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -58,7 +57,7 @@ SettingsStack.navigationOptions = {
 }
 
 export default createBottomTabNavigator({
-  LinksStack: RecipesStack,
-  HomeStack: IngredientsStack,
+  LinksStack: AllRecipesStack,
+  HomeStack: AllIngredientsStack,
   SettingsStack
 })

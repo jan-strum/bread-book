@@ -34,20 +34,20 @@ export default class App extends React.Component {
   }
 
   render() {
-    return !this.state.isLoadingComplete && !this.props.skipLoadingScreen ? (
+    return (
       <ApolloProvider client={client}>
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      </ApolloProvider>
-    ) : (
-      <ApolloProvider client={client}>
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
-          <AppNavigator />
-        </View>
+        {!this.state.isLoadingComplete && !this.props.skipLoadingScreen ? (
+          <AppLoading
+            startAsync={this._loadResourcesAsync}
+            onError={this._handleLoadingError}
+            onFinish={this._handleFinishLoading}
+          />
+        ) : (
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+            <AppNavigator />
+          </View>
+        )}
       </ApolloProvider>
     )
   }
