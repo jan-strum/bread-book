@@ -50,7 +50,7 @@ export default class Recipes extends React.Component {
           }
           return (
             <View style={styles.container}>
-              <View>
+              {/* <View>
                 <TouchableOpacity onPress={this.addRecipe}>
                   {!this.state.newRecipeDropdown ? (
                     <Text style={styles.button}>&#43;</Text>
@@ -59,8 +59,9 @@ export default class Recipes extends React.Component {
                   )}
                 </TouchableOpacity>
                 {this.state.newRecipeDropdown ? <AddRecipe /> : null}
-              </View>
+              </View> */}
               {/* <SortRecipes /> */}
+              <AddRecipe />
               <FlatList
                 data={data.findAllRecipes}
                 keyExtractor={this.keyExtractor}
@@ -77,11 +78,11 @@ export default class Recipes extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  button: {
-    textAlign: 'right',
-    paddingRight: 25,
-    fontSize: 35,
-    fontWeight: '200'
   }
+  // button: {
+  //   textAlign: 'right',
+  //   paddingRight: 25,
+  //   fontSize: 35,
+  //   fontWeight: '200'
+  // }
 })
