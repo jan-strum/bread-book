@@ -53,7 +53,7 @@ class RecipeAPI extends DataSource {
           where: { superIngredientId: null }
         }
       })
-      this.findSubIngredients(recipe.ingredients)
+      await this.findSubIngredients(recipe.ingredients)
       return recipe
     } catch (e) {
       console.log(e)

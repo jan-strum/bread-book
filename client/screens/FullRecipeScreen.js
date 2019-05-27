@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import IngredientsTable from '../components/IngredientsTable'
 import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter } from '../utils'
@@ -28,7 +29,8 @@ export default class FullRecipeScreen extends React.Component {
           }
           return (
             <View>
-              <Text>{data.findFullRecipe.name}</Text>
+              <Text style={styles.header}>Ingredients:</Text>
+              <IngredientsTable ingredients={data.findFullRecipe.ingredients} />
             </View>
           )
         }}
@@ -36,3 +38,11 @@ export default class FullRecipeScreen extends React.Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 20
+  }
+})

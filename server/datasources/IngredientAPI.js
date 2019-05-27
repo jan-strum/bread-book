@@ -33,7 +33,7 @@ class IngredientAPI extends DataSource {
     const ingredients = await this.store.ingredients.findAll({
       where: { superIngredientId: null }
     })
-    this.findSubIngredients(ingredients)
+    await this.findSubIngredients(ingredients)
     return ingredients
   }
   async findIngredientById(id) {
