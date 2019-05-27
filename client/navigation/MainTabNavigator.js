@@ -12,11 +12,11 @@ import AllRecipesScreen from '../screens/AllRecipesScreen'
 import FullRecipeScreen from '../screens/FullRecipeScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 
-const AllRecipesStack = createStackNavigator({
+const RecipesStack = createStackNavigator({
   AllRecipesScreen,
   FullRecipeScreen
 })
-AllRecipesStack.navigationOptions = {
+RecipesStack.navigationOptions = {
   tabBarLabel: 'Recipes',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -26,10 +26,10 @@ AllRecipesStack.navigationOptions = {
   )
 }
 
-const AllIngredientsStack = createStackNavigator({
+const IngredientsStack = createStackNavigator({
   AllIngredientsScreen
 })
-AllIngredientsStack.navigationOptions = {
+IngredientsStack.navigationOptions = {
   tabBarLabel: 'Ingredients',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -58,7 +58,7 @@ SettingsStack.navigationOptions = {
 }
 
 export default createBottomTabNavigator({
-  AllRecipesStack,
-  AllIngredientsStack,
+  RecipesStack,
+  IngredientsStack,
   SettingsStack
 })
