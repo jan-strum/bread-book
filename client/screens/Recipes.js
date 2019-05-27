@@ -19,7 +19,6 @@ export default class Recipes extends React.Component {
     this.state = {
       // sortDisplay: false,
       // selectedField: '',
-      newRecipeDropdown: false
     }
   }
 
@@ -50,17 +49,6 @@ export default class Recipes extends React.Component {
           }
           return (
             <View style={styles.container}>
-              {/* <View>
-                <TouchableOpacity onPress={this.addRecipe}>
-                  {!this.state.newRecipeDropdown ? (
-                    <Text style={styles.button}>&#43;</Text>
-                  ) : (
-                    <Text style={styles.button}>&#8722;</Text>
-                  )}
-                </TouchableOpacity>
-                {this.state.newRecipeDropdown ? <AddRecipe /> : null}
-              </View> */}
-              {/* <SortRecipes /> */}
               <AddRecipe />
               <FlatList
                 data={data.findAllRecipes}
@@ -79,10 +67,4 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   }
-  // button: {
-  //   textAlign: 'right',
-  //   paddingRight: 25,
-  //   fontSize: 35,
-  //   fontWeight: '200'
-  // }
 })
