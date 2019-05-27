@@ -16,7 +16,7 @@ const typeDefs = gql`
     quantity: Float
     isComplex: Boolean
     subIngredients: [Ingredient]
-    ingredientId: ID
+    superIngredientId: ID
   }
 
   # # #
@@ -24,6 +24,7 @@ const typeDefs = gql`
   type Query {
     findAllRecipes: [Recipe]
     findRecipeById(id: ID): Recipe
+    findFullRecipe(id: ID): Recipe
     findAllIngredients: [Ingredient]
     findIngredientById(id: ID): Ingredient
 

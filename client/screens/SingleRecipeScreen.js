@@ -15,7 +15,6 @@ export default class SingleRecipeScreen extends React.Component {
   }
 
   render() {
-    console.log(this.props.navigation.getParam('item'))
     return (
       <View>
         <Text>Single Recipe</Text>

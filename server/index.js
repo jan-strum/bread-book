@@ -1,6 +1,6 @@
 const { ApolloServer } = require('apollo-server')
 const typeDefs = require('./schema')
-const { createStore } = require('./utils')
+const { createStore } = require('./db')
 const resolvers = require('./resolvers')
 
 const RecipeAPI = require('./dataSources/RecipeAPI')

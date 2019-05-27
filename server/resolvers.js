@@ -10,6 +10,11 @@ module.exports = {
       // console.log('recipe', recipe)
       return recipe
     },
+    findFullRecipe: async (_, { id }, { dataSources }) => {
+      const recipe = await dataSources.recipeAPI.findFullRecipe(id)
+      // console.log('recipe', recipe)
+      return recipe
+    },
     findAllIngredients: async (_, __, { dataSources }) => {
       const ingredients = await dataSources.ingredientAPI.findAllIngredients()
       // console.log('ingredients', ingredients)
@@ -17,7 +22,7 @@ module.exports = {
     },
     findIngredientById: async (_, { id }, { dataSources }) => {
       const ingredient = await dataSources.ingredientAPI.findIngredientById(id)
-      // console.log('ingredient', ingredient)
+      console.log('ingredient', JSON.stringify(ingredient))
       return ingredient
     }
   },
