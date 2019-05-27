@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { Query } from 'react-apollo'
+import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter } from '../utils'
 
 export default class FullRecipeScreen extends React.Component {
@@ -15,10 +17,22 @@ export default class FullRecipeScreen extends React.Component {
   }
 
   render() {
+    const { id } = this.props.navigation.getParam('item')
     return (
-      <View>
-        <Text>Single Recipe</Text>
-      </View>
+      <Query query={FIND_FULL_RECIPE} variables={{ id }}>
+        {({ data, loading, error }) => {
+          if (loading) return <Text>Loading...</Text>
+          if (error) {
+            console.log('error', error)
+            return <Text>Error!</Text>
+          }
+          return (
+            <View>
+              <Text>{data.findFullRecipe.name}</Text>
+            </View>
+          )
+        }}
+      </Query>
     )
   }
 }
