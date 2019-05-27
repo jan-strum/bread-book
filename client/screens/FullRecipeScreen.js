@@ -39,7 +39,7 @@ export default class FullRecipeScreen extends React.Component {
             return <Text>Error!</Text>
           }
           return (
-            <View>
+            <View style={{ flex: 1 }}>
               <Text style={styles.header}>Ingredients:</Text>
               <IngredientsTable ingredients={data.findFullRecipe.ingredients} />
             </View>

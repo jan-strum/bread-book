@@ -3,9 +3,7 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { dateFormatter } from '../utils'
 
 const SingleRecipe = ({ item, navigation }) => {
-  // console.log('navigation', navigation)
   const { navigate } = navigation
-  // console.log(navigate)
   return (
     <TouchableOpacity
       id={item.id}
