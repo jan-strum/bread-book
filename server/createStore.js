@@ -138,8 +138,6 @@ module.exports.createStore = () => {
       salt
     ])
 
-    // await wholeWheat.setRecipes([twentyPercentWholeWheat])
-
     await levainBreadFlour.setSuperIngredient(levain)
     await levainRyeFlour.setSuperIngredient(levain)
     await levainWater.setSuperIngredient(levain)

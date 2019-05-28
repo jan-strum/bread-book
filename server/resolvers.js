@@ -66,13 +66,12 @@ module.exports = {
     },
     removeIngredient: async (
       _,
-      { recipeId, ingredientId },
+      { ingredientId, recipeId },
       { dataSources }
     ) => {
-      // console.log('hit')
       const updatedIngredients = await dataSources.ingredientAPI.removeIngredient(
-        recipeId,
-        ingredientId
+        ingredientId,
+        recipeId
       )
       return updatedIngredients
     }

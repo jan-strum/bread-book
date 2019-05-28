@@ -45,7 +45,6 @@ class RecipeAPI extends DataSource {
         }
       })
       await this.findSubIngredients(recipe.ingredients)
-      // console.log(JSON.stringify(recipe, null, 2))
       return recipe
     } catch (e) {
       console.log(e)
@@ -79,7 +78,6 @@ class RecipeAPI extends DataSource {
           }))
         : (ingredient.subIngredients = [])
     })
-    // console.log(JSON.stringify(ingredientsArray, null, 2))
   }
 }
 

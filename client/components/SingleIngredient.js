@@ -22,8 +22,6 @@ export const SingleIngredient = ({ ingredients, recipeId }) => {
             {
               text: 'Remove',
               onPress: () => {
-                // console.log('ingredientId:', ingredient.id)
-                // console.log('recipeId:', recipeId)
                 removeIngredient({
                   variables: { ingredientId: ingredient.id, recipeId }
                 })
@@ -50,13 +48,6 @@ export const SingleIngredient = ({ ingredients, recipeId }) => {
     </Mutation>
   ))
 }
-
-// const buttons = [
-//   {
-//     text: 'Remove',
-//     onPress: () => deleteIngredient({ variables: { id: ingredient.id } })
-//   }
-// ]
 
 const styles = StyleSheet.create({
   row: {
