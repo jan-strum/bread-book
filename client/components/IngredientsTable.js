@@ -1,13 +1,6 @@
 import React from 'react'
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  StyleSheet
-} from 'react-native'
-import SuperIngredient from './SuperIngredient'
-const shortid = require('shortid')
+import { View, Text, StyleSheet } from 'react-native'
+import { SingleIngredient } from './SingleIngredient'
 
 export default class IngredientsTable extends React.Component {
   render() {
@@ -17,22 +10,7 @@ export default class IngredientsTable extends React.Component {
           <Text style={styles.bold}>Name</Text>
           <Text style={styles.bold}>Amount (g)</Text>
         </View>
-        {this.props.ingredients.map((ingredient, index) => (
-          <View
-            style={[
-              styles.row,
-              { backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa' }
-            ]}
-            key={shortid.generate()}
-          >
-            {ingredient.isComplex || ingredient.description ? (
-              <SuperIngredient ingredient={ingredient} />
-            ) : (
-              <Text>{ingredient.name}</Text>
-            )}
-            <Text>{String(ingredient.quantity)}</Text>
-          </View>
-        ))}
+        <SingleIngredient ingredients={this.props.ingredients} />
       </View>
     )
   }
