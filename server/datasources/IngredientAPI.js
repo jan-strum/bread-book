@@ -1,4 +1,5 @@
 const { DataSource } = require('apollo-datasource')
+const { log } = require('../utils')
 
 class IngredientAPI extends DataSource {
   constructor({ store }) {
@@ -8,15 +9,6 @@ class IngredientAPI extends DataSource {
 
   initialize(config) {
     this.context = config.context
-  }
-  findSubIngredients(ingredientsArray) {
-    ingredientsArray.forEach(ingredient => {
-      ingredient.isComplex
-        ? (ingredient.subIngredients = this.store.ingredients.findAll({
-            where: { superIngredientId: ingredient.id }
-          }))
-        : (ingredient.subIngredients = [])
-    })
   }
 
   async findOrCreateIngredient(name) {
@@ -64,26 +56,28 @@ class IngredientAPI extends DataSource {
       console.log(e)
     }
   }
+  async deleteIngredient(id) {
+    try {
+      const ingredientToDelete = await this.findIngredientById(id)
+      await ingredientToDelete.destroy()
+      return ingredientToDelete
+    } catch (e) {
+      console.log(e)
+    }
+  }
   async removeIngredient(ingredientId, recipeId) {
     try {
       const ingredientToRemove = await this.findIngredientById(ingredientId)
       const recipe = await this.store.recipes.findByPk(recipeId)
       const fullRecipe = await this.findFullRecipe(recipeId)
       const updatedIngredients = fullRecipe.ingredients.filter(
-        ingredient => ingredient.id !== ingredientToRemove.id
+        ingredient =>
+          ingredient.id !== ingredientToRemove.id &&
+          ingredient.superIngredientId !== ingredientToRemove.id
       )
       await recipe.setIngredients(updatedIngredients)
 
       return updatedIngredients
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  async deleteIngredient(id) {
-    try {
-      const ingredientToDelete = await this.findIngredientById(id)
-      await ingredientToDelete.destroy()
-      return ingredientToDelete
     } catch (e) {
       console.log(e)
     }
@@ -98,6 +92,15 @@ class IngredientAPI extends DataSource {
     } catch (e) {
       console.log(e)
     }
+  }
+  findSubIngredients(ingredientsArray) {
+    ingredientsArray.forEach(ingredient => {
+      ingredient.isComplex
+        ? (ingredient.subIngredients = this.store.ingredients.findAll({
+            where: { superIngredientId: ingredient.id }
+          }))
+        : (ingredient.subIngredients = [])
+    })
   }
 }
 
