@@ -50,6 +50,8 @@ const typeDefs = gql`
       description: String # Text?
       quantity: Float
       isComplex: Boolean
+      subIngredients: [ID]
+      superIngredientId: ID
     ): Ingredient!
     deleteIngredient(id: ID!): Ingredient!
     removeIngredient(ingredientId: ID!, recipeId: ID!): Recipe!

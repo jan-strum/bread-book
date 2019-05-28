@@ -20,6 +20,15 @@ export const SingleIngredient = ({ ingredients, recipeId }) => {
         <Swipeout
           right={[
             {
+              text: 'Edit',
+              backgroundColor: 'lightgray',
+              onPress: () => {
+                removeIngredient({
+                  variables: { ingredientId: ingredient.id, recipeId }
+                })
+              }
+            },
+            {
               text: 'Remove',
               onPress: () => {
                 removeIngredient({

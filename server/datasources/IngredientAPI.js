@@ -42,9 +42,19 @@ class IngredientAPI extends DataSource {
     description,
     hydration,
     quantity,
-    isComplex
+    isComplex,
+    subIngredients,
+    superIngredientId
   ) {
-    const updateInfo = { name, description, hydration, quantity, isComplex }
+    const updateInfo = {
+      name,
+      description,
+      hydration,
+      quantity,
+      isComplex,
+      subIngredients,
+      superIngredientId
+    }
     for (let key in updateInfo) {
       if (!updateInfo[key]) delete updateInfo[key]
     }
