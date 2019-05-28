@@ -9,15 +9,6 @@ class RecipeAPI extends DataSource {
   initialize(config) {
     this.context = config.context
   }
-  findSubIngredients(ingredientsArray) {
-    ingredientsArray.forEach(ingredient => {
-      ingredient.isComplex
-        ? (ingredient.subIngredients = this.store.ingredients.findAll({
-            where: { superIngredientId: ingredient.id }
-          }))
-        : (ingredient.subIngredients = [])
-    })
-  }
 
   async findOrCreateRecipe(name) {
     try {
@@ -54,6 +45,7 @@ class RecipeAPI extends DataSource {
         }
       })
       await this.findSubIngredients(recipe.ingredients)
+      // console.log(JSON.stringify(recipe, null, 2))
       return recipe
     } catch (e) {
       console.log(e)
@@ -76,6 +68,18 @@ class RecipeAPI extends DataSource {
     } catch (e) {
       console.log(e)
     }
+  }
+
+  findSubIngredients(ingredientsArray) {
+    ingredientsArray.forEach(ingredient => {
+      // async?
+      ingredient.isComplex
+        ? (ingredient.subIngredients = this.store.ingredients.findAll({
+            where: { superIngredientId: ingredient.id }
+          }))
+        : (ingredient.subIngredients = [])
+    })
+    // console.log(JSON.stringify(ingredientsArray, null, 2))
   }
 }
 

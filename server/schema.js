@@ -52,6 +52,7 @@ const typeDefs = gql`
       isComplex: Boolean
     ): Ingredient!
     deleteIngredient(id: ID!): Ingredient!
+    removeIngredient(ingredientId: ID!, recipeId: ID!): Recipe!
   }
 `
 

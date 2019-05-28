@@ -2,19 +2,15 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { SingleIngredient } from './SingleIngredient'
 
-export default class IngredientsTable extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={[styles.head, styles.row]}>
-          <Text style={styles.bold}>Name</Text>
-          <Text style={styles.bold}>Amount (g)</Text>
-        </View>
-        <SingleIngredient ingredients={this.props.ingredients} />
-      </View>
-    )
-  }
-}
+export const IngredientsTable = ({ ingredients, recipeId }) => (
+  <View style={styles.container}>
+    <View style={[styles.head, styles.row]}>
+      <Text style={styles.bold}>Name</Text>
+      <Text style={styles.bold}>Amount (g)</Text>
+    </View>
+    <SingleIngredient ingredients={ingredients} recipeId={recipeId} />
+  </View>
+)
 
 const styles = StyleSheet.create({
   container: {

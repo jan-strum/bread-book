@@ -64,11 +64,37 @@ class IngredientAPI extends DataSource {
       console.log(e)
     }
   }
+  async removeIngredient(ingredientId, recipeId) {
+    try {
+      const ingredientToRemove = await this.findIngredientById(ingredientId)
+      const recipe = await this.store.recipes.findByPk(recipeId)
+      const fullRecipe = await this.findFullRecipe(recipeId)
+      const updatedIngredients = fullRecipe.ingredients.filter(
+        ingredient => ingredient.id !== ingredientToRemove.id
+      )
+      await recipe.setIngredients(updatedIngredients)
+
+      return updatedIngredients
+    } catch (e) {
+      console.log(e)
+    }
+  }
   async deleteIngredient(id) {
     try {
       const ingredientToDelete = await this.findIngredientById(id)
       await ingredientToDelete.destroy()
       return ingredientToDelete
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async findFullRecipe(id) {
+    try {
+      const recipe = await this.store.recipes.findByPk(id, {
+        include: this.store.ingredients
+      })
+      return recipe
     } catch (e) {
       console.log(e)
     }

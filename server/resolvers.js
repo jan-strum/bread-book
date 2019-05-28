@@ -12,17 +12,14 @@ module.exports = {
     },
     findFullRecipe: async (_, { id }, { dataSources }) => {
       const recipe = await dataSources.recipeAPI.findFullRecipe(id)
-      // console.log('recipe', recipe)
       return recipe
     },
     findAllIngredients: async (_, __, { dataSources }) => {
       const ingredients = await dataSources.ingredientAPI.findAllIngredients()
-      // console.log('ingredients', ingredients)
       return ingredients
     },
     findIngredientById: async (_, { id }, { dataSources }) => {
       const ingredient = await dataSources.ingredientAPI.findIngredientById(id)
-      console.log('ingredient', JSON.stringify(ingredient))
       return ingredient
     }
   },
@@ -66,6 +63,18 @@ module.exports = {
         id
       )
       return ingredientToDelete
+    },
+    removeIngredient: async (
+      _,
+      { recipeId, ingredientId },
+      { dataSources }
+    ) => {
+      // console.log('hit')
+      const updatedIngredients = await dataSources.ingredientAPI.removeIngredient(
+        recipeId,
+        ingredientId
+      )
+      return updatedIngredients
     }
   }
 }

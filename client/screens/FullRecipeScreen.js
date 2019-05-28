@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import IngredientsTable from '../components/IngredientsTable'
+import { IngredientsTable } from '../components/IngredientsTable'
 import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter } from '../utils'
@@ -9,7 +9,7 @@ export default class FullRecipeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { name, createdAt } = navigation.getParam('item')
     const date = (
-      <Text style={{ marginRight: 10, color: 'gray' }}>
+      <Text style={{ marginRight: 15, color: 'gray' }}>
         {dateFormatter(createdAt)}
       </Text>
     )
@@ -30,6 +30,7 @@ export default class FullRecipeScreen extends React.Component {
 
   render() {
     const { id } = this.props.navigation.getParam('item')
+    const recipeId = id
     return (
       <Query query={FIND_FULL_RECIPE} variables={{ id }}>
         {({ data, loading, error }) => {
@@ -41,7 +42,10 @@ export default class FullRecipeScreen extends React.Component {
           return (
             <View style={{ flex: 1 }}>
               <Text style={styles.header}>Ingredients:</Text>
-              <IngredientsTable ingredients={data.findFullRecipe.ingredients} />
+              <IngredientsTable
+                ingredients={data.findFullRecipe.ingredients}
+                recipeId={recipeId}
+              />
             </View>
           )
         }}
