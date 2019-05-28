@@ -2,12 +2,10 @@ module.exports = {
   Query: {
     findAllRecipes: async (_, __, { dataSources }) => {
       const recipes = await dataSources.recipeAPI.findAllRecipes()
-      // console.log('recipes', recipes)
       return recipes
     },
     findRecipeById: async (_, { id }, { dataSources }) => {
       const recipe = await dataSources.recipeAPI.findRecipeById(id)
-      // console.log('recipe', recipe)
       return recipe
     },
     findFullRecipe: async (_, { id }, { dataSources }) => {
