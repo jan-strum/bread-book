@@ -4,11 +4,14 @@ import { dateFormatter } from '../utils'
 
 const SingleRecipe = ({ item, navigation }) => {
   const { navigate } = navigation
+  // console.log('item', item)
   return (
     <TouchableOpacity
       id={item.id}
       style={styles.row}
-      onPress={() => navigate('FullRecipeScreen', { item: item })}
+      onPress={() => {
+        navigate('FullRecipeScreen', { item })
+      }}
     >
       <Text>{item.name}</Text>
       <Text style={styles.date}>{dateFormatter(item.createdAt)}</Text>

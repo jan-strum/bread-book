@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { IngredientsTable } from '../components/IngredientsTable'
+import IngredientsTable from '../components/IngredientsTable'
 import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter, log } from '../utils'
+import AddIngredient from '../components/AddIngredient'
 
 export default class FullRecipeScreen extends React.Component {
   constructor() {
@@ -33,10 +34,6 @@ export default class FullRecipeScreen extends React.Component {
     }
   }
 
-  toggleEdit = () => {
-    this.setState({ isEditing: !this.state.isEditing })
-  }
-
   render() {
     const { id } = this.props.navigation.getParam('item')
     const recipeId = id
@@ -48,20 +45,13 @@ export default class FullRecipeScreen extends React.Component {
             console.log('error', error)
             return <Text>Error!</Text>
           }
-          return (
-            <View style={{ flex: 1 }}>
-              <Text style={styles.header}>Ingredients:</Text>
-              <TouchableOpacity onPress={this.toggleEdit}>
-                <Text style={styles.edit}>
-                  {!this.state.isEditing ? 'Edit' : 'Cancel'}
-                </Text>
-              </TouchableOpacity>
-              <IngredientsTable
-                ingredients={data.findFullRecipe.ingredients}
-                recipeId={recipeId}
-                isEditing={this.state.isEditing}
-              />
-            </View>
+          return data.findFullRecipe.ingredients.length ? (
+            <IngredientsTable
+              ingredients={data.findFullRecipe.ingredients}
+              recipeId={recipeId}
+            />
+          ) : (
+            <AddIngredient recipeId={recipeId} />
           )
         }}
       </Query>
@@ -69,17 +59,4 @@ export default class FullRecipeScreen extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  header: {
-    marginTop: 25,
-    marginLeft: 20,
-    fontSize: 20
-  },
-  edit: {
-    textAlign: 'right',
-    marginBottom: 10,
-    marginRight: 22,
-    fontSize: 13,
-    color: 'gray'
-  }
-})
+const styles = StyleSheet.create({})

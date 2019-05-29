@@ -34,11 +34,6 @@ class AddRecipe extends React.Component {
             <View>
               <View>
                 <TouchableOpacity onPress={this.addRecipe}>
-                  {/* {!this.state.newRecipeDropdown ? (
-                    <Text style={styles.button}>&#43;</Text>
-                  ) : (
-                    <Text style={styles.button}>&#8722;</Text>
-                  )} */}
                   <Text style={styles.add}>
                     {!this.state.newRecipeDropdown
                       ? 'Add New Recipe'
