@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { IngredientsTable } from '../components/IngredientsTable'
 import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
-import { dateFormatter } from '../utils'
+import { dateFormatter, log } from '../utils'
 
 export default class FullRecipeScreen extends React.Component {
   constructor() {
@@ -40,9 +40,11 @@ export default class FullRecipeScreen extends React.Component {
   render() {
     const { id } = this.props.navigation.getParam('item')
     const recipeId = id
+    console.log('id', id)
     return (
       <Query query={FIND_FULL_RECIPE} variables={{ id }}>
         {({ data, loading, error }) => {
+          log('data', data)
           if (loading) return <Text>Loading...</Text>
           if (error) {
             console.log('error', error)

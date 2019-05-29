@@ -96,7 +96,8 @@ class IngredientAPI extends DataSource {
   async findFullRecipe(id) {
     try {
       const recipe = await this.store.recipes.findByPk(id, {
-        include: this.store.ingredients
+        include: this.store.ingredients,
+        required: false
       })
       return recipe
     } catch (e) {
