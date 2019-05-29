@@ -12,7 +12,7 @@
 // }
 
 module.exports = {
-  log: input => {
-    console.log(JSON.stringify(input, null, 2))
+  log: (string, variable) => {
+    console.log(string, JSON.stringify(variable, null, 2))
   }
 }

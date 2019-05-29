@@ -16,3 +16,7 @@ export const dateFormatter = str => {
 
   return formattedDate
 }
+
+export const log = (string, variable) => {
+  console.log(string, JSON.stringify(variable, null, 2))
+}

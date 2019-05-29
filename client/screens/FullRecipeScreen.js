@@ -1,11 +1,17 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { IngredientsTable } from '../components/IngredientsTable'
+import IngredientsTable from '../components/IngredientsTable'
 import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
-import { dateFormatter } from '../utils'
+import { dateFormatter, log } from '../utils'
+import AddIngredient from '../components/AddIngredient'
 
 export default class FullRecipeScreen extends React.Component {
+  constructor() {
+    super()
+    this.state = { isEditing: false }
+  }
+
   static navigationOptions = ({ navigation }) => {
     const { name, createdAt } = navigation.getParam('item')
     const date = (
@@ -39,14 +45,13 @@ export default class FullRecipeScreen extends React.Component {
             console.log('error', error)
             return <Text>Error!</Text>
           }
-          return (
-            <View style={{ flex: 1 }}>
-              <Text style={styles.header}>Ingredients:</Text>
-              <IngredientsTable
-                ingredients={data.findFullRecipe.ingredients}
-                recipeId={recipeId}
-              />
-            </View>
+          return data.findFullRecipe.ingredients.length ? (
+            <IngredientsTable
+              ingredients={data.findFullRecipe.ingredients}
+              recipeId={recipeId}
+            />
+          ) : (
+            <AddIngredient recipeId={recipeId} />
           )
         }}
       </Query>
@@ -54,10 +59,4 @@ export default class FullRecipeScreen extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  header: {
-    textAlign: 'center',
-    marginTop: 20,
-    fontSize: 20
-  }
-})
+const styles = StyleSheet.create({})

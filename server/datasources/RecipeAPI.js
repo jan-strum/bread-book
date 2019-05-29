@@ -42,10 +42,11 @@ class RecipeAPI extends DataSource {
       const recipe = await this.store.recipes.findByPk(id, {
         include: {
           model: this.store.ingredients,
+          required: false,
           where: { superIngredientId: null }
         }
       })
-      await this.findSubIngredients(recipe.ingredients)
+      recipe.ingredients && (await this.findSubIngredients(recipe.ingredients))
       return recipe
     } catch (e) {
       console.log(e)
