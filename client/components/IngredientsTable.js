@@ -2,19 +2,23 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { SingleIngredient } from './SingleIngredient'
 
-export const IngredientsTable = ({ ingredients, recipeId }) => (
+export const IngredientsTable = ({ ingredients, recipeId, isEditing }) => (
   <View style={styles.container}>
     <View style={[styles.head, styles.row]}>
       <Text style={styles.bold}>Name</Text>
       <Text style={styles.bold}>Amount (g)</Text>
     </View>
-    <SingleIngredient ingredients={ingredients} recipeId={recipeId} />
+    <SingleIngredient
+      ingredients={ingredients}
+      recipeId={recipeId}
+      isEditing={isEditing}
+    />
   </View>
 )
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    marginHorizontal: 20,
     borderColor: '#bbb',
     borderWidth: StyleSheet.hairlineWidth
   },

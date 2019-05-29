@@ -7,7 +7,7 @@ import { FIND_FULL_RECIPE } from '../gql/queries'
 import SuperIngredient from './SuperIngredient'
 const shortid = require('shortid')
 
-export const SingleIngredient = ({ ingredients, recipeId }) => {
+export const SingleIngredient = ({ ingredients, recipeId, isEditing }) => {
   return ingredients.map((ingredient, index) => (
     <Mutation
       mutation={REMOVE_INGREDIENT}
@@ -38,6 +38,7 @@ export const SingleIngredient = ({ ingredients, recipeId }) => {
             }
           ]}
           autoClose={true}
+          disabled={!isEditing}
         >
           <View
             style={[
