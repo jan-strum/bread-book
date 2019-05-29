@@ -34,11 +34,16 @@ class AddRecipe extends React.Component {
             <View>
               <View>
                 <TouchableOpacity onPress={this.addRecipe}>
-                  {!this.state.newRecipeDropdown ? (
+                  {/* {!this.state.newRecipeDropdown ? (
                     <Text style={styles.button}>&#43;</Text>
                   ) : (
                     <Text style={styles.button}>&#8722;</Text>
-                  )}
+                  )} */}
+                  <Text style={styles.add}>
+                    {!this.state.newRecipeDropdown
+                      ? 'Add New Recipe'
+                      : 'Cancel'}
+                  </Text>
                 </TouchableOpacity>
                 {this.state.newRecipeDropdown ? (
                   <View style={styles.form}>
@@ -92,7 +97,7 @@ class AddRecipe extends React.Component {
 
 const styles = StyleSheet.create({
   form: {
-    paddingVertical: 15,
+    paddingBottom: 15,
     paddingHorizontal: 20,
     borderBottomColor: '#bbb',
     borderBottomWidth: StyleSheet.hairlineWidth
@@ -101,11 +106,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingVertical: 10
   },
-  button: {
+  add: {
     textAlign: 'right',
-    paddingRight: 25,
-    fontSize: 35,
-    fontWeight: '200'
+    marginTop: 20,
+    marginBottom: 10,
+    marginRight: 22,
+    fontSize: 13,
+    color: 'gray'
   }
 })
 

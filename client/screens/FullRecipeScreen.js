@@ -40,11 +40,9 @@ export default class FullRecipeScreen extends React.Component {
   render() {
     const { id } = this.props.navigation.getParam('item')
     const recipeId = id
-    console.log('id', id)
     return (
       <Query query={FIND_FULL_RECIPE} variables={{ id }}>
         {({ data, loading, error }) => {
-          log('data', data)
           if (loading) return <Text>Loading...</Text>
           if (error) {
             console.log('error', error)
