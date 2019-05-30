@@ -35,6 +35,21 @@ module.exports = {
       return recipeToDelete
     },
 
+    createIngredient: async (
+      _,
+      { name, description, quantity, hydration, isComplex, recipeId },
+      { dataSources }
+    ) => {
+      const ingredient = await dataSources.ingredientAPI.createIngredient(
+        name,
+        description,
+        quantity,
+        hydration,
+        isComplex,
+        recipeId
+      )
+      return ingredient
+    },
     findOrCreateIngredient: async (_, { name }, { dataSources }) => {
       const ingredient = await dataSources.ingredientAPI.findOrCreateIngredient(
         name

@@ -35,3 +35,40 @@ export const REMOVE_INGREDIENT = gql`
     }
   }
 `
+
+export const CREATE_INGREDIENT = gql`
+  mutation createIngredient(
+    $name: String
+    $description: String
+    $quantity: Float
+    $hydration: Float
+    $isComplex: Boolean
+    $recipeId: ID
+  ) {
+    createIngredient(
+      name: $name
+      description: $description
+      quantity: $quantity
+      hydration: $hydration
+      isComplex: $isComplex
+      recipeId: $recipeId
+    ) {
+      id
+      name
+      description
+      hydration
+      quantity
+      superIngredientId
+      isComplex
+      subIngredients {
+        id
+        name
+        description
+        hydration
+        quantity
+        superIngredientId
+        isComplex
+      }
+    }
+  }
+`

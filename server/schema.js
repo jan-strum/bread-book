@@ -38,6 +38,14 @@ const typeDefs = gql`
     updateRecipe(id: ID, name: String, ingredients: [Int]): Recipe!
     deleteRecipe(id: ID!): Recipe!
 
+    createIngredient(
+      name: String
+      description: String # Text?
+      quantity: Float
+      hydration: Float
+      isComplex: Boolean
+      recipeId: ID
+    ): Ingredient!
     findOrCreateIngredient(
       name: String
       description: String # Text?

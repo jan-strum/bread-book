@@ -21,7 +21,7 @@ module.exports.createStore = () => {
   const ingredients = db.define('ingredient', {
     name: Sequelize.STRING,
     description: Sequelize.TEXT,
-    hydration: Sequelize.DECIMAL(10, 2),
+    hydration: { type: Sequelize.DECIMAL(10, 2) },
     quantity: Sequelize.DECIMAL(10, 2),
     isComplex: { type: Sequelize.BOOLEAN, defaultValue: false }
   })

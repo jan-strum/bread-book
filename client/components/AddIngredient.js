@@ -1,6 +1,14 @@
 import React from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native'
 import { ButtonGroup } from 'react-native-elements'
+import { Mutation } from 'react-apollo'
+import { CREATE_INGREDIENT } from '../gql/mutations'
 
 export default class AddIngredient extends React.Component {
   constructor() {
@@ -8,7 +16,7 @@ export default class AddIngredient extends React.Component {
     this.state = {
       name: '',
       description: '',
-      quantity: 0,
+      quantity: '',
       hydration: null,
       isComplex: false,
       subIngredients: [],
@@ -28,52 +36,86 @@ export default class AddIngredient extends React.Component {
     } else {
       this.setState({ selectedIndex })
     }
+  }
+  createIngredient = () => {
     console.log(this.state)
   }
 
   render() {
-    const { recipeId } = this.props.recipeId
+    const { recipeId } = this.props
+    const { name, description, quantity, hydration, isComplex } = this.state
     return (
-      <View style={styles.form}>
-        <Text style={styles.header}>Add an ingredient</Text>
-        {fields.map((field, index) => {
-          let stateField
-          field === 'Amount (g)'
-            ? (stateField = 'quantity')
-            : (stateField = field.charAt(0).toLowerCase() + field.slice(1))
-          return (
-            <View style={styles.field} key={field}>
-              <Text style={[styles.label, styles.text]}>{field + ':'}</Text>
-              <TextInput
-                style={styles.text}
-                placeholder={`Enter the ${field
-                  .split(' ')[0]
-                  .toLowerCase()} here...`}
-                keyboardType={field === 'Amount (g)' ? 'numeric' : 'default'}
-                value={String(this.state[stateField])}
-                returnKeyType={index < 2 ? 'next' : 'done'}
-                onChangeText={text => this.setState({ [stateField]: text })}
-                ref={input => {
-                  this[field] = input
-                }}
-                onSubmitEditing={() => {
-                  index < 2
-                    ? this[fields[index + 1]].focus()
-                    : this[field].blur()
-                }}
-              />
-            </View>
-          )
-        })}
-        <ButtonGroup
-          buttons={['Dry', 'Wet', 'NA']}
-          onPress={this.setHydration}
-          selectedIndex={this.state.selectedIndex}
-          containerStyle={styles.buttonGroup}
-          textStyle={styles.button}
-          selectedButtonStyle={{ backgroundColor: '#CDCDCD' }}
-        />
-      </View>
+      <Mutation mutation={CREATE_INGREDIENT}>
+        {createIngredient => (
+          <View style={styles.form}>
+            <Text style={styles.header}>Add an ingredient</Text>
+            {fields.map((field, index) => {
+              let stateField
+              field === 'Amount (g)'
+                ? (stateField = 'quantity')
+                : (stateField = field.charAt(0).toLowerCase() + field.slice(1))
+              return (
+                <View style={styles.field} key={field}>
+                  <Text style={[styles.label, styles.text]}>{field + ':'}</Text>
+                  <TextInput
+                    style={styles.text}
+                    placeholder={`Enter the ${field
+                      .split(' ')[0]
+                      .toLowerCase()} here...`}
+                    keyboardType={
+                      field === 'Amount (g)' ? 'numeric' : 'default'
+                    }
+                    value={String(this.state[stateField])}
+                    returnKeyType={index < 2 ? 'next' : 'done'}
+                    onChangeText={text => this.setState({ [stateField]: text })}
+                    ref={input => {
+                      this[field] = input
+                    }}
+                    onSubmitEditing={() => {
+                      index < 2
+                        ? this[fields[index + 1]].focus()
+                        : this[field].blur()
+                    }}
+                  />
+                </View>
+              )
+            })}
+            <ButtonGroup
+              buttons={['Dry', 'Wet', 'NA']}
+              onPress={this.setHydration}
+              selectedIndex={this.state.selectedIndex}
+              containerStyle={styles.buttonGroup}
+              // textStyle={styles.button}
+              selectedButtonStyle={{ backgroundColor: '#CDCDCD' }}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                console.log(
+                  typeof name,
+                  typeof description,
+                  typeof quantity,
+                  typeof hydration,
+                  typeof isComplex,
+                  typeof recipeId
+                )
+                createIngredient({
+                  variables: {
+                    name,
+                    description,
+                    quantity: Number(quantity),
+                    hydration,
+                    isComplex,
+                    recipeId: Number(recipeId)
+                  }
+                })
+              }}
+              style={styles.add}
+            >
+              <Text style={{ fontSize: 18 }}>Add &#43;</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </Mutation>
     )
   }
 }
@@ -107,8 +149,12 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     width: 200
   },
-  button: {
-    padding: 0,
-    margin: 0
+  // button: {
+  //   padding: 0,
+  //   margin: 0
+  // },
+  add: {
+    marginTop: 10,
+    alignItems: 'flex-end'
   }
 })

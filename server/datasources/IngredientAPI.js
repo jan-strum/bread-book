@@ -11,6 +11,29 @@ class IngredientAPI extends DataSource {
     this.context = config.context
   }
 
+  async createIngredient(
+    name,
+    description,
+    quantity,
+    hydration,
+    isComplex,
+    recipeId
+  ) {
+    try {
+      const ingredient = await this.store.ingredients.create({
+        name,
+        description,
+        quantity,
+        hydration,
+        isComplex
+      })
+      const recipe = await this.store.recipes.findByPk(recipeId)
+      recipe.addIngredients([ingredient])
+      return ingredient
+    } catch (e) {
+      console.log(e)
+    }
+  }
   async findOrCreateIngredient(name) {
     try {
       const ingredient = await this.store.ingredients.findOrCreate({

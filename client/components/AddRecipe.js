@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
-import { Mutation, withApollo } from 'react-apollo'
+import { Mutation } from 'react-apollo'
 import { FIND_ALL_RECIPES } from '../gql/queries'
 import { FIND_OR_CREATE_RECIPE } from '../gql/mutations'
 
-class AddRecipe extends React.Component {
+export default class AddRecipe extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -110,5 +110,3 @@ const styles = StyleSheet.create({
     color: 'gray'
   }
 })
-
-export default withApollo(AddRecipe)
