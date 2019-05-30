@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginTop: 20,
     marginBottom: 10,
-    marginRight: 22,
+    marginRight: 20,
     fontSize: 13,
     color: 'gray'
   }
