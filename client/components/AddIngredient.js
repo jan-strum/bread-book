@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { ButtonGroup } from 'react-native-elements'
 
 export default class AddIngredient extends React.Component {
   constructor() {
@@ -11,12 +12,23 @@ export default class AddIngredient extends React.Component {
       hydration: null,
       isComplex: false,
       subIngredients: [],
-      superIngredientId: null
+      superIngredientId: null,
+      selectedIndex: 2
     }
   }
 
   updateField = (input, field) => {
     this.setState({ [field]: input })
+  }
+  setHydration = selectedIndex => {
+    if (selectedIndex === 0) {
+      this.setState({ hydration: 0.0, selectedIndex })
+    } else if (selectedIndex === 1) {
+      this.setState({ hydration: 100.0, selectedIndex })
+    } else {
+      this.setState({ selectedIndex })
+    }
+    console.log(this.state)
   }
 
   render() {
@@ -25,10 +37,10 @@ export default class AddIngredient extends React.Component {
       <View style={styles.form}>
         <Text style={styles.header}>Add an ingredient</Text>
         {fields.map((field, index) => {
-          const stateField =
-            field === 'Amount'
-              ? 'quantity'
-              : field.charAt(0).toUpperCase() + field.slice(1)
+          let stateField
+          field === 'Amount (g)'
+            ? (stateField = 'quantity')
+            : (stateField = field.charAt(0).toLowerCase() + field.slice(1))
           return (
             <View style={styles.field} key={field}>
               <Text style={[styles.label, styles.text]}>{field + ':'}</Text>
@@ -38,9 +50,9 @@ export default class AddIngredient extends React.Component {
                   .split(' ')[0]
                   .toLowerCase()} here...`}
                 keyboardType={field === 'Amount (g)' ? 'numeric' : 'default'}
-                value={this.state[stateField]}
+                value={String(this.state[stateField])}
                 returnKeyType={index < 2 ? 'next' : 'done'}
-                onChangeText={stateField => this.setState({ stateField })}
+                onChangeText={text => this.setState({ [stateField]: text })}
                 ref={input => {
                   this[field] = input
                 }}
@@ -53,6 +65,14 @@ export default class AddIngredient extends React.Component {
             </View>
           )
         })}
+        <ButtonGroup
+          buttons={['Dry', 'Wet', 'NA']}
+          onPress={this.setHydration}
+          selectedIndex={this.state.selectedIndex}
+          containerStyle={styles.buttonGroup}
+          textStyle={styles.button}
+          selectedButtonStyle={{ backgroundColor: '#CDCDCD' }}
+        />
       </View>
     )
   }
@@ -71,14 +91,24 @@ const styles = StyleSheet.create({
   },
   field: {
     marginVertical: 5,
+    marginHorizontal: 20,
     borderBottomColor: '#bbb',
     borderBottomWidth: StyleSheet.hairlineWidth
+  },
+  label: {
+    fontWeight: '500'
   },
   text: {
     marginTop: 3,
     marginBottom: 7
   },
-  label: {
-    fontWeight: '500'
+  buttonGroup: {
+    marginTop: 10,
+    marginLeft: 20,
+    width: 200
+  },
+  button: {
+    padding: 0,
+    margin: 0
   }
 })
