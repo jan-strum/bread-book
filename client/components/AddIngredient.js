@@ -39,13 +39,15 @@ export default class AddIngredient extends React.Component {
                   .toLowerCase()} here...`}
                 keyboardType={field === 'Amount (g)' ? 'numeric' : 'default'}
                 value={this.state[stateField]}
-                returnKeyType='next'
+                returnKeyType={index < 2 ? 'next' : 'done'}
                 onChangeText={stateField => this.setState({ stateField })}
                 ref={input => {
                   this[field] = input
                 }}
                 onSubmitEditing={() => {
-                  this[fields[index + 1]].focus()
+                  index < 2
+                    ? this[fields[index + 1]].focus()
+                    : this[field].blur()
                 }}
               />
             </View>
@@ -60,9 +62,9 @@ const fields = ['Name', 'Description', 'Amount (g)']
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 20,
-    marginBottom: 5,
-    fontSize: 20
+    marginTop: 22,
+    marginBottom: 8,
+    fontSize: 22
   },
   form: {
     marginHorizontal: 20
@@ -77,6 +79,6 @@ const styles = StyleSheet.create({
     marginBottom: 7
   },
   label: {
-    fontWeight: '600'
+    fontWeight: '500'
   }
 })
