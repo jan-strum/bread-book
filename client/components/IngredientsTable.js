@@ -1,11 +1,21 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StyleSheet
+} from 'react-native'
 import { SingleIngredient } from './SingleIngredient'
+import AddIngredient from './AddIngredient'
 
 export default class IngredientsTable extends React.Component {
   constructor() {
     super()
-    this.state = { isEditing: false }
+    this.state = {
+      isEditing: false,
+      isAdding: false
+    }
   }
 
   toggleEdit = () => {
@@ -13,9 +23,10 @@ export default class IngredientsTable extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation
     const { ingredients, recipeId } = this.props
     return (
-      <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         <Text style={styles.header}>Ingredients:</Text>
         <TouchableOpacity onPress={this.toggleEdit}>
           <Text style={styles.edit}>
@@ -33,7 +44,21 @@ export default class IngredientsTable extends React.Component {
             isEditing={this.state.isEditing}
           />
         </View>
-      </View>
+        {this.state.isEditing ? (
+          <TouchableOpacity
+            onPress={() => {
+              this.setState({ isAdding: !this.state.isAdding })
+            }}
+          >
+            <Text style={[styles.edit, { marginTop: 20 }]}>
+              {!this.state.isAdding ? 'Add ingredient' : 'Cancel'}
+            </Text>
+            {!this.state.isAdding ? null : (
+              <AddIngredient recipeId={recipeId} />
+            )}
+          </TouchableOpacity>
+        ) : null}
+      </ScrollView>
     )
   }
 }

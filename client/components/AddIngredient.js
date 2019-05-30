@@ -9,6 +9,7 @@ import {
 import { ButtonGroup } from 'react-native-elements'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
+import { FIND_FULL_RECIPE } from '../gql/queries'
 
 export default class AddIngredient extends React.Component {
   constructor() {
@@ -43,9 +44,15 @@ export default class AddIngredient extends React.Component {
 
   render() {
     const { recipeId } = this.props
+    console.log(recipeId)
     const { name, description, quantity, hydration, isComplex } = this.state
     return (
-      <Mutation mutation={CREATE_INGREDIENT}>
+      <Mutation
+        mutation={CREATE_INGREDIENT}
+        refetchQueries={() => [
+          { query: FIND_FULL_RECIPE, variables: { id: recipeId } }
+        ]}
+      >
         {createIngredient => (
           <View style={styles.form}>
             <Text style={styles.header}>Add an ingredient</Text>
@@ -90,14 +97,6 @@ export default class AddIngredient extends React.Component {
             />
             <TouchableOpacity
               onPress={() => {
-                console.log(
-                  typeof name,
-                  typeof description,
-                  typeof quantity,
-                  typeof hydration,
-                  typeof isComplex,
-                  typeof recipeId
-                )
                 createIngredient({
                   variables: {
                     name,
@@ -111,7 +110,7 @@ export default class AddIngredient extends React.Component {
               }}
               style={styles.add}
             >
-              <Text style={{ fontSize: 18 }}>Add &#43;</Text>
+              <Text style={{ fontSize: 18, marginBottom: 20 }}>Add &#43;</Text>
             </TouchableOpacity>
           </View>
         )}

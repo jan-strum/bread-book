@@ -49,6 +49,7 @@ export default class FullRecipeScreen extends React.Component {
             <IngredientsTable
               ingredients={data.findFullRecipe.ingredients}
               recipeId={recipeId}
+              navigation={this.props.navigation}
             />
           ) : (
             <AddIngredient recipeId={recipeId} />
