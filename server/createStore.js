@@ -110,6 +110,10 @@ module.exports.createStore = () => {
       hydration: 100
     })
 
+    await levainBreadFlour.setSuperIngredient(levain)
+    await levainRyeFlour.setSuperIngredient(levain)
+    await levainWater.setSuperIngredient(levain)
+
     await twentyPercentSpelt.setIngredients([
       spelt,
       water,
@@ -137,10 +141,6 @@ module.exports.createStore = () => {
       levainWater,
       salt
     ])
-
-    await levainBreadFlour.setSuperIngredient(levain)
-    await levainRyeFlour.setSuperIngredient(levain)
-    await levainWater.setSuperIngredient(levain)
   }
 
   seed()

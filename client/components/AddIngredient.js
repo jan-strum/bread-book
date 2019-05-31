@@ -10,6 +10,7 @@ import { ButtonGroup } from 'react-native-elements'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
 import { FIND_FULL_RECIPE } from '../gql/queries'
+import { graphQLResultHasError } from 'apollo-utilities'
 
 export default class AddIngredient extends React.Component {
   constructor() {
@@ -56,6 +57,7 @@ export default class AddIngredient extends React.Component {
         {createIngredient => (
           <View style={styles.form}>
             <Text style={styles.header}>Add an ingredient</Text>
+
             {fields.map((field, index) => {
               let stateField
               field === 'Amount (g)'
@@ -87,13 +89,45 @@ export default class AddIngredient extends React.Component {
                 </View>
               )
             })}
-            <ButtonGroup
+            {/* <ButtonGroup
               buttons={['Dry', 'Wet', 'NA']}
               onPress={this.setHydration}
               selectedIndex={this.state.selectedIndex}
               containerStyle={styles.buttonGroup}
               selectedButtonStyle={{ backgroundColor: '#CDCDCD' }}
-            />
+            /> */}
+            <View styles={styles.field}>
+              <Text style={[styles.field, styles.text, styles.label]}>
+                Hydration:
+              </Text>
+              <View style={styles.field}>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity style={styles.button}>
+                    <Text>Dry</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.button}>
+                    <Text>Wet</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.button}>
+                    <Text>NA</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.percentage}>
+                  <Text>Or:</Text>
+                  <TextInput
+                    placeholder='Specify percentage...'
+                    keyboardType='numeric'
+                    style={styles.percentageInput}
+                  />
+                </View>
+              </View>
+            </View>
+            <View style={styles.field}>
+              <Text style={[styles.label, styles.text]}>
+                Does this ingredient contain other ingredients that you would
+                like to list?
+              </Text>
+            </View>
             <TouchableOpacity
               onPress={() => {
                 createIngredient({
@@ -148,11 +182,36 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginBottom: 7
   },
-  buttonGroup: {
-    marginTop: 10,
-    marginLeft: 20,
-    width: 200
+  buttonContainer: {
+    flexDirection: 'row'
   },
+  button: {
+    marginBottom: 7,
+    marginRight: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    backgroundColor: '#F0F0F0',
+    borderRadius: 8
+  },
+  selectedButton: {
+    backgroundColor: '#C8C8C8'
+  },
+  selectedButtonText: {
+    color: 'white'
+  },
+  percentage: {
+    flexDirection: 'row',
+    paddingVertical: 7
+  },
+  percentageInput: {
+    marginLeft: 10,
+    marginRight: 10
+  },
+  // buttonGroup: {
+  //   marginTop: 10,
+  //   marginLeft: 20,
+  //   width: 200
+  // },
   add: {
     marginTop: 10,
     alignItems: 'flex-end'
