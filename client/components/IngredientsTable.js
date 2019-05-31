@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  View,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SingleIngredient } from './SingleIngredient'
 import AddIngredient from './AddIngredient'
@@ -27,10 +21,9 @@ export default class IngredientsTable extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation
     const { ingredients, recipeId } = this.props
     return (
-      <KeyboardAwareScrollView
+      <View
         style={{ flex: 1 }}
         ref={ref => (this.scrollView = ref)}
         onContentSizeChange={(contentWidth, contentHeight) => {
@@ -69,7 +62,7 @@ export default class IngredientsTable extends React.Component {
             )}
           </TouchableOpacity>
         ) : null}
-      </KeyboardAwareScrollView>
+      </View>
     )
   }
 }

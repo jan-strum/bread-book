@@ -1,10 +1,16 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  Text,
+  StyleSheet
+} from 'react-native'
 import IngredientsTable from '../components/IngredientsTable'
 import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter, log } from '../utils'
 import AddIngredient from '../components/AddIngredient'
+import { ScrollView } from 'react-native-gesture-handler'
 
 export default class FullRecipeScreen extends React.Component {
   constructor() {
@@ -38,24 +44,28 @@ export default class FullRecipeScreen extends React.Component {
     const { id } = this.props.navigation.getParam('item')
     const recipeId = id
     return (
-      <Query query={FIND_FULL_RECIPE} variables={{ id }}>
-        {({ data, loading, error }) => {
-          if (loading) return <Text>Loading...</Text>
-          if (error) {
-            console.log('error', error)
-            return <Text>Error!</Text>
-          }
-          return data.findFullRecipe.ingredients.length ? (
-            <IngredientsTable
-              ingredients={data.findFullRecipe.ingredients}
-              recipeId={recipeId}
-              navigation={this.props.navigation}
-            />
-          ) : (
-            <AddIngredient recipeId={recipeId} />
-          )
-        }}
-      </Query>
+      <KeyboardAvoidingView behavior='padding' style={{ flex: 1 }}>
+        <ScrollView>
+          <Query query={FIND_FULL_RECIPE} variables={{ id }}>
+            {({ data, loading, error }) => {
+              if (loading) return <Text>Loading...</Text>
+              if (error) {
+                console.log('error', error)
+                return <Text>Error!</Text>
+              }
+              return data.findFullRecipe.ingredients.length ? (
+                <IngredientsTable
+                  ingredients={data.findFullRecipe.ingredients}
+                  recipeId={recipeId}
+                  navigation={this.props.navigation}
+                />
+              ) : (
+                <AddIngredient recipeId={recipeId} />
+              )
+            }}
+          </Query>
+        </ScrollView>
+      </KeyboardAvoidingView>
     )
   }
 }
