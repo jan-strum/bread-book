@@ -20,7 +20,6 @@ class IngredientAPI extends DataSource {
     recipeId
   ) {
     try {
-      console.log('recipeId', recipeId)
       const ingredient = await this.store.ingredients.create({
         name,
         description,

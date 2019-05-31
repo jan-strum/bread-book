@@ -22,6 +22,9 @@ export default class IngredientsTable extends React.Component {
   toggleEdit = () => {
     this.setState({ isEditing: !this.state.isEditing })
   }
+  toggleAdd = () => {
+    this.setState({ isAdding: !this.state.isAdding })
+  }
 
   render() {
     const { navigate } = this.props.navigation
@@ -33,11 +36,12 @@ export default class IngredientsTable extends React.Component {
         onContentSizeChange={(contentWidth, contentHeight) => {
           this.scrollView.scrollToEnd({ animated: true })
         }}
+        keyboardShouldPersistTaps='always'
       >
         <Text style={styles.header}>Ingredients:</Text>
         <TouchableOpacity onPress={this.toggleEdit}>
           <Text style={styles.edit}>
-            {!this.state.isEditing ? 'Edit' : 'Cancel'}
+            {!this.state.isEditing ? 'Edit' : 'Done'}
           </Text>
         </TouchableOpacity>
         <View style={styles.container}>
@@ -54,11 +58,11 @@ export default class IngredientsTable extends React.Component {
         {this.state.isEditing ? (
           <TouchableOpacity
             onPress={() => {
-              this.setState({ isAdding: !this.state.isAdding })
+              this.toggleAdd()
             }}
           >
             <Text style={[styles.edit, { marginTop: 20 }]}>
-              {!this.state.isAdding ? 'Add ingredient' : 'Cancel'}
+              {!this.state.isAdding ? 'Add ingredient' : 'Cancel / Done'}
             </Text>
             {!this.state.isAdding ? null : (
               <AddIngredient recipeId={recipeId} />

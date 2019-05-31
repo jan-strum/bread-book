@@ -38,9 +38,6 @@ export default class AddIngredient extends React.Component {
       this.setState({ selectedIndex })
     }
   }
-  createIngredient = () => {
-    console.log(this.state)
-  }
 
   render() {
     const { recipeId } = this.props
@@ -91,7 +88,6 @@ export default class AddIngredient extends React.Component {
               onPress={this.setHydration}
               selectedIndex={this.state.selectedIndex}
               containerStyle={styles.buttonGroup}
-              // textStyle={styles.button}
               selectedButtonStyle={{ backgroundColor: '#CDCDCD' }}
             />
             <TouchableOpacity
@@ -105,6 +101,12 @@ export default class AddIngredient extends React.Component {
                     isComplex,
                     recipeId: Number(recipeId)
                   }
+                })
+                this.setState({
+                  name: '',
+                  description: '',
+                  quantity: '',
+                  selectedIndex: 2
                 })
               }}
               style={styles.add}
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
   header: {
     marginTop: 22,
     marginBottom: 8,
-    fontSize: 22
+    fontSize: 20
   },
   form: {
     marginHorizontal: 20
@@ -147,10 +149,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     width: 200
   },
-  // button: {
-  //   padding: 0,
-  //   margin: 0
-  // },
   add: {
     marginTop: 10,
     alignItems: 'flex-end'
