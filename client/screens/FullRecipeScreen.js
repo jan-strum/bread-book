@@ -52,6 +52,7 @@ export default class FullRecipeScreen extends React.Component {
         onContentSizeChange={() => {
           this.scrollView.scrollToEnd({ animated: true })
         }}
+        keyboardShouldPersistTaps='handled'
       >
         <Query query={FIND_FULL_RECIPE} variables={{ id }}>
           {({ data, loading, error }) => {

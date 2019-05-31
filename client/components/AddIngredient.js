@@ -26,6 +26,10 @@ export default class AddIngredient extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.Name.focus()
+  }
+
   updateField = (input, field) => {
     this.setState({ [field]: input })
   }
