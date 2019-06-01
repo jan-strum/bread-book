@@ -6,11 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
-import { ButtonGroup } from 'react-native-elements'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
 import { FIND_FULL_RECIPE } from '../gql/queries'
-import { graphQLResultHasError } from 'apollo-utilities'
 
 export default class AddIngredient extends React.Component {
   constructor() {
@@ -39,8 +37,8 @@ export default class AddIngredient extends React.Component {
       this.setState({ hydration: 0.0, selectedIndex })
     } else if (selectedIndex === 1) {
       this.setState({ hydration: 100.0, selectedIndex })
-    } else {
-      this.setState({ selectedIndex })
+    } else if (selectedIndex === 2) {
+      this.setState({ hydration: null, selectedIndex })
     }
   }
 
@@ -89,28 +87,33 @@ export default class AddIngredient extends React.Component {
                 </View>
               )
             })}
-            {/* <ButtonGroup
-              buttons={['Dry', 'Wet', 'NA']}
-              onPress={this.setHydration}
-              selectedIndex={this.state.selectedIndex}
-              containerStyle={styles.buttonGroup}
-              selectedButtonStyle={{ backgroundColor: '#CDCDCD' }}
-            /> */}
             <View styles={styles.field}>
               <Text style={[styles.field, styles.text, styles.label]}>
                 Hydration:
               </Text>
               <View style={styles.field}>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.button}>
-                    <Text>Dry</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.button}>
-                    <Text>Wet</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.button}>
-                    <Text>NA</Text>
-                  </TouchableOpacity>
+                  {hydrations.map((hydration, index) => (
+                    <TouchableOpacity
+                      onPress={() => this.setHydration(index)}
+                      key={hydration}
+                      style={
+                        this.state.selectedIndex !== index
+                          ? styles.button
+                          : [styles.button, styles.selectedButton]
+                      }
+                    >
+                      <Text
+                        style={
+                          this.state.selectedIndex !== index
+                            ? null
+                            : styles.selectedButtonText
+                        }
+                      >
+                        {hydration}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
                 </View>
                 <View style={styles.percentage}>
                   <Text>Or:</Text>
@@ -159,6 +162,7 @@ export default class AddIngredient extends React.Component {
 }
 
 const fields = ['Name', 'Description', 'Amount (g)']
+const hydrations = ['Dry', 'Wet', 'NA']
 
 const styles = StyleSheet.create({
   header: {
@@ -191,7 +195,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 15,
     backgroundColor: '#F0F0F0',
-    borderRadius: 8
+    borderRadius: 7
   },
   selectedButton: {
     backgroundColor: '#C8C8C8'
@@ -207,11 +211,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   },
-  // buttonGroup: {
-  //   marginTop: 10,
-  //   marginLeft: 20,
-  //   width: 200
-  // },
   add: {
     marginTop: 10,
     alignItems: 'flex-end'
