@@ -18,6 +18,7 @@ export default class AddIngredient extends React.Component {
       description: '',
       quantity: '',
       hydration: null,
+      hydrationText: '',
       isComplex: false,
       subIngredients: [],
       superIngredientId: null,
@@ -32,13 +33,19 @@ export default class AddIngredient extends React.Component {
   updateField = (input, field) => {
     this.setState({ [field]: input })
   }
-  setHydration = selectedIndex => {
-    if (selectedIndex === 0) {
-      this.setState({ hydration: 0.0, selectedIndex })
-    } else if (selectedIndex === 1) {
-      this.setState({ hydration: 100.0, selectedIndex })
-    } else if (selectedIndex === 2) {
-      this.setState({ hydration: null, selectedIndex })
+  setHydration = input => {
+    if (typeof input === 'number') {
+      if (input === 0) this.setState({ hydration: 0.0, selectedIndex: input })
+      else if (input === 1)
+        this.setState({ hydration: 100.0, selectedIndex: input })
+      else if (input === 2)
+        this.setState({ hydration: null, selectedIndex: input })
+    } else {
+      this.setState({
+        hydration: input,
+        selectedIndex: null,
+        hydrationText: input
+      })
     }
   }
 
@@ -118,9 +125,11 @@ export default class AddIngredient extends React.Component {
                 <View style={styles.percentage}>
                   <Text>Or:</Text>
                   <TextInput
-                    placeholder='Specify percentage...'
+                    placeholder='Specify the exact percentage...'
                     keyboardType='numeric'
                     style={styles.percentageInput}
+                    value={this.state.hydrationText}
+                    onChangeText={text => this.setHydration(text)}
                   />
                 </View>
               </View>
@@ -138,7 +147,7 @@ export default class AddIngredient extends React.Component {
                     name,
                     description,
                     quantity: Number(quantity),
-                    hydration,
+                    hydration: Number(hydration),
                     isComplex,
                     recipeId: Number(recipeId)
                   }
@@ -147,7 +156,8 @@ export default class AddIngredient extends React.Component {
                   name: '',
                   description: '',
                   quantity: '',
-                  selectedIndex: 2
+                  selectedIndex: 2,
+                  hydrationText: ''
                 })
               }}
               style={styles.add}
