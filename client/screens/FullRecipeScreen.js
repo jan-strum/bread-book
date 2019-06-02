@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  ScrollView,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  Text,
-  StyleSheet
-} from 'react-native'
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import IngredientsTable from '../components/IngredientsTable'
@@ -13,7 +7,6 @@ import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter, log } from '../utils'
 import AddIngredient from '../components/AddIngredient'
-// import { ScrollView } from 'react-native-gesture-handler'
 
 export default class FullRecipeScreen extends React.Component {
   constructor() {
@@ -61,9 +54,7 @@ export default class FullRecipeScreen extends React.Component {
               console.log('error', error)
               return <Text>Error!</Text>
             }
-            const { ingredients } = data.findFullRecipe
-            return ingredients.length > 1 ||
-              (ingredients.length === 1 && !ingredients[0].isComplex) ? (
+            return data.findFullRecipe.ingredients.length ? (
               <IngredientsTable
                 ingredients={data.findFullRecipe.ingredients}
                 recipeId={recipeId}
