@@ -22,7 +22,9 @@ export default class AddIngredient extends React.Component {
       isComplex: false,
       subIngredients: [],
       superIngredientId: null,
-      selectedIndex: 2
+      superIgredientName: '',
+      hydrationIndex: 2,
+      complexityIndex: 0
     }
   }
 
@@ -35,18 +37,22 @@ export default class AddIngredient extends React.Component {
   }
   setHydration = input => {
     if (typeof input === 'number') {
-      if (input === 0) this.setState({ hydration: 0.0, selectedIndex: input })
+      if (input === 0) this.setState({ hydration: 0.0, hydrationIndex: input })
       else if (input === 1)
-        this.setState({ hydration: 100.0, selectedIndex: input })
+        this.setState({ hydration: 100.0, hydrationIndex: input })
       else if (input === 2)
-        this.setState({ hydration: null, selectedIndex: input })
+        this.setState({ hydration: null, hydrationIndex: input })
     } else {
       this.setState({
         hydration: input,
-        selectedIndex: null,
+        hydrationIndex: null,
         hydrationText: input
       })
     }
+  }
+  setComplexity = complexityIndex => {
+    const isComplex = complexityIndex === 1
+    this.setState({ isComplex, complexityIndex })
   }
 
   render() {
@@ -61,7 +67,7 @@ export default class AddIngredient extends React.Component {
       >
         {createIngredient => (
           <View style={styles.form}>
-            <Text style={styles.header}>Add an ingredient</Text>
+            <Text style={styles.header}>Add an ingredient'</Text>
 
             {fields.map((field, index) => {
               let stateField
@@ -94,6 +100,7 @@ export default class AddIngredient extends React.Component {
                 </View>
               )
             })}
+
             <View styles={styles.field}>
               <Text style={[styles.field, styles.text, styles.label]}>
                 Hydration:
@@ -105,14 +112,14 @@ export default class AddIngredient extends React.Component {
                       onPress={() => this.setHydration(index)}
                       key={hydration}
                       style={
-                        this.state.selectedIndex !== index
+                        this.state.hydrationIndex !== index
                           ? styles.button
                           : [styles.button, styles.selectedButton]
                       }
                     >
                       <Text
                         style={
-                          this.state.selectedIndex !== index
+                          this.state.hydrationIndex !== index
                             ? null
                             : styles.selectedButtonText
                         }
@@ -134,12 +141,37 @@ export default class AddIngredient extends React.Component {
                 </View>
               </View>
             </View>
+
             <View style={styles.field}>
               <Text style={[styles.label, styles.text]}>
                 Does this ingredient contain other ingredients that you would
                 like to list?
               </Text>
+              <View style={styles.buttonContainer}>
+                {complexities.map((complexity, index) => (
+                  <TouchableOpacity
+                    onPress={() => this.setComplexity(index)}
+                    key={complexity}
+                    style={
+                      this.state.complexityIndex !== index
+                        ? styles.button
+                        : [styles.button, styles.selectedButton]
+                    }
+                  >
+                    <Text
+                      style={
+                        this.state.complexityIndex !== index
+                          ? null
+                          : styles.selectedButtonText
+                      }
+                    >
+                      {complexity}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
             </View>
+
             <TouchableOpacity
               onPress={() => {
                 createIngredient({
@@ -156,13 +188,15 @@ export default class AddIngredient extends React.Component {
                   name: '',
                   description: '',
                   quantity: '',
-                  selectedIndex: 2,
+                  hydrationIndex: 2,
                   hydrationText: ''
                 })
               }}
               style={styles.add}
             >
-              <Text style={{ fontSize: 18, marginBottom: 20 }}>Add &#43;</Text>
+              <Text style={{ fontSize: 18, marginBottom: 20 }}>
+                {!this.state.isComplex ? 'Add' : 'Add sub-ingredient'}
+              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -173,6 +207,7 @@ export default class AddIngredient extends React.Component {
 
 const fields = ['Name', 'Description', 'Amount (g)']
 const hydrations = ['Dry', 'Wet', 'NA']
+const complexities = ['No', 'Yes']
 
 const styles = StyleSheet.create({
   header: {
