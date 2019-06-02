@@ -23,13 +23,9 @@ export default class AddIngredient extends React.Component {
       subIngredients: [],
       superIngredientId: null,
       superIgredientName: '',
-      hydrationIndex: 2,
-      complexityIndex: 0
+      hydrationIndex: null,
+      complexityIndex: null
     }
-  }
-
-  componentDidMount() {
-    this.Name.focus()
   }
 
   updateField = (input, field) => {
@@ -86,7 +82,7 @@ export default class AddIngredient extends React.Component {
                       field === 'Amount (g)' ? 'numeric' : 'default'
                     }
                     value={String(this.state[stateField])}
-                    returnKeyType={index < 2 ? 'next' : 'done'}
+                    returnKeyType={index !== 2 ? 'next' : 'done'}
                     onChangeText={text => this.setState({ [stateField]: text })}
                     ref={input => {
                       this[field] = input
@@ -134,10 +130,12 @@ export default class AddIngredient extends React.Component {
                   <TextInput
                     placeholder='Specify the exact percentage...'
                     keyboardType='numeric'
+                    returnKeyType='done'
                     style={styles.percentageInput}
                     value={this.state.hydrationText}
                     onChangeText={text => this.setHydration(text)}
                   />
+                  <Text>{this.state.hydrationText.length ? '%' : null}</Text>
                 </View>
               </View>
             </View>
@@ -253,8 +251,7 @@ const styles = StyleSheet.create({
     paddingVertical: 7
   },
   percentageInput: {
-    marginLeft: 10,
-    marginRight: 10
+    marginLeft: 10
   },
   add: {
     marginTop: 10,
