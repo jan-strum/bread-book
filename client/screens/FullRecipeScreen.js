@@ -61,7 +61,9 @@ export default class FullRecipeScreen extends React.Component {
               console.log('error', error)
               return <Text>Error!</Text>
             }
-            return data.findFullRecipe.ingredients.length ? (
+            const { ingredients } = data.findFullRecipe
+            return ingredients.length > 1 ||
+              (ingredients.length === 1 && !ingredients[0].isComplex) ? (
               <IngredientsTable
                 ingredients={data.findFullRecipe.ingredients}
                 recipeId={recipeId}

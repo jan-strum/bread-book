@@ -63,7 +63,7 @@ export default class AddIngredient extends React.Component {
       >
         {createIngredient => (
           <View style={styles.form}>
-            <Text style={styles.header}>Add an ingredient'</Text>
+            <Text style={styles.header}>Add an ingredient</Text>
 
             {fields.map((field, index) => {
               let stateField
