@@ -34,10 +34,10 @@ export default class SuperIngredient extends React.Component {
               {ingredient.name}
               <Text style={{ color: 'gray' }}>&#x2001;&uarr;</Text>
             </Text>
-            {ingredient.description && (
+            {ingredient.description ? (
               <Text style={styles.description}>{ingredient.description}</Text>
-            )}
-            {ingredient.isComplex && (
+            ) : null}
+            {ingredient.subIngredients.length ? (
               <View style={styles.subIngredientsContainer}>
                 <Text style={styles.composedOf}>Composed of:</Text>
                 {ingredient.subIngredients.map(subIngredient => (
@@ -47,7 +47,7 @@ export default class SuperIngredient extends React.Component {
                   </View>
                 ))}
               </View>
-            )}
+            ) : null}
           </View>
         )}
       </TouchableOpacity>
