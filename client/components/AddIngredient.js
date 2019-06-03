@@ -1,12 +1,9 @@
+/* eslint-disable nonblock-statement-body-position */
+/* eslint-disable react/no-unused-state */
 import React from 'react'
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import StringFields from './form/StringFields'
+import HydrationField from './form/HydrationField'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
 import { FIND_FULL_RECIPE } from '../gql/queries'
@@ -71,48 +68,10 @@ export default class AddIngredient extends React.Component {
               updateStringField={this.updateStringField}
             />
 
-            <View styles={styles.field}>
-              <Text style={[styles.field, styles.text, styles.label]}>
-                Hydration:
-              </Text>
-              <View style={styles.field}>
-                <View style={styles.buttonContainer}>
-                  {hydrations.map((hydration, index) => (
-                    <TouchableOpacity
-                      onPress={() => this.setHydration(index)}
-                      key={hydration}
-                      style={
-                        this.state.hydrationIndex !== index
-                          ? styles.button
-                          : [styles.button, styles.selectedButton]
-                      }
-                    >
-                      <Text
-                        style={
-                          this.state.hydrationIndex !== index
-                            ? null
-                            : styles.selectedButtonText
-                        }
-                      >
-                        {hydration}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-                <View style={styles.percentage}>
-                  <Text>Or:</Text>
-                  <TextInput
-                    placeholder='Specify the exact percentage...'
-                    keyboardType='numeric'
-                    returnKeyType='done'
-                    style={styles.percentageInput}
-                    value={this.state.hydrationText}
-                    onChangeText={text => this.setHydration(text)}
-                  />
-                  <Text>{this.state.hydrationText.length ? '%' : null}</Text>
-                </View>
-              </View>
-            </View>
+            <HydrationField
+              state={this.state}
+              setHydration={this.setHydration}
+            />
 
             <View style={styles.field}>
               <Text style={[styles.label, styles.text]}>
@@ -177,7 +136,6 @@ export default class AddIngredient extends React.Component {
   }
 }
 
-const hydrations = ['Dry', 'Wet', 'NA']
 const complexities = ['No', 'Yes']
 
 const styles = StyleSheet.create({
