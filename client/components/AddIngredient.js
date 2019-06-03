@@ -34,11 +34,11 @@ export default class AddIngredient extends React.Component {
   }
   setHydration = input => {
     if (typeof input === 'number') {
-      if (input === 0) this.setState({ hydration: 0.0, hydrationIndex: input })
-      else if (input === 1)
-        this.setState({ hydration: 100.0, hydrationIndex: input })
-      else if (input === 2)
-        this.setState({ hydration: null, hydrationIndex: input })
+      this.setState({ hydrationIndex: input, hydrationText: '' })
+
+      if (input === 0) this.setState({ hydration: 0.0 })
+      else if (input === 1) this.setState({ hydration: 100.0 })
+      else if (input === 2) this.setState({ hydration: null })
     } else {
       this.setState({
         hydration: input,
