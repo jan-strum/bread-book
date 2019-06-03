@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
+import StringFields from './form/StringFields'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
 import { FIND_FULL_RECIPE } from '../gql/queries'
@@ -28,8 +29,8 @@ export default class AddIngredient extends React.Component {
     }
   }
 
-  updateField = (input, field) => {
-    this.setState({ [field]: input })
+  updateStringField = (field, text) => {
+    this.setState({ [field]: text })
   }
   setHydration = input => {
     if (typeof input === 'number') {
@@ -65,37 +66,10 @@ export default class AddIngredient extends React.Component {
           <View style={styles.form}>
             <Text style={styles.header}>Add an ingredient</Text>
 
-            {fields.map((field, index) => {
-              let stateField
-              field === 'Amount (g)'
-                ? (stateField = 'quantity')
-                : (stateField = field.charAt(0).toLowerCase() + field.slice(1))
-              return (
-                <View style={styles.field} key={field}>
-                  <Text style={[styles.label, styles.text]}>{field + ':'}</Text>
-                  <TextInput
-                    style={styles.text}
-                    placeholder={`Enter the ${field
-                      .split(' ')[0]
-                      .toLowerCase()} here...`}
-                    keyboardType={
-                      field === 'Amount (g)' ? 'numeric' : 'default'
-                    }
-                    value={String(this.state[stateField])}
-                    returnKeyType={index !== 2 ? 'next' : 'done'}
-                    onChangeText={text => this.setState({ [stateField]: text })}
-                    ref={input => {
-                      this[field] = input
-                    }}
-                    onSubmitEditing={() => {
-                      index < 2
-                        ? this[fields[index + 1]].focus()
-                        : this[field].blur()
-                    }}
-                  />
-                </View>
-              )
-            })}
+            <StringFields
+              state={this.state}
+              updateStringField={this.updateStringField}
+            />
 
             <View styles={styles.field}>
               <Text style={[styles.field, styles.text, styles.label]}>
@@ -203,7 +177,6 @@ export default class AddIngredient extends React.Component {
   }
 }
 
-const fields = ['Name', 'Description', 'Amount (g)']
 const hydrations = ['Dry', 'Wet', 'NA']
 const complexities = ['No', 'Yes']
 
