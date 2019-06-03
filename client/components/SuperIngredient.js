@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  StyleSheet
-} from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 
 export default class SuperIngredient extends React.Component {
   constructor() {
@@ -21,6 +15,13 @@ export default class SuperIngredient extends React.Component {
 
   render() {
     const { ingredient } = this.props
+    const { hydration } = ingredient
+
+    let hydrationText
+    if (hydration === 0) hydrationText = 'Dry (0%)'
+    else if (hydration === 100) hydrationText = 'Wet (100%)'
+    else if (typeof hydration === 'number') hydrationText = `${hydration}%`
+
     return (
       <TouchableOpacity onPress={this.select} style={{ flex: 1 }}>
         {!this.state.selected ? (
@@ -32,14 +33,22 @@ export default class SuperIngredient extends React.Component {
           <View>
             <Text>
               {ingredient.name}
-              <Text style={{ color: 'gray' }}>&#x2001;&uarr;</Text>
+              <Text style={[styles.name, styles.gray]}>&#x2001;&uarr;</Text>
             </Text>
             {ingredient.description ? (
               <Text style={styles.description}>{ingredient.description}</Text>
             ) : null}
+            {hydrationText ? (
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.semiBold}>Hydration:</Text>
+                <Text style={[styles.gray, styles.hydration]}>
+                  {hydrationText}
+                </Text>
+              </View>
+            ) : null}
             {ingredient.subIngredients.length ? (
               <View style={styles.subIngredientsContainer}>
-                <Text style={styles.composedOf}>Composed of:</Text>
+                <Text style={styles.semiBold}>Composed of:</Text>
                 {ingredient.subIngredients.map(subIngredient => (
                   <View key={subIngredient.id} style={styles.row}>
                     <Text style={[styles.gray]}>{subIngredient.name}</Text>
@@ -56,9 +65,16 @@ export default class SuperIngredient extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  name: {
+    marginBottom: 10
+  },
   description: {
     marginTop: 5,
     color: 'gray'
+  },
+  hydration: {
+    marginVertical: 5,
+    marginLeft: 5
   },
   subIngredientsContainer: {
     marginTop: 5
@@ -68,6 +84,11 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     justifyContent: 'space-between'
   },
-  composedOf: { marginVertical: 5, color: '#505050' },
-  gray: { color: 'gray' }
+  semiBold: {
+    marginVertical: 5,
+    color: '#505050'
+  },
+  gray: {
+    color: 'gray'
+  }
 })
