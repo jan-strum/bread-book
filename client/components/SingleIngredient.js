@@ -46,7 +46,9 @@ export const SingleIngredient = ({ ingredients, recipeId, isEditing }) => {
               { backgroundColor: index % 2 === 0 ? '#fff' : '#fafafa' }
             ]}
           >
-            {ingredient.isComplex || ingredient.description ? (
+            {ingredient.isComplex ||
+            ingredient.description ||
+            typeof ingredient.hydration === 'number' ? (
               <SuperIngredient ingredient={ingredient} />
             ) : (
               <Text>{ingredient.name}</Text>
