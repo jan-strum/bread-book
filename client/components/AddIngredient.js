@@ -1,10 +1,11 @@
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text } from 'react-native'
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
 import ComplexityField from './form/ComplexityField'
+import Submit from './form/Submit'
 import { styles } from '../styles/form'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
@@ -50,10 +51,18 @@ export default class AddIngredient extends React.Component {
     const isComplex = complexityIndex === 1
     this.setState({ isComplex, complexityIndex })
   }
+  clearFields = () => {
+    this.setState({
+      name: '',
+      description: '',
+      quantity: '',
+      hydrationIndex: 2,
+      hydrationText: ''
+    })
+  }
 
   render() {
     const { recipeId } = this.props
-    const { name, description, quantity, hydration, isComplex } = this.state
     return (
       <Mutation
         mutation={CREATE_INGREDIENT}
@@ -80,32 +89,12 @@ export default class AddIngredient extends React.Component {
               setComplexity={this.setComplexity}
             />
 
-            <TouchableOpacity
-              onPress={() => {
-                createIngredient({
-                  variables: {
-                    name,
-                    description,
-                    quantity: Number(quantity),
-                    hydration: Number(hydration),
-                    isComplex,
-                    recipeId: Number(recipeId)
-                  }
-                })
-                this.setState({
-                  name: '',
-                  description: '',
-                  quantity: '',
-                  hydrationIndex: 2,
-                  hydrationText: ''
-                })
-              }}
-              style={styles.add}
-            >
-              <Text style={{ fontSize: 18, marginBottom: 20 }}>
-                {!this.state.isComplex ? 'Add' : 'Add sub-ingredient'}
-              </Text>
-            </TouchableOpacity>
+            <Submit
+              state={this.state}
+              recipeId={recipeId}
+              createIngredient={createIngredient}
+              clearFields={this.clearFields}
+            />
           </View>
         )}
       </Mutation>

@@ -40,6 +40,7 @@ module.exports = {
       { name, description, quantity, hydration, isComplex, recipeId },
       { dataSources }
     ) => {
+      console.log('hit')
       const ingredient = await dataSources.ingredientAPI.createIngredient(
         name,
         description,

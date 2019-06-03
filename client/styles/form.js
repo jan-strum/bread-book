@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
   percentageInput: {
     marginLeft: 10
   },
-  add: {
+  submit: {
     marginTop: 10,
     alignItems: 'flex-end'
   }
