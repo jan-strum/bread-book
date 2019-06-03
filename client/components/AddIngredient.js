@@ -4,6 +4,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
+import ComplexityField from './form/ComplexityField'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
 import { FIND_FULL_RECIPE } from '../gql/queries'
@@ -73,35 +74,10 @@ export default class AddIngredient extends React.Component {
               setHydration={this.setHydration}
             />
 
-            <View style={styles.field}>
-              <Text style={[styles.label, styles.text]}>
-                Does this ingredient contain other ingredients that you would
-                like to list?
-              </Text>
-              <View style={styles.buttonContainer}>
-                {complexities.map((complexity, index) => (
-                  <TouchableOpacity
-                    onPress={() => this.setComplexity(index)}
-                    key={complexity}
-                    style={
-                      this.state.complexityIndex !== index
-                        ? styles.button
-                        : [styles.button, styles.selectedButton]
-                    }
-                  >
-                    <Text
-                      style={
-                        this.state.complexityIndex !== index
-                          ? null
-                          : styles.selectedButtonText
-                      }
-                    >
-                      {complexity}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
+            <ComplexityField
+              state={this.state}
+              setComplexity={this.setComplexity}
+            />
 
             <TouchableOpacity
               onPress={() => {
@@ -135,8 +111,6 @@ export default class AddIngredient extends React.Component {
     )
   }
 }
-
-const complexities = ['No', 'Yes']
 
 const styles = StyleSheet.create({
   header: {
