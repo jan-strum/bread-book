@@ -5,8 +5,8 @@ import AppNavigator from './navigation/AppNavigator'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
-// import { resolvers } from './resolvers'
-// import { typeDefs } from './schema'
+import { resolvers } from './resolvers'
+import { typeDefs } from './schema'
 import { ApolloProvider } from 'react-apollo'
 
 const cache = new InMemoryCache()
@@ -16,15 +16,15 @@ const link = new HttpLink({
 
 cache.writeData({
   data: {
-    recipes: []
+    findComplexity: 0
   }
 })
 
 const client = new ApolloClient({
   connectToDevTools: true,
   link,
-  // typeDefs,
-  // resolvers,
+  typeDefs,
+  resolvers,
   cache
 })
 

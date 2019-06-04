@@ -10,7 +10,6 @@ export default class ComplexityFIeld extends React.Component {
 
   render() {
     const { state, setComplexity } = this.props
-    // console.log(state.complexity)
 
     return (
       <View style={styles.field}>
@@ -47,10 +46,9 @@ export default class ComplexityFIeld extends React.Component {
           <View style={styles.percentage}>
             <Text>How many?</Text>
             <TextInput
-              placeholder='...'
               keyboardType='number-pad'
               returnKeyType='done'
-              style={styles.percentageInput}
+              style={styles.other}
               value={state.complexity}
               autoFocus={true}
               onChangeText={complexity => setComplexity(1, complexity)}

@@ -52,6 +52,11 @@ export default class AddIngredient extends React.Component {
     const isComplex = complexityIndex === 1
     this.setState({ isComplex, complexityIndex, complexity })
   }
+  // updateComplexity = () => {
+  //   if (this.state.complexity > 0) {
+  //     this.setState({ complexity: this.state.complexity - 1 })
+  //   }
+  // }
   clearFields = () => {
     this.setState({
       name: '',
@@ -77,7 +82,7 @@ export default class AddIngredient extends React.Component {
             <Text style={styles.header}>
               {!superIngredientId
                 ? 'Add an ingredient'
-                : `What is "${superIngredientName}" composed of?`}
+                : `Add sub-ingredients for "${superIngredientName}"`}
             </Text>
 
             <StringFields
@@ -100,6 +105,7 @@ export default class AddIngredient extends React.Component {
               recipeId={recipeId}
               superIngredientId={superIngredientId}
               createIngredient={createIngredient}
+              // updateComplexity={this.updateComplexity}
               clearFields={this.clearFields}
             />
           </View>

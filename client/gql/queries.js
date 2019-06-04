@@ -36,3 +36,9 @@ export const FIND_FULL_RECIPE = gql`
     }
   }
 `
+
+export const FIND_COMPLEXITY = gql`
+  query findComplexity($id: ID) {
+    findComplexity(id: $id) @client
+  }
+`

@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 7
   },
-  percentageInput: {
+  other: {
     marginLeft: 10
   },
   submit: {

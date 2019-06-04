@@ -46,7 +46,7 @@ export default class HydrationField extends React.Component {
               placeholder='Specify the exact percentage...'
               keyboardType='numeric'
               returnKeyType='done'
-              style={styles.percentageInput}
+              style={styles.other}
               value={state.hydrationText}
               onChangeText={text => setHydration(text)}
             />
