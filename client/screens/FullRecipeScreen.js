@@ -41,7 +41,9 @@ export default class FullRecipeScreen extends React.Component {
     const recipeId = id
     return (
       <KeyboardAwareScrollView
-        ref={ref => (this.scrollView = ref)}
+        ref={ref => {
+          this.scrollView = ref
+        }}
         onContentSizeChange={() => {
           this.scrollView.scrollToEnd({ animated: true })
         }}
@@ -54,14 +56,24 @@ export default class FullRecipeScreen extends React.Component {
               console.log('error', error)
               return <Text>Error!</Text>
             }
-            return data.findFullRecipe.ingredients.length ? (
+            const { ingredients } = data.findFullRecipe
+            const latestIngredient = ingredients[ingredients.length - 1]
+            return latestIngredient && !latestIngredient.isComplex ? (
               <IngredientsTable
                 ingredients={data.findFullRecipe.ingredients}
                 recipeId={recipeId}
                 navigation={this.props.navigation}
               />
             ) : (
-              <AddIngredient recipeId={recipeId} />
+              <AddIngredient
+                recipeId={recipeId}
+                superIngredientId={
+                  latestIngredient.isComplex ? latestIngredient.id : null
+                }
+                superIngredientName={
+                  latestIngredient.isComplex ? latestIngredient.name : null
+                }
+              />
             )
           }}
         </Query>
@@ -69,5 +81,3 @@ export default class FullRecipeScreen extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({})

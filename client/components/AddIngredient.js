@@ -62,7 +62,7 @@ export default class AddIngredient extends React.Component {
   }
 
   render() {
-    const { recipeId } = this.props
+    const { recipeId, superIngredientId, superIngredientName } = this.props
     return (
       <Mutation
         mutation={CREATE_INGREDIENT}
@@ -72,7 +72,11 @@ export default class AddIngredient extends React.Component {
       >
         {createIngredient => (
           <View style={styles.form}>
-            <Text style={styles.header}>Add an ingredient</Text>
+            <Text style={styles.header}>
+              {!superIngredientId
+                ? 'Add an ingredient'
+                : `What is "${superIngredientName}" composed of?`}
+            </Text>
 
             <StringFields
               state={this.state}
