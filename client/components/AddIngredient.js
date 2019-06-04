@@ -25,7 +25,8 @@ export default class AddIngredient extends React.Component {
       superIngredientId: null,
       superIngredientName: '',
       hydrationIndex: null,
-      complexityIndex: null
+      complexityIndex: null,
+      complexity: ''
     }
   }
 
@@ -47,9 +48,9 @@ export default class AddIngredient extends React.Component {
       })
     }
   }
-  setComplexity = complexityIndex => {
+  setComplexity = (complexityIndex, complexity) => {
     const isComplex = complexityIndex === 1
-    this.setState({ isComplex, complexityIndex })
+    this.setState({ isComplex, complexityIndex, complexity })
   }
   clearFields = () => {
     this.setState({

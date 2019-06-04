@@ -79,6 +79,7 @@ export default class FullRecipeScreen extends React.Component {
                 recipeId={recipeId}
                 superIngredientId={superIngredientId}
                 superIngredientName={superIngredientName}
+                // complexity={complexity}
               />
             )
           }}

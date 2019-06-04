@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import { styles } from '../../styles/form'
 
 export default class ComplexityFIeld extends React.Component {
@@ -10,6 +10,7 @@ export default class ComplexityFIeld extends React.Component {
 
   render() {
     const { state, setComplexity } = this.props
+    // console.log(state.complexity)
 
     return (
       <View style={styles.field}>
@@ -20,7 +21,9 @@ export default class ComplexityFIeld extends React.Component {
         <View style={styles.buttonContainer}>
           {this.complexities.map((complexity, index) => (
             <TouchableOpacity
-              onPress={() => setComplexity(index)}
+              onPress={() => {
+                setComplexity(index)
+              }}
               key={complexity}
               style={
                 state.complexityIndex !== index
@@ -40,6 +43,20 @@ export default class ComplexityFIeld extends React.Component {
             </TouchableOpacity>
           ))}
         </View>
+        {!state.complexityIndex ? null : (
+          <View style={styles.percentage}>
+            <Text>How many?</Text>
+            <TextInput
+              placeholder='...'
+              keyboardType='number-pad'
+              returnKeyType='done'
+              style={styles.percentageInput}
+              value={state.complexity}
+              autoFocus={true}
+              onChangeText={complexity => setComplexity(1, complexity)}
+            />
+          </View>
+        )}
       </View>
     )
   }
