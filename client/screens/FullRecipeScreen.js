@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -58,7 +59,16 @@ export default class FullRecipeScreen extends React.Component {
             }
             const { ingredients } = data.findFullRecipe
             const latestIngredient = ingredients[ingredients.length - 1]
-            return latestIngredient && !latestIngredient.isComplex ? (
+            const superIngredientId =
+              latestIngredient && latestIngredient.isComplex
+                ? latestIngredient.id
+                : null
+            const superIngredientName =
+              latestIngredient && latestIngredient.isComplex
+                ? latestIngredient.name
+                : null
+
+            return ingredients.length && !latestIngredient.isComplex ? (
               <IngredientsTable
                 ingredients={data.findFullRecipe.ingredients}
                 recipeId={recipeId}
@@ -67,12 +77,8 @@ export default class FullRecipeScreen extends React.Component {
             ) : (
               <AddIngredient
                 recipeId={recipeId}
-                superIngredientId={
-                  latestIngredient.isComplex ? latestIngredient.id : null
-                }
-                superIngredientName={
-                  latestIngredient.isComplex ? latestIngredient.name : null
-                }
+                superIngredientId={superIngredientId}
+                superIngredientName={superIngredientName}
               />
             )
           }}

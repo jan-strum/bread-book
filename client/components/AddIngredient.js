@@ -23,7 +23,7 @@ export default class AddIngredient extends React.Component {
       isComplex: false,
       subIngredients: [],
       superIngredientId: null,
-      superIgredientName: '',
+      superIngredientName: '',
       hydrationIndex: null,
       complexityIndex: null
     }
@@ -56,8 +56,9 @@ export default class AddIngredient extends React.Component {
       name: '',
       description: '',
       quantity: '',
-      hydrationIndex: 2,
-      hydrationText: ''
+      hydrationIndex: null,
+      hydrationText: '',
+      complexityIndex: null
     })
   }
 
@@ -96,6 +97,7 @@ export default class AddIngredient extends React.Component {
             <Submit
               state={this.state}
               recipeId={recipeId}
+              superIngredientId={superIngredientId}
               createIngredient={createIngredient}
               clearFields={this.clearFields}
             />

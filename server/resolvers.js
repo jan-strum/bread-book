@@ -37,7 +37,15 @@ module.exports = {
 
     createIngredient: async (
       _,
-      { name, description, quantity, hydration, isComplex, recipeId },
+      {
+        name,
+        description,
+        quantity,
+        hydration,
+        isComplex,
+        recipeId,
+        superIngredientId
+      },
       { dataSources }
     ) => {
       const ingredient = await dataSources.ingredientAPI.createIngredient(
@@ -46,7 +54,8 @@ module.exports = {
         quantity,
         hydration,
         isComplex,
-        recipeId
+        recipeId,
+        superIngredientId
       )
       return ingredient
     },

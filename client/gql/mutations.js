@@ -44,6 +44,7 @@ export const CREATE_INGREDIENT = gql`
     $hydration: Float
     $isComplex: Boolean
     $recipeId: ID
+    $superIngredientId: ID
   ) {
     createIngredient(
       name: $name
@@ -52,6 +53,7 @@ export const CREATE_INGREDIENT = gql`
       hydration: $hydration
       isComplex: $isComplex
       recipeId: $recipeId
+      superIngredientId: $superIngredientId
     ) {
       id
       name

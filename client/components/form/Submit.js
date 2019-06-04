@@ -4,7 +4,7 @@ import { styles } from '../../styles/form'
 
 const Submit = props => {
   const { name, description, quantity, hydration, isComplex } = props.state
-  const { recipeId, createIngredient, clearFields } = props
+  const { recipeId, superIngredientId, createIngredient, clearFields } = props
 
   return (
     <TouchableOpacity
@@ -16,7 +16,8 @@ const Submit = props => {
             quantity: Number(quantity),
             hydration: Number(hydration),
             isComplex,
-            recipeId: Number(recipeId)
+            recipeId: Number(recipeId),
+            superIngredientId
           }
         })
         clearFields()

@@ -45,6 +45,7 @@ const typeDefs = gql`
       hydration: Float
       isComplex: Boolean
       recipeId: ID
+      superIngredientId: ID
     ): Ingredient!
     findOrCreateIngredient(
       name: String
