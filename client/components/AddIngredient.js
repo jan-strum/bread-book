@@ -52,11 +52,6 @@ export default class AddIngredient extends React.Component {
     const isComplex = complexityIndex === 1
     this.setState({ isComplex, complexityIndex, complexity })
   }
-  // updateComplexity = () => {
-  //   if (this.state.complexity > 0) {
-  //     this.setState({ complexity: this.state.complexity - 1 })
-  //   }
-  // }
   clearFields = () => {
     this.setState({
       name: '',
