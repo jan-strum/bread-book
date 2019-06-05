@@ -20,11 +20,11 @@ export default class AddIngredient extends React.Component {
       description: '',
       quantity: '',
       hydration: null,
-      hydrationText: '',
       isComplex: false,
       subIngredients: [],
-      superIngredientId: null,
-      superIngredientName: '',
+      hydrationText: '',
+      // superIngredientId: null,
+      // superIngredientName: '',
       hydrationIndex: null,
       complexityIndex: null,
       complexity: ''
@@ -63,6 +63,15 @@ export default class AddIngredient extends React.Component {
       complexity
     })
   }
+  pushSubIngredient = (index, fieldsObject) => {
+    const subIngredients = this.state.subIngredients
+    const updatedSubIngredients = [
+      ...subIngredients.slice(0, index),
+      fieldsObject,
+      subIngredients.slice(index + 1)
+    ]
+    this.setState({ subIngredients: updatedSubIngredients })
+  }
   clearFields = () => {
     this.setState({
       name: '',
@@ -86,11 +95,23 @@ export default class AddIngredient extends React.Component {
       >
         {createIngredient => (
           <View style={styles.form}>
-            <Text style={styles.header}>
-              {!superIngredientId
-                ? 'Add an ingredient'
-                : `Add sub-ingredients for "${superIngredientName}"`}
-            </Text>
+            {!superIngredientName ? (
+              <Text style={styles.header}>Add an ingredient</Text>
+            ) : (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <Text style={styles.header}>
+                  {`Add a sub-ingredient for "${superIngredientName}"`}
+                </Text>
+                <Text style={[styles.header, { color: '#C8C8C8' }]}>
+                  {`(${this.props.index + 1}/${this.props.complexity})`}
+                </Text>
+              </View>
+            )}
 
             <StringFields
               state={this.state}
@@ -114,12 +135,12 @@ export default class AddIngredient extends React.Component {
                     index={index}
                     complexity={this.state.complexity}
                     superIngredientName={this.state.name}
+                    pushSubIngredient={this.pushSubIngredient}
                   />
                 ))
               : null}
 
-            {this.props.index === this.props.complexity - 1 ||
-            (!this.state.isComplex && !this.props.complexity) ? (
+            {this.props.index === undefined ? (
               <Submit
                 state={this.state}
                 recipeId={recipeId}
