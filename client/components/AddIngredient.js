@@ -52,9 +52,8 @@ export default class AddIngredient extends React.Component {
   setComplexity = (complexityIndex, complexity) => {
     const isComplex = complexityIndex === 1
     const subIngredients = []
-    for (let i = 1; i <= complexity; i++) {
-      subIngredients.push({})
-    }
+
+    for (let i = 1; i <= complexity; i++) subIngredients.push({})
 
     if (complexity) this.setState({ subIngredients })
 
@@ -109,24 +108,26 @@ export default class AddIngredient extends React.Component {
             />
 
             {this.state.complexity > 1
-              ? this.state.subIngredients.map(subIngredient => {
-                  return (
-                    <AddIngredient
-                      key={shortid.generate()}
-                      superIngredientName={this.state.name}
-                    />
-                  )
-                })
+              ? this.state.subIngredients.map((subIngredient, index) => (
+                  <AddIngredient
+                    key={shortid.generate()}
+                    index={index}
+                    complexity={this.state.complexity}
+                    superIngredientName={this.state.name}
+                  />
+                ))
               : null}
 
-            <Submit
-              state={this.state}
-              recipeId={recipeId}
-              superIngredientId={superIngredientId}
-              createIngredient={createIngredient}
-              // updateComplexity={this.updateComplexity}
-              clearFields={this.clearFields}
-            />
+            {this.props.index === this.props.complexity - 1 ||
+            (!this.state.isComplex && !this.props.complexity) ? (
+              <Submit
+                state={this.state}
+                recipeId={recipeId}
+                superIngredientId={superIngredientId}
+                createIngredient={createIngredient}
+                clearFields={this.clearFields}
+              />
+            ) : null}
           </View>
         )}
       </Mutation>

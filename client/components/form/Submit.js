@@ -26,9 +26,7 @@ const Submit = props => {
       }}
       style={styles.submit}
     >
-      <Text style={{ fontSize: 18, marginBottom: 20 }}>
-        {!isComplex ? 'Add' : 'Add sub-ingredients'}
-      </Text>
+      <Text style={{ fontSize: 18, marginBottom: 20 }}>Submit ingredient</Text>
     </TouchableOpacity>
   )
 }
