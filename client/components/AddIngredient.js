@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react'
 import { View, Text } from 'react-native'
+const shortid = require('shortid')
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
 import ComplexityField from './form/ComplexityField'
@@ -50,7 +51,18 @@ export default class AddIngredient extends React.Component {
   }
   setComplexity = (complexityIndex, complexity) => {
     const isComplex = complexityIndex === 1
-    this.setState({ isComplex, complexityIndex, complexity })
+    const subIngredients = []
+    for (let i = 1; i <= complexity; i++) {
+      subIngredients.push({})
+    }
+
+    if (complexity) this.setState({ subIngredients })
+
+    this.setState({
+      isComplex,
+      complexityIndex,
+      complexity
+    })
   }
   clearFields = () => {
     this.setState({
@@ -65,6 +77,7 @@ export default class AddIngredient extends React.Component {
 
   render() {
     const { recipeId, superIngredientId, superIngredientName } = this.props
+
     return (
       <Mutation
         mutation={CREATE_INGREDIENT}
@@ -94,6 +107,17 @@ export default class AddIngredient extends React.Component {
               state={this.state}
               setComplexity={this.setComplexity}
             />
+
+            {this.state.complexity > 1
+              ? this.state.subIngredients.map(subIngredient => {
+                  return (
+                    <AddIngredient
+                      key={shortid.generate()}
+                      superIngredientName={this.state.name}
+                    />
+                  )
+                })
+              : null}
 
             <Submit
               state={this.state}

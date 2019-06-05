@@ -58,17 +58,17 @@ export default class FullRecipeScreen extends React.Component {
               return <Text>Error!</Text>
             }
             const { ingredients } = data.findFullRecipe
-            const latestIngredient = ingredients[ingredients.length - 1]
-            const superIngredientId =
-              latestIngredient && latestIngredient.isComplex
-                ? latestIngredient.id
-                : null
-            const superIngredientName =
-              latestIngredient && latestIngredient.isComplex
-                ? latestIngredient.name
-                : null
+            // const latestIngredient = ingredients[ingredients.length - 1]
+            // const superIngredientId =
+            //   latestIngredient && latestIngredient.isComplex
+            //     ? latestIngredient.id
+            //     : null
+            // const superIngredientName =
+            //   latestIngredient && latestIngredient.isComplex
+            //     ? latestIngredient.name
+            //     : null
 
-            return ingredients.length && !latestIngredient.isComplex ? (
+            return ingredients.length ? (
               <IngredientsTable
                 ingredients={data.findFullRecipe.ingredients}
                 recipeId={recipeId}
@@ -77,8 +77,8 @@ export default class FullRecipeScreen extends React.Component {
             ) : (
               <AddIngredient
                 recipeId={recipeId}
-                superIngredientId={superIngredientId}
-                superIngredientName={superIngredientName}
+                // superIngredientId={superIngredientId}
+                // superIngredientName={superIngredientName}
                 // complexity={complexity}
               />
             )

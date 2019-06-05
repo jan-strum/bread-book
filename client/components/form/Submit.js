@@ -9,23 +9,25 @@ const Submit = props => {
   return (
     <TouchableOpacity
       onPress={() => {
-        createIngredient({
-          variables: {
-            name,
-            description,
-            quantity: Number(quantity),
-            hydration: Number(hydration),
-            isComplex,
-            recipeId: Number(recipeId),
-            superIngredientId
-          }
-        })
-        clearFields()
+        if (!superIngredientId) {
+          createIngredient({
+            variables: {
+              name,
+              description,
+              quantity: Number(quantity),
+              hydration: Number(hydration),
+              isComplex,
+              recipeId: Number(recipeId),
+              superIngredientId
+            }
+          })
+          clearFields()
+        }
       }}
       style={styles.submit}
     >
       <Text style={{ fontSize: 18, marginBottom: 20 }}>
-        {!isComplex ? 'Add' : 'Add sub-ingredient'}
+        {!isComplex ? 'Add' : 'Add sub-ingredients'}
       </Text>
     </TouchableOpacity>
   )
