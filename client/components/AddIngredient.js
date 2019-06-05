@@ -3,6 +3,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 const shortid = require('shortid')
+import Header from './form/Header'
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
 import ComplexityField from './form/ComplexityField'
@@ -95,23 +96,11 @@ export default class AddIngredient extends React.Component {
       >
         {createIngredient => (
           <View style={styles.form}>
-            {!superIngredientName ? (
-              <Text style={styles.header}>Add an ingredient</Text>
-            ) : (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <Text style={styles.header}>
-                  {`Add a sub-ingredient for "${superIngredientName}"`}
-                </Text>
-                <Text style={[styles.header, { color: '#C8C8C8' }]}>
-                  {`(${this.props.index + 1}/${this.props.complexity})`}
-                </Text>
-              </View>
-            )}
+            <Header
+              superIngredientName={superIngredientName}
+              complexity={this.props.complexity}
+              index={this.props.index}
+            />
 
             <StringFields
               state={this.state}
