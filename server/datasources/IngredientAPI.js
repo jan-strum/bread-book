@@ -17,8 +17,8 @@ class IngredientAPI extends DataSource {
     quantity,
     hydration,
     isComplex,
-    recipeId,
-    superIngredientId
+    subIngredients,
+    recipeId
   ) {
     try {
       const ingredient = await this.store.ingredients.create({
@@ -29,15 +29,18 @@ class IngredientAPI extends DataSource {
         isComplex
       })
 
-      if (superIngredientId) {
-        const superIngredient = await this.store.ingredients.findByPk(
-          superIngredientId
-        )
-        ingredient.setSuperIngredient(superIngredient)
-      }
-
       const recipe = await this.store.recipes.findByPk(recipeId)
-      recipe.addIngredients([ingredient])
+      await recipe.addIngredients([ingredient])
+
+      if (subIngredients.length) {
+        subIngredients.forEach(async subIngredient => {
+          let newSubIngredient = await this.store.ingredients.create(
+            subIngredient
+          )
+          await recipe.addIngredients([newSubIngredient])
+          await newSubIngredient.setSuperIngredient(ingredient)
+        })
+      }
 
       return ingredient
     } catch (e) {

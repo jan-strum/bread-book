@@ -43,8 +43,8 @@ export const CREATE_INGREDIENT = gql`
     $quantity: Float
     $hydration: Float
     $isComplex: Boolean
+    $subIngredients: [SubIngredientInput]
     $recipeId: ID
-    $superIngredientId: ID
   ) {
     createIngredient(
       name: $name
@@ -52,8 +52,8 @@ export const CREATE_INGREDIENT = gql`
       quantity: $quantity
       hydration: $hydration
       isComplex: $isComplex
+      subIngredients: $subIngredients
       recipeId: $recipeId
-      superIngredientId: $superIngredientId
     ) {
       id
       name

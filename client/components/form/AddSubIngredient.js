@@ -17,8 +17,8 @@ export default class AddSubIngredient extends React.Component {
         description: '',
         quantity: '',
         hydration: null,
-        isComplex: false,
-        subIngredients: []
+        isComplex: false
+        // subIngredients: []
       },
       hydrationText: '',
       hydrationIndex: null,

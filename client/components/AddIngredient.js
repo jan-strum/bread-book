@@ -104,7 +104,7 @@ export default class AddIngredient extends React.Component {
 
   render() {
     const { recipeId, superIngredientId, superIngredientName } = this.props
-    console.log('subs', this.state.ingredient.subIngredients)
+    // console.log('subs', this.state.ingredient.subIngredients)
 
     return (
       <Mutation

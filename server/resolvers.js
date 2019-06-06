@@ -43,8 +43,8 @@ module.exports = {
         quantity,
         hydration,
         isComplex,
-        recipeId,
-        superIngredientId
+        subIngredients,
+        recipeId
       },
       { dataSources }
     ) => {
@@ -54,8 +54,8 @@ module.exports = {
         quantity,
         hydration,
         isComplex,
-        recipeId,
-        superIngredientId
+        subIngredients,
+        recipeId
       )
       return ingredient
     },

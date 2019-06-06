@@ -21,6 +21,16 @@ const typeDefs = gql`
 
   # # #
 
+  input SubIngredientInput {
+    name: String
+    description: String # Text?
+    quantity: Float
+    hydration: Float
+    isComplex: Boolean
+  }
+
+  # # #
+
   type Query {
     findAllRecipes: [Recipe]
     findRecipeById(id: ID): Recipe
@@ -44,8 +54,8 @@ const typeDefs = gql`
       quantity: Float
       hydration: Float
       isComplex: Boolean
-      recipeId: ID
-      superIngredientId: ID
+      subIngredients: [SubIngredientInput]
+      recipeId: ID # superIngredientId: ID
     ): Ingredient!
     findOrCreateIngredient(
       name: String
