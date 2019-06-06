@@ -33,11 +33,9 @@ export default class AddIngredient extends React.Component {
   updateStringField = (field, text) => {
     this.setState({ [field]: text })
   }
-  setHydration = (input, subIngredientIndex) => {
+  setHydration = input => {
     if (typeof input === 'number') {
-      this.setState({ hydrationIndex: input, hydrationText: '' }, () =>
-        this.pushSubIngredient(subIngredientIndex)
-      )
+      this.setState({ hydrationIndex: input, hydrationText: '' })
 
       if (input === 0) this.setState({ hydration: 0.0 })
       else if (input === 1) this.setState({ hydration: 100.0 })
@@ -89,7 +87,7 @@ export default class AddIngredient extends React.Component {
 
   render() {
     const { recipeId, superIngredientId, superIngredientName } = this.props
-    // console.log('subs', this.state.subIngredients)
+    console.log('subs', this.state.subIngredients)
 
     return (
       <Mutation
