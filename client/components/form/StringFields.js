@@ -27,7 +27,7 @@ export default class StringFields extends React.Component {
                   .split(' ')[0]
                   .toLowerCase()} here...`}
                 keyboardType={field === 'Amount (g)' ? 'numeric' : 'default'}
-                value={String(state[stateField])}
+                value={String(state.ingredient[stateField])}
                 returnKeyType={index !== 2 ? 'next' : 'done'}
                 onChangeText={text => {
                   updateStringField(stateField, text, subIngredientIndex)

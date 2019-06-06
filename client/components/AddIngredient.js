@@ -17,12 +17,14 @@ export default class AddIngredient extends React.Component {
   constructor() {
     super()
     this.state = {
-      name: '',
-      description: '',
-      quantity: '',
-      hydration: null,
-      isComplex: false,
-      subIngredients: [],
+      ingredient: {
+        name: '',
+        description: '',
+        quantity: '',
+        hydration: null,
+        isComplex: false,
+        subIngredients: []
+      },
       hydrationText: '',
       hydrationIndex: null,
       complexityIndex: null,
@@ -31,24 +33,29 @@ export default class AddIngredient extends React.Component {
   }
 
   updateStringField = (field, text) => {
-    this.setState({ [field]: text })
+    const { ingredient } = { ...this.state }
+    ingredient[field] = text
+    this.setState({ ingredient })
   }
   setHydration = input => {
-    if (typeof input === 'number') {
-      this.setState({ hydrationIndex: input, hydrationText: '' })
+    const { ingredient } = { ...this.state }
 
-      if (input === 0) this.setState({ hydration: 0.0 })
-      else if (input === 1) this.setState({ hydration: 100.0 })
-      else if (input === 2) this.setState({ hydration: null })
+    if (typeof input === 'number') {
+      if (input === 0) ingredient.hydration = 0.0
+      else if (input === 1) ingredient.hydration = 100.0
+      else if (input === 2) ingredient.hydration = null
+      this.setState({ ingredient, hydrationIndex: input, hydrationText: '' })
     } else {
+      ingredient.hydration = input
       this.setState({
-        hydration: input,
+        ingredient,
         hydrationIndex: null,
         hydrationText: input
       })
     }
   }
   setComplexity = (complexityIndex, complexity) => {
+    const { ingredient } = { ...this.state }
     const isComplex = complexityIndex === 1
     const subIngredients = []
 
@@ -56,29 +63,39 @@ export default class AddIngredient extends React.Component {
       for (let i = 1; i <= complexity; i++) {
         subIngredients.push({})
       }
-      this.setState({ subIngredients })
+      ingredient.subIngredients = subIngredients
+      this.setState({ ingredient })
     }
 
+    ingredient.isComplex = isComplex
     this.setState({
-      isComplex,
+      ingredient,
       complexityIndex,
       complexity
     })
   }
   pushSubIngredient = (subIngredientIndex, subIngredientObject) => {
-    const subIngredients = this.state.subIngredients
+    const { ingredient } = { ...this.state }
+    const subIngredients = this.state.ingredient.subIngredients
     const updatedSubIngredients = [
       ...subIngredients.slice(0, subIngredientIndex),
       subIngredientObject,
       ...subIngredients.slice(subIngredientIndex + 1)
     ]
-    this.setState({ subIngredients: updatedSubIngredients })
+
+    ingredient.subIngredients = updatedSubIngredients
+    this.setState({ ingredient })
   }
   clearFields = () => {
+    const { ingredient } = { ...this.state }
+    ingredient.name = ''
+    ingredient.description = ''
+    ingredient.quantity = ''
+    ingredient.isComplex = false
+    ingredient.subIngredients = []
+
     this.setState({
-      name: '',
-      description: '',
-      quantity: '',
+      ingredient,
       hydrationIndex: null,
       hydrationText: '',
       complexityIndex: null
@@ -87,7 +104,7 @@ export default class AddIngredient extends React.Component {
 
   render() {
     const { recipeId, superIngredientId, superIngredientName } = this.props
-    console.log('subs', this.state.subIngredients)
+    console.log('subs', this.state.ingredient.subIngredients)
 
     return (
       <Mutation
@@ -123,13 +140,13 @@ export default class AddIngredient extends React.Component {
             ) : null}
 
             {this.state.complexity > 1
-              ? this.state.subIngredients.map(
+              ? this.state.ingredient.subIngredients.map(
                   (subIngredient, subIngredientIndex) => (
                     <AddSubIngredient
                       key={subIngredientIndex}
                       subIngredientIndex={subIngredientIndex} // get rid of this and just use the key prop, or find a way to generate a static key
                       complexity={this.state.complexity}
-                      superIngredientName={this.state.name}
+                      superIngredientName={this.state.ingredient.name}
                       pushSubIngredient={this.pushSubIngredient}
                     />
                   )

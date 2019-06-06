@@ -12,12 +12,14 @@ export default class AddSubIngredient extends React.Component {
   constructor() {
     super()
     this.state = {
-      name: '',
-      description: '',
-      quantity: '',
-      hydration: null,
-      isComplex: false,
-      subIngredients: [],
+      ingredient: {
+        name: '',
+        description: '',
+        quantity: '',
+        hydration: null,
+        isComplex: false,
+        subIngredients: []
+      },
       hydrationText: '',
       hydrationIndex: null,
       complexityIndex: null,
@@ -26,43 +28,33 @@ export default class AddSubIngredient extends React.Component {
   }
 
   updateStringField = (field, text, subIngredientIndex) => {
-    const { name, description, quantity, hydration, isComplex } = this.state
-    const subIngredientObject = {
-      name,
-      description,
-      quantity,
-      hydration,
-      isComplex
-    }
-
-    this.setState({ [field]: text }, () =>
-      this.props.pushSubIngredient(subIngredientIndex, subIngredientObject)
+    const { ingredient } = { ...this.state }
+    ingredient[field] = text
+    this.setState({ ingredient }, () =>
+      this.props.pushSubIngredient(subIngredientIndex, ingredient)
     )
   }
   setHydration = (input, subIngredientIndex) => {
-    const { name, description, quantity, hydration, isComplex } = this.state
-    const subIngredientObject = {
-      name,
-      description,
-      quantity,
-      hydration,
-      isComplex
-    }
+    const { ingredient } = { ...this.state }
 
     if (typeof input === 'number') {
-      this.setState({ hydrationIndex: input, hydrationText: '' }, () =>
-        this.props.pushSubIngredient(subIngredientIndex, subIngredientObject)
+      if (input === 0) ingredient.hydration = 0.0
+      else if (input === 1) ingredient.hydration = 100.0
+      else if (input === 2) ingredient.hydration = null
+      this.setState(
+        { ingredient, hydrationIndex: input, hydrationText: '' },
+        () => this.props.pushSubIngredient(subIngredientIndex, ingredient)
       )
-
-      if (input === 0) this.setState({ hydration: 0.0 })
-      else if (input === 1) this.setState({ hydration: 100.0 })
-      else if (input === 2) this.setState({ hydration: null })
     } else {
-      this.setState({
-        hydration: input,
-        hydrationIndex: null,
-        hydrationText: input
-      })
+      ingredient.hydration = input
+      this.setState(
+        {
+          ingredient,
+          hydrationIndex: null,
+          hydrationText: input
+        },
+        () => this.props.pushSubIngredient(subIngredientIndex, ingredient)
+      )
     }
   }
 
@@ -95,20 +87,6 @@ export default class AddSubIngredient extends React.Component {
             setComplexity={this.setComplexity}
           />
         ) : null}
-
-        {this.state.complexity > 1
-          ? this.state.subIngredients.map(
-              (subIngredient, subIngredientIndex) => (
-                <AddSubIngredient
-                  key={subIngredientIndex}
-                  subIngredientIndex={subIngredientIndex}
-                  complexity={this.state.complexity}
-                  superIngredientName={this.state.name}
-                  pushSubIngredient={this.pushSubIngredient}
-                />
-              )
-            )
-          : null}
       </View>
     )
   }
