@@ -30,19 +30,28 @@ class IngredientAPI extends DataSource {
       })
 
       const recipe = await this.store.recipes.findByPk(recipeId)
-      await recipe.addIngredients([ingredient])
+      await recipe.addIngredient(ingredient)
 
       if (subIngredients.length) {
-        subIngredients.forEach(async subIngredient => {
-          let newSubIngredient = await this.store.ingredients.create(
-            subIngredient
-          )
-          await recipe.addIngredients([newSubIngredient])
-          await newSubIngredient.setSuperIngredient(ingredient)
-        })
+        this.addSubIngredients(subIngredients, ingredient, recipeId)
       }
 
       return ingredient
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  async addSubIngredients(subIngredients, superIngredient, recipeId) {
+    try {
+      const recipe = await this.store.recipes.findByPk(recipeId)
+
+      subIngredients.forEach(async subIngredient => {
+        let newSubIngredient = await this.store.ingredients.create(
+          subIngredient
+        )
+        await recipe.addIngredient(newSubIngredient)
+        await newSubIngredient.setSuperIngredient(superIngredient)
+      })
     } catch (e) {
       console.log(e)
     }
