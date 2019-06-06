@@ -1,8 +1,7 @@
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { View, Text } from 'react-native'
-const shortid = require('shortid')
+import { View } from 'react-native'
 import Header from './Header'
 import StringFields from './StringFields'
 import HydrationField from './HydrationField'
@@ -26,14 +25,33 @@ export default class AddSubIngredient extends React.Component {
     }
   }
 
-  updateStringField = (field, text) => {
-    this.setState({ [field]: text })
+  updateStringField = (field, text, subIngredientIndex) => {
+    const { name, description, quantity, hydration, isComplex } = this.state
+    const subIngredientObject = {
+      name,
+      description,
+      quantity,
+      hydration,
+      isComplex
+    }
+
+    this.setState({ [field]: text }, () =>
+      this.props.pushSubIngredient(subIngredientIndex, subIngredientObject)
+    )
   }
   setHydration = (input, subIngredientIndex) => {
-    // console.log('hydration state', this.state)
+    const { name, description, quantity, hydration, isComplex } = this.state
+    const subIngredientObject = {
+      name,
+      description,
+      quantity,
+      hydration,
+      isComplex
+    }
+
     if (typeof input === 'number') {
       this.setState({ hydrationIndex: input, hydrationText: '' }, () =>
-        this.pushSubIngredient(subIngredientIndex)
+        this.props.pushSubIngredient(subIngredientIndex, subIngredientObject)
       )
 
       if (input === 0) this.setState({ hydration: 0.0 })
@@ -49,8 +67,7 @@ export default class AddSubIngredient extends React.Component {
   }
 
   render() {
-    const { recipeId, superIngredientId, superIngredientName } = this.props
-    // if (this.props.complexity === undefined)
+    const { superIngredientName } = this.props
 
     return (
       <View style={styles.form}>
@@ -63,6 +80,7 @@ export default class AddSubIngredient extends React.Component {
         <StringFields
           state={this.state}
           updateStringField={this.updateStringField}
+          subIngredientIndex={this.props.subIngredientIndex}
         />
 
         <HydrationField
@@ -82,7 +100,7 @@ export default class AddSubIngredient extends React.Component {
           ? this.state.subIngredients.map(
               (subIngredient, subIngredientIndex) => (
                 <AddSubIngredient
-                  key={shortid.generate()}
+                  key={subIngredientIndex}
                   subIngredientIndex={subIngredientIndex}
                   complexity={this.state.complexity}
                   superIngredientName={this.state.name}

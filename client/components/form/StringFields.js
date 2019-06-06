@@ -9,7 +9,7 @@ export default class StringFields extends React.Component {
   }
 
   render() {
-    const { state, updateStringField } = this.props
+    const { state, updateStringField, subIngredientIndex } = this.props
     return (
       <View>
         {this.fields.map((field, index) => {
@@ -30,7 +30,7 @@ export default class StringFields extends React.Component {
                 value={String(state[stateField])}
                 returnKeyType={index !== 2 ? 'next' : 'done'}
                 onChangeText={text => {
-                  updateStringField(stateField, text)
+                  updateStringField(stateField, text, subIngredientIndex)
                 }}
                 ref={input => {
                   this[field] = input

@@ -1,8 +1,7 @@
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { View, Text } from 'react-native'
-const shortid = require('shortid')
+import { View } from 'react-native'
 import Header from './form/Header'
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
@@ -35,7 +34,6 @@ export default class AddIngredient extends React.Component {
     this.setState({ [field]: text })
   }
   setHydration = (input, subIngredientIndex) => {
-    // console.log('hydration state', this.state)
     if (typeof input === 'number') {
       this.setState({ hydrationIndex: input, hydrationText: '' }, () =>
         this.pushSubIngredient(subIngredientIndex)
@@ -69,18 +67,14 @@ export default class AddIngredient extends React.Component {
       complexity
     })
   }
-  pushSubIngredient = (subIngredientIndex, fieldsObject) => {
-    if (typeof subIngredientIndex === 'number') {
-      // console.log('push state', this.state)
-      console.log('push')
-      this.setState({ subIngredients: subIngredientIndex })
-    }
-    // const updatedSubIngredients = [
-    //   ...subIngredients.slice(0, subIngredientIndex),
-    //   fieldsObject,
-    //   subIngredients.slice(subIngredientIndex + 1)
-    // ]
-    // this.setState({ subIngredients: updatedSubIngredients })
+  pushSubIngredient = (subIngredientIndex, subIngredientObject) => {
+    const subIngredients = this.state.subIngredients
+    const updatedSubIngredients = [
+      ...subIngredients.slice(0, subIngredientIndex),
+      subIngredientObject,
+      ...subIngredients.slice(subIngredientIndex + 1)
+    ]
+    this.setState({ subIngredients: updatedSubIngredients })
   }
   clearFields = () => {
     this.setState({
@@ -95,7 +89,7 @@ export default class AddIngredient extends React.Component {
 
   render() {
     const { recipeId, superIngredientId, superIngredientName } = this.props
-    // if (this.props.complexity === undefined)
+    // console.log('subs', this.state.subIngredients)
 
     return (
       <Mutation
@@ -134,8 +128,8 @@ export default class AddIngredient extends React.Component {
               ? this.state.subIngredients.map(
                   (subIngredient, subIngredientIndex) => (
                     <AddSubIngredient
-                      key={shortid.generate()}
-                      subIngredientIndex={subIngredientIndex}
+                      key={subIngredientIndex}
+                      subIngredientIndex={subIngredientIndex} // get rid of this and just use the key prop, or find a way to generate a static key
                       complexity={this.state.complexity}
                       superIngredientName={this.state.name}
                       pushSubIngredient={this.pushSubIngredient}
