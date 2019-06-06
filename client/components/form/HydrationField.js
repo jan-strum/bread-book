@@ -9,7 +9,7 @@ export default class HydrationField extends React.Component {
   }
 
   render() {
-    const { state, setHydration } = this.props
+    const { state, setHydration, subIngredientIndex } = this.props
 
     return (
       <View styles={styles.field}>
@@ -20,7 +20,7 @@ export default class HydrationField extends React.Component {
           <View style={styles.buttonContainer}>
             {this.hydrations.map((hydration, index) => (
               <TouchableOpacity
-                onPress={() => setHydration(index)}
+                onPress={() => setHydration(index, subIngredientIndex)}
                 key={hydration}
                 style={
                   state.hydrationIndex !== index
@@ -48,7 +48,7 @@ export default class HydrationField extends React.Component {
               returnKeyType='done'
               style={styles.other}
               value={state.hydrationText}
-              onChangeText={text => setHydration(text)}
+              onChangeText={text => setHydration(text, subIngredientIndex)}
             />
             <Text>{state.hydrationText.length ? '%' : null}</Text>
           </View>

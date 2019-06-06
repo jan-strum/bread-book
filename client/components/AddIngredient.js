@@ -24,8 +24,6 @@ export default class AddIngredient extends React.Component {
       isComplex: false,
       subIngredients: [],
       hydrationText: '',
-      // superIngredientId: null,
-      // superIngredientName: '',
       hydrationIndex: null,
       complexityIndex: null,
       complexity: ''
@@ -35,9 +33,12 @@ export default class AddIngredient extends React.Component {
   updateStringField = (field, text) => {
     this.setState({ [field]: text })
   }
-  setHydration = input => {
+  setHydration = (input, subIngredientIndex) => {
+    // console.log('hydration state', this.state)
     if (typeof input === 'number') {
-      this.setState({ hydrationIndex: input, hydrationText: '' })
+      this.setState({ hydrationIndex: input, hydrationText: '' }, () =>
+        this.pushSubIngredient(subIngredientIndex)
+      )
 
       if (input === 0) this.setState({ hydration: 0.0 })
       else if (input === 1) this.setState({ hydration: 100.0 })
@@ -54,9 +55,12 @@ export default class AddIngredient extends React.Component {
     const isComplex = complexityIndex === 1
     const subIngredients = []
 
-    for (let i = 1; i <= complexity; i++) subIngredients.push({})
-
-    if (complexity) this.setState({ subIngredients })
+    if (complexity) {
+      for (let i = 1; i <= complexity; i++) {
+        subIngredients.push({})
+      }
+      this.setState({ subIngredients })
+    }
 
     this.setState({
       isComplex,
@@ -64,14 +68,18 @@ export default class AddIngredient extends React.Component {
       complexity
     })
   }
-  pushSubIngredient = (index, fieldsObject) => {
-    const subIngredients = this.state.subIngredients
-    const updatedSubIngredients = [
-      ...subIngredients.slice(0, index),
-      fieldsObject,
-      subIngredients.slice(index + 1)
-    ]
-    this.setState({ subIngredients: updatedSubIngredients })
+  pushSubIngredient = (subIngredientIndex, fieldsObject) => {
+    if (typeof subIngredientIndex === 'number') {
+      // console.log('push state', this.state)
+      console.log('push')
+      this.setState({ subIngredients: subIngredientIndex })
+    }
+    // const updatedSubIngredients = [
+    //   ...subIngredients.slice(0, subIngredientIndex),
+    //   fieldsObject,
+    //   subIngredients.slice(subIngredientIndex + 1)
+    // ]
+    // this.setState({ subIngredients: updatedSubIngredients })
   }
   clearFields = () => {
     this.setState({
@@ -86,6 +94,7 @@ export default class AddIngredient extends React.Component {
 
   render() {
     const { recipeId, superIngredientId, superIngredientName } = this.props
+    // if (this.props.complexity === undefined)
 
     return (
       <Mutation
@@ -99,7 +108,7 @@ export default class AddIngredient extends React.Component {
             <Header
               superIngredientName={superIngredientName}
               complexity={this.props.complexity}
-              index={this.props.index}
+              subIngredientIndex={this.props.subIngredientIndex}
             />
 
             <StringFields
@@ -110,26 +119,31 @@ export default class AddIngredient extends React.Component {
             <HydrationField
               state={this.state}
               setHydration={this.setHydration}
+              subIngredientIndex={this.props.subIngredientIndex}
             />
 
-            <ComplexityField
-              state={this.state}
-              setComplexity={this.setComplexity}
-            />
+            {!this.props.complexity ? (
+              <ComplexityField
+                state={this.state}
+                setComplexity={this.setComplexity}
+              />
+            ) : null}
 
             {this.state.complexity > 1
-              ? this.state.subIngredients.map((subIngredient, index) => (
-                  <AddIngredient
-                    key={shortid.generate()}
-                    index={index}
-                    complexity={this.state.complexity}
-                    superIngredientName={this.state.name}
-                    pushSubIngredient={this.pushSubIngredient}
-                  />
-                ))
+              ? this.state.subIngredients.map(
+                  (subIngredient, subIngredientIndex) => (
+                    <AddIngredient
+                      key={shortid.generate()}
+                      subIngredientIndex={subIngredientIndex}
+                      complexity={this.state.complexity}
+                      superIngredientName={this.state.name}
+                      pushSubIngredient={this.pushSubIngredient}
+                    />
+                  )
+                )
               : null}
 
-            {this.props.index === undefined ? (
+            {this.props.subIngredientIndex === undefined ? (
               <Submit
                 state={this.state}
                 recipeId={recipeId}

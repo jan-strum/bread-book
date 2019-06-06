@@ -47,6 +47,7 @@ export default class ComplexityFIeld extends React.Component {
             <Text>How many?</Text>
             <TextInput
               keyboardType='number-pad'
+              placeholder='(Must be at least two.)'
               returnKeyType='done'
               style={styles.other}
               value={state.complexity}
