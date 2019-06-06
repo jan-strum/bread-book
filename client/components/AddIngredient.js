@@ -7,6 +7,7 @@ import Header from './form/Header'
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
 import ComplexityField from './form/ComplexityField'
+import AddSubIngredient from './form/AddSubIngredient'
 import Submit from './form/Submit'
 import { styles } from '../styles/form'
 import { Mutation } from 'react-apollo'
@@ -132,7 +133,7 @@ export default class AddIngredient extends React.Component {
             {this.state.complexity > 1
               ? this.state.subIngredients.map(
                   (subIngredient, subIngredientIndex) => (
-                    <AddIngredient
+                    <AddSubIngredient
                       key={shortid.generate()}
                       subIngredientIndex={subIngredientIndex}
                       complexity={this.state.complexity}
@@ -143,15 +144,13 @@ export default class AddIngredient extends React.Component {
                 )
               : null}
 
-            {this.props.subIngredientIndex === undefined ? (
-              <Submit
-                state={this.state}
-                recipeId={recipeId}
-                superIngredientId={superIngredientId}
-                createIngredient={createIngredient}
-                clearFields={this.clearFields}
-              />
-            ) : null}
+            <Submit
+              state={this.state}
+              recipeId={recipeId}
+              superIngredientId={superIngredientId}
+              createIngredient={createIngredient}
+              clearFields={this.clearFields}
+            />
           </View>
         )}
       </Mutation>

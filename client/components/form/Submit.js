@@ -3,15 +3,7 @@ import { Text, TouchableOpacity } from 'react-native'
 import { styles } from '../../styles/form'
 
 const Submit = props => {
-  const {
-    name,
-    description,
-    quantity,
-    hydration,
-    isComplex,
-    subIngredients
-  } = props.state
-  console.log('subIngredients', subIngredients)
+  const { name, description, quantity, hydration, isComplex } = props.state
   const { recipeId, superIngredientId, createIngredient, clearFields } = props
 
   return (
