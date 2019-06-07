@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { styles } from '../../styles/form'
 
 const Submit = props => {
@@ -12,14 +12,18 @@ const Submit = props => {
     subIngredients
   } = props.state.ingredient
   const complexity = props.state.complexity
-  const { recipeId, createIngredient, clearFields, navigation } = props
+  const {
+    recipeId,
+    createIngredient,
+    clearFields,
+    navigation,
+    totalSubmit
+  } = props
 
-  return (
+  return !complexity || totalSubmit ? (
     <TouchableOpacity
-      disabled={!!complexity}
       onPress={() => {
         if (complexity) {
-          // subIngredients.length
           subIngredients.forEach(subIngredient => {
             subIngredient.quantity = Number(subIngredient.quantity)
             subIngredient.hydration = Number(subIngredient.hydration)
@@ -41,12 +45,12 @@ const Submit = props => {
       }}
       style={styles.submit}
     >
-      {!complexity ? (
-        <Text style={styles.submitText}>Submit ingredient</Text>
-      ) : (
-        <Text style={styles.submitText}>Add sub-ingredients &#8594;</Text>
-      )}
+      <Text style={styles.submitText}>Submit ingredient</Text>
     </TouchableOpacity>
+  ) : (
+    <View style={styles.submit}>
+      <Text style={styles.submitText}>Add sub-ingredients &#8594;</Text>
+    </View>
   )
 }
 

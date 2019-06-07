@@ -5,6 +5,7 @@ import { View } from 'react-native'
 import Header from './Header'
 import StringFields from './StringFields'
 import HydrationField from './HydrationField'
+import Submit from './Submit'
 import { styles } from '../../styles/form'
 
 export default class AddSubIngredient extends React.Component {
@@ -59,28 +60,50 @@ export default class AddSubIngredient extends React.Component {
   }
 
   render() {
-    const { superIngredientName, ingredients, screenWidth } = this.props
+    const {
+      superIngredientName,
+      subIngredientIndex,
+      complexity,
+      ingredients,
+      state,
+      recipeId,
+      createIngredient,
+      clearFields,
+      navigation,
+      screenWidth
+    } = this.props
 
     return (
       <View style={[styles.form, { width: screenWidth }]}>
         <Header
           ingredients={ingredients}
           superIngredientName={superIngredientName}
-          complexity={this.props.complexity}
-          subIngredientIndex={this.props.subIngredientIndex}
+          complexity={complexity}
+          subIngredientIndex={subIngredientIndex}
         />
 
         <StringFields
           state={this.state}
           updateStringField={this.updateStringField}
-          subIngredientIndex={this.props.subIngredientIndex}
+          subIngredientIndex={subIngredientIndex}
         />
 
         <HydrationField
           state={this.state}
           setHydration={this.setHydration}
-          subIngredientIndex={this.props.subIngredientIndex}
+          subIngredientIndex={subIngredientIndex}
         />
+
+        {subIngredientIndex + 1 === Number(complexity) ? (
+          <Submit
+            state={state}
+            recipeId={recipeId}
+            createIngredient={createIngredient}
+            clearFields={clearFields}
+            navigation={navigation}
+            totalSubmit={true}
+          />
+        ) : null}
       </View>
     )
   }

@@ -178,6 +178,11 @@ export default class AddIngredient extends React.Component {
                       superIngredientName={this.state.ingredient.name}
                       pushSubIngredient={this.pushSubIngredient}
                       screenWidth={screenWidth}
+                      state={this.state}
+                      recipeId={recipeId}
+                      createIngredient={createIngredient}
+                      clearFields={this.clearFields}
+                      navigation={this.props.navigation}
                     />
                   )
                 )
