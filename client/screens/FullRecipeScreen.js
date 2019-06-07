@@ -38,7 +38,7 @@ export default class FullRecipeScreen extends React.Component {
   }
 
   render() {
-    const { id } = this.props.navigation.getParam('item')
+    const { id, name } = this.props.navigation.state.params.item
     const recipeId = id
     return (
       <KeyboardAwareScrollView
@@ -60,14 +60,13 @@ export default class FullRecipeScreen extends React.Component {
             }
             const { ingredients } = data.findFullRecipe
 
-            return ingredients.length ? (
+            return (
               <IngredientsTable
                 ingredients={ingredients}
                 recipeId={recipeId}
+                name={name}
                 navigation={this.props.navigation}
               />
-            ) : (
-              <AddIngredient recipeId={recipeId} ingredients={ingredients} />
             )
           }}
         </Query>

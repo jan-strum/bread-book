@@ -1,7 +1,7 @@
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { View } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Header from './form/Header'
 import StringFields from './form/StringFields'
@@ -30,6 +30,23 @@ export default class AddIngredient extends React.Component {
       hydrationIndex: null,
       complexityIndex: null,
       complexity: ''
+    }
+  }
+
+  static navigationOptions = ({ navigation }) => {
+    const name = navigation.getParam('name')
+    const backButton = (
+      <TouchableOpacity
+        style={{ marginLeft: 10 }}
+        onPress={() => navigation.navigate('FullRecipeScreen')}
+      >
+        <Text style={{ color: 'gray' }}>&larr; Full Recipe</Text>
+      </TouchableOpacity>
+    )
+
+    return {
+      title: name,
+      headerLeft: backButton
     }
   }
 

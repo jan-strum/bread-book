@@ -1,25 +1,25 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { SingleIngredient } from './SingleIngredient'
-import AddIngredient from './AddIngredient'
 
 export default class IngredientsTable extends React.Component {
   constructor() {
     super()
     this.state = {
-      isEditing: false,
-      isAdding: false
+      isEditing: false
     }
   }
 
   toggleEdit = () => this.setState({ isEditing: !this.state.isEditing })
 
-  toggleAdd = () => this.setState({ isAdding: !this.state.isAdding })
+  navigate = params => {
+    const { navigation } = this.props
+    navigation.navigate('AddIngredient', params)
+  }
 
   render() {
-    const { ingredients, recipeId, navigation } = this.props
-    const { navigate } = navigation
-    return (
+    const { ingredients, recipeId, name } = this.props
+    return ingredients.length ? (
       <View>
         <Text style={styles.tableHeader}>Ingredients:</Text>
         <TouchableOpacity onPress={this.toggleEdit}>
@@ -40,20 +40,20 @@ export default class IngredientsTable extends React.Component {
         </View>
         {this.state.isEditing ? (
           <TouchableOpacity
-            onPress={() => {
-              navigate('AddIngredient', { recipeId, ingredients })
-              this.toggleAdd()
-            }}
+            onPress={() => this.navigate({ recipeId, name, ingredients })}
           >
-            <Text style={[styles.edit, { marginTop: 20 }]}>
-              {!this.state.isAdding ? 'Add ingredient' : 'Cancel / Done'}
-            </Text>
-            {/* {!this.state.isAdding ? null : (
-              <AddIngredient recipeId={recipeId} ingredients={ingredients} />
-            )} */}
+            <Text style={[styles.edit, { marginTop: 20 }]}>Add ingredient</Text>
           </TouchableOpacity>
         ) : null}
       </View>
+    ) : (
+      <TouchableOpacity
+        onPress={() => this.navigate({ recipeId, name, ingredients })}
+      >
+        <Text style={{ marginTop: 40, textAlign: 'center', color: 'gray' }}>
+          Add your first ingredient!
+        </Text>
+      </TouchableOpacity>
     )
   }
 }
