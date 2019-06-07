@@ -103,8 +103,7 @@ export default class AddIngredient extends React.Component {
   }
 
   render() {
-    const { recipeId, superIngredientId, superIngredientName } = this.props
-    // console.log('subs', this.state.ingredient.subIngredients)
+    const { recipeId, ingredients } = this.props
 
     return (
       <Mutation
@@ -116,9 +115,8 @@ export default class AddIngredient extends React.Component {
         {createIngredient => (
           <View style={styles.form}>
             <Header
-              superIngredientName={superIngredientName}
               complexity={this.props.complexity}
-              subIngredientIndex={this.props.subIngredientIndex}
+              ingredients={ingredients}
             />
 
             <StringFields
@@ -129,7 +127,6 @@ export default class AddIngredient extends React.Component {
             <HydrationField
               state={this.state}
               setHydration={this.setHydration}
-              subIngredientIndex={this.props.subIngredientIndex}
             />
 
             {!this.props.complexity ? (
@@ -156,7 +153,6 @@ export default class AddIngredient extends React.Component {
             <Submit
               state={this.state}
               recipeId={recipeId}
-              superIngredientId={superIngredientId}
               createIngredient={createIngredient}
               clearFields={this.clearFields}
             />

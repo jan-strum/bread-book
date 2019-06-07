@@ -2,9 +2,17 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { styles } from '../../styles/form'
 
-const Header = ({ superIngredientName, complexity, subIngredientIndex }) => {
+const Header = ({
+  superIngredientName,
+  complexity,
+  subIngredientIndex,
+  ingredients
+}) => {
+  const headerText = !ingredients.length
+    ? 'Add an ingredient'
+    : 'Add another ingredient'
   return !superIngredientName ? (
-    <Text style={styles.header}>Add an ingredient</Text>
+    <Text style={styles.header}>{headerText}</Text>
   ) : (
     <View
       style={{

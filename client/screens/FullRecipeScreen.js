@@ -58,15 +58,16 @@ export default class FullRecipeScreen extends React.Component {
               return <Text>Error!</Text>
             }
             const { ingredients } = data.findFullRecipe
+            console.log('full recipes screen', ingredients)
 
             return ingredients.length ? (
               <IngredientsTable
-                ingredients={data.findFullRecipe.ingredients}
+                ingredients={ingredients}
                 recipeId={recipeId}
                 navigation={this.props.navigation}
               />
             ) : (
-              <AddIngredient recipeId={recipeId} />
+              <AddIngredient recipeId={recipeId} ingredients={ingredients} />
             )
           }}
         </Query>

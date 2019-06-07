@@ -21,6 +21,7 @@ export default class IngredientsTable extends React.Component {
 
   render() {
     const { ingredients, recipeId } = this.props
+    console.log('table props', this.props)
     return (
       <View>
         <Text style={styles.header}>Ingredients:</Text>
@@ -50,7 +51,7 @@ export default class IngredientsTable extends React.Component {
               {!this.state.isAdding ? 'Add ingredient' : 'Cancel / Done'}
             </Text>
             {!this.state.isAdding ? null : (
-              <AddIngredient recipeId={recipeId} />
+              <AddIngredient recipeId={recipeId} ingredients={ingredients} />
             )}
           </TouchableOpacity>
         ) : null}
