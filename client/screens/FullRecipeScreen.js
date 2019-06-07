@@ -49,6 +49,7 @@ export default class FullRecipeScreen extends React.Component {
           this.scrollView.scrollToEnd({ animated: true })
         }}
         keyboardShouldPersistTaps='handled'
+        contentContainerStyle={{ flexGrow: 1 }}
       >
         <Query query={FIND_FULL_RECIPE} variables={{ id }}>
           {({ data, loading, error }) => {
@@ -58,7 +59,6 @@ export default class FullRecipeScreen extends React.Component {
               return <Text>Error!</Text>
             }
             const { ingredients } = data.findFullRecipe
-            console.log('full recipes screen', ingredients)
 
             return ingredients.length ? (
               <IngredientsTable

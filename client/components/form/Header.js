@@ -12,7 +12,7 @@ const Header = ({
     ? 'Add an ingredient'
     : 'Add another ingredient'
   return !superIngredientName ? (
-    <Text style={styles.header}>{headerText}</Text>
+    <Text style={styles.formHeader}>{headerText}</Text>
   ) : (
     <View
       style={{
@@ -20,10 +20,10 @@ const Header = ({
         justifyContent: 'space-between'
       }}
     >
-      <Text style={styles.header}>
+      <Text style={styles.formHeader}>
         {`Add sub-ingredient for "${superIngredientName}"`}
       </Text>
-      <Text style={[styles.header, { color: '#C8C8C8' }]}>
+      <Text style={[styles.formHeader, { color: '#C8C8C8' }]}>
         {`(${subIngredientIndex + 1}/${complexity})`}
       </Text>
     </View>

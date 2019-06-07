@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react'
 import { View } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Header from './form/Header'
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
@@ -113,6 +114,18 @@ export default class AddIngredient extends React.Component {
         ]}
       >
         {createIngredient => (
+          // <KeyboardAwareScrollView
+          //   ref={ref => {
+          //     this.scrollView = ref
+          //   }}
+          //   onContentSizeChange={() => {
+          //     this.scrollView.scrollToEnd({ animated: true })
+          //   }}
+          //   keyboardShouldPersistTaps='handled'
+          //   contentContainerStyle={{ flexGrow: 1 }}
+          //   horizontal={true}
+          //   pagingEnabled={true}
+          // >
           <View style={styles.form}>
             <Header
               complexity={this.props.complexity}
@@ -141,6 +154,7 @@ export default class AddIngredient extends React.Component {
                   (subIngredient, subIngredientIndex) => (
                     <AddSubIngredient
                       key={subIngredientIndex}
+                      ingredients={ingredients}
                       subIngredientIndex={subIngredientIndex} // get rid of this and just use the key prop, or find a way to generate a static key
                       complexity={this.state.complexity}
                       superIngredientName={this.state.ingredient.name}
@@ -157,6 +171,7 @@ export default class AddIngredient extends React.Component {
               clearFields={this.clearFields}
             />
           </View>
+          // </KeyboardAwareScrollView>
         )}
       </Mutation>
     )

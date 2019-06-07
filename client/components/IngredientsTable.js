@@ -12,19 +12,15 @@ export default class IngredientsTable extends React.Component {
     }
   }
 
-  toggleEdit = () => {
-    this.setState({ isEditing: !this.state.isEditing })
-  }
-  toggleAdd = () => {
-    this.setState({ isAdding: !this.state.isAdding })
-  }
+  toggleEdit = () => this.setState({ isEditing: !this.state.isEditing })
+
+  toggleAdd = () => this.setState({ isAdding: !this.state.isAdding })
 
   render() {
     const { ingredients, recipeId } = this.props
-    console.log('table props', this.props)
     return (
       <View>
-        <Text style={styles.header}>Ingredients:</Text>
+        <Text style={styles.tableHeader}>Ingredients:</Text>
         <TouchableOpacity onPress={this.toggleEdit}>
           <Text style={styles.edit}>
             {!this.state.isEditing ? 'Edit' : 'Done'}
@@ -66,7 +62,7 @@ const styles = StyleSheet.create({
     borderColor: '#bbb',
     borderWidth: StyleSheet.hairlineWidth
   },
-  header: {
+  tableHeader: {
     marginTop: 25,
     marginLeft: 20,
     fontSize: 20

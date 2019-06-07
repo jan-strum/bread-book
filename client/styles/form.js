@@ -1,13 +1,15 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  header: {
+  form: {
+    flex: 1,
+    justifyContent: 'center',
+    marginHorizontal: 20
+  },
+  formHeader: {
     marginTop: 22,
     marginBottom: 8,
     fontSize: 20
-  },
-  form: {
-    marginHorizontal: 20
   },
   field: {
     marginVertical: 5,

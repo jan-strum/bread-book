@@ -59,13 +59,14 @@ export default class AddSubIngredient extends React.Component {
   }
 
   render() {
-    const { superIngredientName } = this.props
+    const { superIngredientName, ingredients } = this.props
 
     return (
       <View style={styles.form}>
         <Header
           superIngredientName={superIngredientName}
           complexity={this.props.complexity}
+          ingredients={ingredients}
           subIngredientIndex={this.props.subIngredientIndex}
         />
 
