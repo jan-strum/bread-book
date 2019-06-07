@@ -60,10 +60,11 @@ export default class AddSubIngredient extends React.Component {
   }
 
   render() {
-    const { superIngredientName, ingredients } = this.props
+    const { superIngredientName, ingredients, screenWidth } = this.props
+    console.log('super name', superIngredientName)
 
     return (
-      <View style={styles.form}>
+      <View style={[styles.form, { width: screenWidth }]}>
         <Header
           ingredients={ingredients}
           superIngredientName={superIngredientName}

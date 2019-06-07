@@ -37,7 +37,7 @@ export default class AddRecipe extends React.Component {
                 <TouchableOpacity onPress={this.addRecipe}>
                   <Text style={styles.add}>
                     {!this.state.newRecipeDropdown
-                      ? 'Add New Recipe'
+                      ? 'Add new recipe'
                       : 'Cancel'}
                   </Text>
                 </TouchableOpacity>

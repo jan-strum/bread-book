@@ -1,14 +1,14 @@
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
+import { View, TouchableOpacity, Text, Dimensions } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Header from './form/Header'
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
 import ComplexityField from './form/ComplexityField'
-import AddSubIngredient from './form/AddSubIngredient'
 import Submit from './form/Submit'
+import AddSubIngredient from './form/AddSubIngredient'
 import { styles } from '../styles/form'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
@@ -122,6 +122,7 @@ export default class AddIngredient extends React.Component {
 
   render() {
     const { recipeId, ingredients } = this.props.navigation.state.params
+    const screenWidth = Dimensions.get('window').width
 
     return (
       <Mutation
@@ -132,18 +133,18 @@ export default class AddIngredient extends React.Component {
       >
         {createIngredient => (
           <KeyboardAwareScrollView
-            ref={ref => {
-              this.scrollView = ref
-            }}
+            // ref={ref => {
+            //   this.scrollView = ref
+            // }}
             // onContentSizeChange={() => {
             //   this.scrollView.scrollToEnd({ animated: true })
             // }}
             keyboardShouldPersistTaps='never'
-            contentContainerStyle={{ flexGrow: 1 }}
-            // horizontal={true}
-            // pagingEnabled={true}
+            // contentContainerStyle={{ flexGrow: 1 }}
+            horizontal={true}
+            pagingEnabled={true}
           >
-            <View style={styles.form}>
+            <View style={[styles.form, { width: screenWidth }]}>
               <Header
                 complexity={this.props.complexity}
                 ingredients={ingredients}
@@ -159,27 +160,10 @@ export default class AddIngredient extends React.Component {
                 setHydration={this.setHydration}
               />
 
-              {!this.props.complexity ? (
-                <ComplexityField
-                  state={this.state}
-                  setComplexity={this.setComplexity}
-                />
-              ) : null}
-
-              {this.state.complexity > 1
-                ? this.state.ingredient.subIngredients.map(
-                    (subIngredient, subIngredientIndex) => (
-                      <AddSubIngredient
-                        key={subIngredientIndex}
-                        ingredients={ingredients}
-                        subIngredientIndex={subIngredientIndex} // get rid of this and just use the key prop, or find a way to generate a static key
-                        complexity={this.state.complexity}
-                        superIngredientName={this.state.ingredient.name}
-                        pushSubIngredient={this.pushSubIngredient}
-                      />
-                    )
-                  )
-                : null}
+              <ComplexityField
+                state={this.state}
+                setComplexity={this.setComplexity}
+              />
 
               <Submit
                 state={this.state}
@@ -189,6 +173,21 @@ export default class AddIngredient extends React.Component {
                 navigation={this.props.navigation}
               />
             </View>
+            {this.state.complexity > 1
+              ? this.state.ingredient.subIngredients.map(
+                  (subIngredient, subIngredientIndex) => (
+                    <AddSubIngredient
+                      key={subIngredientIndex}
+                      ingredients={ingredients}
+                      complexity={this.state.complexity}
+                      subIngredientIndex={subIngredientIndex} // get rid of this and just use the key prop, or find a way to generate a static key
+                      superIngredientName={this.state.ingredient.name}
+                      pushSubIngredient={this.pushSubIngredient}
+                      screenWidth={screenWidth}
+                    />
+                  )
+                )
+              : null}
           </KeyboardAwareScrollView>
         )}
       </Mutation>

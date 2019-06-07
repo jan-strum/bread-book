@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   form: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 20
+    paddingHorizontal: 20
   },
   formHeader: {
     marginTop: 22,
