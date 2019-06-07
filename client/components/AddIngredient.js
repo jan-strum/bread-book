@@ -104,7 +104,7 @@ export default class AddIngredient extends React.Component {
   }
 
   render() {
-    const { recipeId, ingredients } = this.props
+    const { recipeId, ingredients } = this.props.navigation.state.params
 
     return (
       <Mutation

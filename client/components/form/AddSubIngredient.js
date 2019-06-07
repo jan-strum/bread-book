@@ -29,6 +29,7 @@ export default class AddSubIngredient extends React.Component {
 
   updateStringField = (field, text, subIngredientIndex) => {
     const { ingredient } = { ...this.state }
+
     ingredient[field] = text
     this.setState({ ingredient }, () =>
       this.props.pushSubIngredient(subIngredientIndex, ingredient)
@@ -64,9 +65,9 @@ export default class AddSubIngredient extends React.Component {
     return (
       <View style={styles.form}>
         <Header
+          ingredients={ingredients}
           superIngredientName={superIngredientName}
           complexity={this.props.complexity}
-          ingredients={ingredients}
           subIngredientIndex={this.props.subIngredientIndex}
         />
 
@@ -81,13 +82,6 @@ export default class AddSubIngredient extends React.Component {
           setHydration={this.setHydration}
           subIngredientIndex={this.props.subIngredientIndex}
         />
-
-        {!this.props.complexity ? (
-          <ComplexityField
-            state={this.state}
-            setComplexity={this.setComplexity}
-          />
-        ) : null}
       </View>
     )
   }

@@ -17,7 +17,8 @@ export default class IngredientsTable extends React.Component {
   toggleAdd = () => this.setState({ isAdding: !this.state.isAdding })
 
   render() {
-    const { ingredients, recipeId } = this.props
+    const { ingredients, recipeId, navigation } = this.props
+    const { navigate } = navigation
     return (
       <View>
         <Text style={styles.tableHeader}>Ingredients:</Text>
@@ -40,15 +41,16 @@ export default class IngredientsTable extends React.Component {
         {this.state.isEditing ? (
           <TouchableOpacity
             onPress={() => {
+              navigate('AddIngredient', { recipeId, ingredients })
               this.toggleAdd()
             }}
           >
             <Text style={[styles.edit, { marginTop: 20 }]}>
               {!this.state.isAdding ? 'Add ingredient' : 'Cancel / Done'}
             </Text>
-            {!this.state.isAdding ? null : (
+            {/* {!this.state.isAdding ? null : (
               <AddIngredient recipeId={recipeId} ingredients={ingredients} />
-            )}
+            )} */}
           </TouchableOpacity>
         ) : null}
       </View>

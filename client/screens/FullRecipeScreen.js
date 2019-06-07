@@ -1,6 +1,6 @@
 /* eslint-disable complexity */
 import React from 'react'
-import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import IngredientsTable from '../components/IngredientsTable'
