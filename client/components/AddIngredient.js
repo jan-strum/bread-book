@@ -1,7 +1,14 @@
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { View, TouchableOpacity, Text, Dimensions } from 'react-native'
+import {
+  ScrollView,
+  KeyboardAvoidingView,
+  View,
+  TouchableOpacity,
+  Text,
+  Dimensions
+} from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Header from './form/Header'
 import StringFields from './form/StringFields'
@@ -132,13 +139,17 @@ export default class AddIngredient extends React.Component {
         ]}
       >
         {createIngredient => (
-          <KeyboardAwareScrollView
+          <ScrollView
             keyboardShouldPersistTaps='never'
-            contentContainerStyle={{ flexGrow: 1 }}
+            // contentContainerStyle={{ flexGrow: 1 }}
             horizontal={true}
             pagingEnabled={true}
           >
-            <View style={[styles.form, { width: screenWidth }]}>
+            <KeyboardAvoidingView
+              behavior='padding'
+              keyboardVerticalOffset={100}
+              style={[styles.form, { width: screenWidth }]}
+            >
               <Header
                 complexity={this.props.complexity}
                 ingredients={ingredients}
@@ -166,7 +177,7 @@ export default class AddIngredient extends React.Component {
                 clearFields={this.clearFields}
                 navigation={this.props.navigation}
               />
-            </View>
+            </KeyboardAvoidingView>
             {this.state.complexity > 1
               ? this.state.ingredient.subIngredients.map(
                   (subIngredient, subIngredientIndex) => (
@@ -187,7 +198,7 @@ export default class AddIngredient extends React.Component {
                   )
                 )
               : null}
-          </KeyboardAwareScrollView>
+          </ScrollView>
         )}
       </Mutation>
     )

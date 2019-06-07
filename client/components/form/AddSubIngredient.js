@@ -1,7 +1,7 @@
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { View } from 'react-native'
+import { View, KeyboardAvoidingView } from 'react-native'
 import Header from './Header'
 import StringFields from './StringFields'
 import HydrationField from './HydrationField'
@@ -74,7 +74,10 @@ export default class AddSubIngredient extends React.Component {
     } = this.props
 
     return (
-      <View style={[styles.form, { width: screenWidth }]}>
+      <KeyboardAvoidingView
+        behavior='padding'
+        style={[styles.form, { width: screenWidth }]}
+      >
         <Header
           ingredients={ingredients}
           superIngredientName={superIngredientName}
@@ -104,7 +107,7 @@ export default class AddSubIngredient extends React.Component {
             totalSubmit={true}
           />
         ) : null}
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
