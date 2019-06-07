@@ -10,6 +10,12 @@ export default class IngredientsTable extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const { navigation } = this.props
+    const isEditing = navigation.getParam('isEditing')
+    this.setState({ isEditing })
+  }
+
   toggleEdit = () => this.setState({ isEditing: !this.state.isEditing })
 
   navigate = params => {

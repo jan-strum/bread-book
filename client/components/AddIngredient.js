@@ -131,64 +131,65 @@ export default class AddIngredient extends React.Component {
         ]}
       >
         {createIngredient => (
-          // <KeyboardAwareScrollView
-          //   ref={ref => {
-          //     this.scrollView = ref
-          //   }}
-          //   onContentSizeChange={() => {
-          //     this.scrollView.scrollToEnd({ animated: true })
-          //   }}
-          //   keyboardShouldPersistTaps='handled'
-          //   contentContainerStyle={{ flexGrow: 1 }}
-          //   horizontal={true}
-          //   pagingEnabled={true}
-          // >
-          <View style={styles.form}>
-            <Header
-              complexity={this.props.complexity}
-              ingredients={ingredients}
-            />
-
-            <StringFields
-              state={this.state}
-              updateStringField={this.updateStringField}
-            />
-
-            <HydrationField
-              state={this.state}
-              setHydration={this.setHydration}
-            />
-
-            {!this.props.complexity ? (
-              <ComplexityField
-                state={this.state}
-                setComplexity={this.setComplexity}
+          <KeyboardAwareScrollView
+            ref={ref => {
+              this.scrollView = ref
+            }}
+            // onContentSizeChange={() => {
+            //   this.scrollView.scrollToEnd({ animated: true })
+            // }}
+            keyboardShouldPersistTaps='never'
+            contentContainerStyle={{ flexGrow: 1 }}
+            // horizontal={true}
+            // pagingEnabled={true}
+          >
+            <View style={styles.form}>
+              <Header
+                complexity={this.props.complexity}
+                ingredients={ingredients}
               />
-            ) : null}
 
-            {this.state.complexity > 1
-              ? this.state.ingredient.subIngredients.map(
-                  (subIngredient, subIngredientIndex) => (
-                    <AddSubIngredient
-                      key={subIngredientIndex}
-                      ingredients={ingredients}
-                      subIngredientIndex={subIngredientIndex} // get rid of this and just use the key prop, or find a way to generate a static key
-                      complexity={this.state.complexity}
-                      superIngredientName={this.state.ingredient.name}
-                      pushSubIngredient={this.pushSubIngredient}
-                    />
+              <StringFields
+                state={this.state}
+                updateStringField={this.updateStringField}
+              />
+
+              <HydrationField
+                state={this.state}
+                setHydration={this.setHydration}
+              />
+
+              {!this.props.complexity ? (
+                <ComplexityField
+                  state={this.state}
+                  setComplexity={this.setComplexity}
+                />
+              ) : null}
+
+              {this.state.complexity > 1
+                ? this.state.ingredient.subIngredients.map(
+                    (subIngredient, subIngredientIndex) => (
+                      <AddSubIngredient
+                        key={subIngredientIndex}
+                        ingredients={ingredients}
+                        subIngredientIndex={subIngredientIndex} // get rid of this and just use the key prop, or find a way to generate a static key
+                        complexity={this.state.complexity}
+                        superIngredientName={this.state.ingredient.name}
+                        pushSubIngredient={this.pushSubIngredient}
+                      />
+                    )
                   )
-                )
-              : null}
+                : null}
 
-            <Submit
-              state={this.state}
-              recipeId={recipeId}
-              createIngredient={createIngredient}
-              clearFields={this.clearFields}
-            />
-          </View>
-          // </KeyboardAwareScrollView>
+              <Submit
+                state={this.state}
+                recipeId={recipeId}
+                createIngredient={createIngredient}
+                clearFields={this.clearFields}
+                navigation={this.props.navigation}
+              />
+            </View>
+          </KeyboardAwareScrollView>
         )}
       </Mutation>
     )

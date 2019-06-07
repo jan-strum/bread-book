@@ -7,7 +7,6 @@ import IngredientsTable from '../components/IngredientsTable'
 import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter, log } from '../utils'
-import AddIngredient from '../components/AddIngredient'
 
 export default class FullRecipeScreen extends React.Component {
   constructor() {

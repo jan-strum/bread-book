@@ -11,7 +11,7 @@ const Submit = props => {
     isComplex,
     subIngredients
   } = props.state.ingredient
-  const { recipeId, createIngredient, clearFields } = props
+  const { recipeId, createIngredient, clearFields, navigation } = props
 
   return (
     <TouchableOpacity
@@ -20,9 +20,6 @@ const Submit = props => {
           subIngredients.forEach(subIngredient => {
             subIngredient.quantity = Number(subIngredient.quantity)
             subIngredient.hydration = Number(subIngredient.hydration)
-            // console.log('sub zero', subIngredients[0])
-            // console.log('quantity', typeof subIngredients[0].quantity)
-            // console.log('hydration', typeof subIngredients[0].hydration)
           })
         }
         createIngredient({
@@ -37,7 +34,7 @@ const Submit = props => {
           }
         })
         clearFields()
-        // }
+        navigation.navigate('FullRecipeScreen', { isEditing: true })
       }}
       style={styles.submit}
     >
