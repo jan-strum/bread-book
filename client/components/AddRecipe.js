@@ -24,12 +24,13 @@ export default class AddRecipe extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props
     return (
       <Mutation
         mutation={FIND_OR_CREATE_RECIPE}
         refetchQueries={() => [{ query: FIND_ALL_RECIPES }]}
       >
-        {findOrCreateRecipe => {
+        {(findOrCreateRecipe, { data }) => {
           return (
             <View>
               <View>
@@ -54,6 +55,7 @@ export default class AddRecipe extends React.Component {
                           placeholder='Enter the recipe name here...'
                           onChangeText={name => this.setState({ name })}
                           value={this.state.name}
+                          returnKeyType='done'
                         />
                       </View>
                       <View>
@@ -61,6 +63,10 @@ export default class AddRecipe extends React.Component {
                           onPress={() => {
                             findOrCreateRecipe({
                               variables: { name: this.state.name }
+                            }).then(recipe => {
+                              const item = {}
+                              item.item = recipe.data.findOrCreateRecipe
+                              navigation.navigate('FullRecipeScreen', item)
                             })
                             this.setState({
                               name: '',

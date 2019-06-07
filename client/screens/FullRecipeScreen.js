@@ -15,7 +15,8 @@ export default class FullRecipeScreen extends React.Component {
   }
 
   static navigationOptions = ({ navigation }) => {
-    const { name, createdAt } = navigation.getParam('item')
+    let { name, createdAt } = navigation.getParam('item')
+    createdAt = createdAt ? createdAt : new Date()
     const date = (
       <Text style={{ marginRight: 15, color: 'gray' }}>
         {dateFormatter(createdAt)}

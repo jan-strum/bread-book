@@ -14,27 +14,15 @@ import AddRecipe from '../components/AddRecipe'
 import SortRecipes from '../components/SortRecipes'
 
 export default class Recipes extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      // sortDisplay: false,
-      // selectedField: '',
-    }
-  }
-
   static navigationOptions = {
     title: 'Recipes'
   }
 
   keyExtractor = item => item.id
 
-  renderItem = ({ item }) => (
-    <SingleRecipe item={item} navigation={this.props.navigation} />
-  )
-
-  // toggleSortDropdown = () => {
-  //   this.setState({ sortDisplay: !this.state.sortDisplay })
-  // }
+  renderItem = ({ item }) => {
+    return <SingleRecipe item={item} navigation={this.props.navigation} />
+  }
 
   addRecipe = () => {
     this.setState({ newRecipeDropdown: !this.state.newRecipeDropdown })
@@ -51,7 +39,7 @@ export default class Recipes extends React.Component {
           }
           return (
             <View style={styles.container}>
-              <AddRecipe />
+              <AddRecipe navigation={this.props.navigation} />
               <FlatList
                 data={data.findAllRecipes}
                 keyExtractor={this.keyExtractor}
