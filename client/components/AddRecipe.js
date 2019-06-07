@@ -30,7 +30,7 @@ export default class AddRecipe extends React.Component {
         mutation={FIND_OR_CREATE_RECIPE}
         refetchQueries={() => [{ query: FIND_ALL_RECIPES }]}
       >
-        {(findOrCreateRecipe, { data }) => {
+        {findOrCreateRecipe => {
           return (
             <View>
               <View>
@@ -60,14 +60,13 @@ export default class AddRecipe extends React.Component {
                       </View>
                       <View>
                         <TouchableOpacity
-                          onPress={() => {
-                            findOrCreateRecipe({
+                          onPress={async () => {
+                            const { data } = await findOrCreateRecipe({
                               variables: { name: this.state.name }
-                            }).then(recipe => {
-                              const item = {}
-                              item.item = recipe.data.findOrCreateRecipe
-                              navigation.navigate('FullRecipeScreen', item)
                             })
+                            const item = {}
+                            item.item = data.findOrCreateRecipe
+                            navigation.navigate('FullRecipeScreen', item)
                             this.setState({
                               name: '',
                               newRecipeDropdown: !this.state.newRecipeDropdown

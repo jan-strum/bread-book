@@ -1,17 +1,10 @@
 import React from 'react'
-import {
-  View,
-  FlatList,
-  Text,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native'
+import { View, FlatList, Text, StyleSheet } from 'react-native'
 import { Query } from 'react-apollo'
 
 import { FIND_ALL_RECIPES } from '../gql/queries'
 import SingleRecipe from '../components/SingleRecipe'
 import AddRecipe from '../components/AddRecipe'
-import SortRecipes from '../components/SortRecipes'
 
 export default class Recipes extends React.Component {
   static navigationOptions = {
