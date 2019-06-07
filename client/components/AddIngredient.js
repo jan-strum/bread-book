@@ -133,14 +133,8 @@ export default class AddIngredient extends React.Component {
       >
         {createIngredient => (
           <KeyboardAwareScrollView
-            // ref={ref => {
-            //   this.scrollView = ref
-            // }}
-            // onContentSizeChange={() => {
-            //   this.scrollView.scrollToEnd({ animated: true })
-            // }}
             keyboardShouldPersistTaps='never'
-            // contentContainerStyle={{ flexGrow: 1 }}
+            contentContainerStyle={{ flexGrow: 1 }}
             horizontal={true}
             pagingEnabled={true}
           >

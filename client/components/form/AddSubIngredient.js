@@ -5,7 +5,6 @@ import { View } from 'react-native'
 import Header from './Header'
 import StringFields from './StringFields'
 import HydrationField from './HydrationField'
-import ComplexityField from './ComplexityField'
 import { styles } from '../../styles/form'
 
 export default class AddSubIngredient extends React.Component {
@@ -21,9 +20,9 @@ export default class AddSubIngredient extends React.Component {
         // subIngredients: []
       },
       hydrationText: '',
-      hydrationIndex: null,
-      complexityIndex: null,
-      complexity: ''
+      hydrationIndex: null
+      // complexityIndex: null,
+      // complexity: ''
     }
   }
 
@@ -61,7 +60,6 @@ export default class AddSubIngredient extends React.Component {
 
   render() {
     const { superIngredientName, ingredients, screenWidth } = this.props
-    console.log('super name', superIngredientName)
 
     return (
       <View style={[styles.form, { width: screenWidth }]}>

@@ -9,11 +9,6 @@ import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter, log } from '../utils'
 
 export default class FullRecipeScreen extends React.Component {
-  constructor() {
-    super()
-    this.state = { isEditing: false }
-  }
-
   static navigationOptions = ({ navigation }) => {
     let { name, createdAt } = navigation.getParam('item')
     createdAt = createdAt ? createdAt : new Date()

@@ -11,12 +11,15 @@ const Submit = props => {
     isComplex,
     subIngredients
   } = props.state.ingredient
+  const complexity = props.state.complexity
   const { recipeId, createIngredient, clearFields, navigation } = props
 
   return (
     <TouchableOpacity
+      disabled={!!complexity}
       onPress={() => {
-        if (subIngredients.length) {
+        if (complexity) {
+          // subIngredients.length
           subIngredients.forEach(subIngredient => {
             subIngredient.quantity = Number(subIngredient.quantity)
             subIngredient.hydration = Number(subIngredient.hydration)
@@ -38,7 +41,11 @@ const Submit = props => {
       }}
       style={styles.submit}
     >
-      <Text style={{ fontSize: 18, marginBottom: 20 }}>Submit ingredient</Text>
+      {!complexity ? (
+        <Text style={styles.submitText}>Submit ingredient</Text>
+      ) : (
+        <Text style={styles.submitText}>Add sub-ingredients &#8594;</Text>
+      )}
     </TouchableOpacity>
   )
 }

@@ -12,6 +12,7 @@ export default class IngredientsTable extends React.Component {
 
   componentDidMount() {
     const { navigation } = this.props
+
     const isEditing = navigation.getParam('isEditing')
     this.setState({ isEditing })
   }
@@ -54,7 +55,10 @@ export default class IngredientsTable extends React.Component {
       </View>
     ) : (
       <TouchableOpacity
-        onPress={() => this.navigate({ recipeId, name, ingredients })}
+        onPress={() => {
+          this.toggleEdit()
+          this.navigate({ recipeId, name, ingredients })
+        }}
       >
         <Text style={{ marginTop: 40, textAlign: 'center', color: 'gray' }}>
           Add your first ingredient!

@@ -51,5 +51,9 @@ export const styles = StyleSheet.create({
   submit: {
     marginTop: 10,
     alignItems: 'flex-end'
+  },
+  submitText: {
+    fontSize: 18,
+    marginBottom: 20
   }
 })
