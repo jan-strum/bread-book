@@ -24,7 +24,7 @@ export default class AddRecipe extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props
+    const { navigation, message } = this.props
     return (
       <Mutation
         mutation={FIND_OR_CREATE_RECIPE}
@@ -35,10 +35,14 @@ export default class AddRecipe extends React.Component {
             <View>
               <View>
                 <TouchableOpacity onPress={this.addRecipe}>
-                  <Text style={styles.add}>
-                    {!this.state.newRecipeDropdown
-                      ? 'Add new recipe'
-                      : 'Cancel'}
+                  <Text
+                    style={[
+                      styles.add,
+                      message === 'Create your first recipe' &&
+                        styles.createFirst
+                    ]}
+                  >
+                    {!this.state.newRecipeDropdown ? message : 'Cancel'}
                   </Text>
                 </TouchableOpacity>
                 {this.state.newRecipeDropdown ? (
@@ -114,5 +118,10 @@ const styles = StyleSheet.create({
     marginRight: 20,
     fontSize: 13,
     color: 'gray'
+  },
+  createFirst: {
+    marginTop: 40,
+    textAlign: 'center',
+    fontSize: 18
   }
 })

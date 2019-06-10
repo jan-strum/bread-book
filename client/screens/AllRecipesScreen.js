@@ -30,9 +30,12 @@ export default class Recipes extends React.Component {
             console.log('error', error)
             return <Text>Error!</Text>
           }
-          return (
+          return data.findAllRecipes.length ? (
             <View style={styles.container}>
-              <AddRecipe navigation={this.props.navigation} />
+              <AddRecipe
+                navigation={this.props.navigation}
+                message='Add new recipe'
+              />
               <FlatList
                 data={data.findAllRecipes}
                 keyExtractor={this.keyExtractor}
@@ -40,6 +43,11 @@ export default class Recipes extends React.Component {
                 navigation={this.props.navigation}
               />
             </View>
+          ) : (
+            <AddRecipe
+              navigation={this.props.navigation}
+              message='Create your first recipe'
+            />
           )
         }}
       </Query>
