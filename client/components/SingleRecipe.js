@@ -1,20 +1,31 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import Swipeout from 'react-native-swipeout'
 import { dateFormatter } from '../utils'
 
 const SingleRecipe = ({ item, navigation }) => {
   const { navigate } = navigation
   return (
-    <TouchableOpacity
-      id={item.id}
-      style={styles.row}
-      onPress={() => {
-        navigate('FullRecipeScreen', { item })
-      }}
+    <Swipeout
+      right={[
+        {
+          text: 'Delete',
+          backgroundColor: 'lightgray'
+        }
+      ]}
+      autoClose={true}
     >
-      <Text>{item.name}</Text>
-      <Text style={styles.date}>{dateFormatter(item.createdAt)}</Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+        id={item.id}
+        style={styles.row}
+        onPress={() => {
+          navigate('FullRecipeScreen', { item })
+        }}
+      >
+        <Text>{item.name}</Text>
+        <Text style={styles.date}>{dateFormatter(item.createdAt)}</Text>
+      </TouchableOpacity>
+    </Swipeout>
   )
 }
 
@@ -27,7 +38,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'space-between',
     borderBottomColor: '#bbb',
-    borderBottomWidth: StyleSheet.hairlineWidth
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    backgroundColor: 'white'
   },
   date: { fontWeight: '200', fontSize: 12, color: 'gray' }
 })
