@@ -60,8 +60,15 @@ export default class IngredientsTable extends React.Component {
           this.navigate({ recipeId, name, ingredients })
         }}
       >
-        <Text style={{ marginTop: 40, textAlign: 'center', color: 'gray' }}>
-          Add your first ingredient!
+        <Text
+          style={{
+            marginTop: 40,
+            textAlign: 'center',
+            color: 'gray',
+            fontSize: 18
+          }}
+        >
+          Add your first ingredient
         </Text>
       </TouchableOpacity>
     )

@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   },
   createFirst: {
     marginTop: 40,
+    marginRight: 0,
     textAlign: 'center',
     fontSize: 18
   }
