@@ -31,6 +31,7 @@ module.exports = {
       return updatedRecipe
     },
     deleteRecipe: async (_, { id }, { dataSources }) => {
+      console.log('resolvers')
       const recipeToDelete = await dataSources.recipeAPI.deleteRecipe(id)
       return recipeToDelete
     },

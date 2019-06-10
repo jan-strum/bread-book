@@ -9,6 +9,15 @@ export const FIND_OR_CREATE_RECIPE = gql`
   }
 `
 
+export const DELETE_RECIPE = gql`
+  mutation deleteRecipe($id: ID!) {
+    deleteRecipe(id: $id) {
+      id
+      name
+    }
+  }
+`
+
 export const REMOVE_INGREDIENT = gql`
   mutation removeIngredient($ingredientId: ID!, $recipeId: ID!) {
     removeIngredient(ingredientId: $ingredientId, recipeId: $recipeId) {
