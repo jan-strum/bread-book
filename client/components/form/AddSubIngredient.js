@@ -1,7 +1,7 @@
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
-import { View, KeyboardAvoidingView } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native'
 import Header from './Header'
 import StringFields from './StringFields'
 import HydrationField from './HydrationField'

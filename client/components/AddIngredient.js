@@ -4,12 +4,10 @@ import React from 'react'
 import {
   ScrollView,
   KeyboardAvoidingView,
-  View,
   TouchableOpacity,
   Text,
   Dimensions
 } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Header from './form/Header'
 import StringFields from './form/StringFields'
 import HydrationField from './form/HydrationField'
