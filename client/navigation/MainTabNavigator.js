@@ -13,9 +13,11 @@ import FullRecipeScreen from '../screens/FullRecipeScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 import IngredientsTable from '../components/IngredientsTable'
 import AddIngredient from '../components/AddIngredient'
+import NewRecipe from '../components/NewRecipe'
 
 const RecipesStack = createStackNavigator({
   AllRecipesScreen,
+  NewRecipe,
   FullRecipeScreen,
   IngredientsTable,
   AddIngredient

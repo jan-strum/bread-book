@@ -15,92 +15,27 @@ export default class AddRecipe extends React.Component {
     super()
     this.state = {
       newRecipeDropdown: false,
-      name: '',
-      isEditing: false
+      name: ''
     }
   }
 
   addRecipe = () => {
     this.setState({ newRecipeDropdown: !this.state.newRecipeDropdown })
   }
-  toggleEdit = () => {
-    this.setState({ isEditing: !this.state.isEditing })
-  }
 
   render() {
     const { navigation, message } = this.props
     return (
-      <Mutation
-        mutation={FIND_OR_CREATE_RECIPE}
-        refetchQueries={() => [{ query: FIND_ALL_RECIPES }]}
-      >
-        {findOrCreateRecipe => {
-          return (
-            <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-            >
-              <TouchableOpacity onPress={this.addRecipe}>
-                <Text
-                  style={[
-                    styles.add,
-                    message === 'Create your first recipe' && styles.createFirst
-                  ]}
-                >
-                  {!this.state.newRecipeDropdown ? message : 'Cancel'}
-                </Text>
-              </TouchableOpacity>
-              {this.state.newRecipeDropdown ? (
-                <View style={styles.form}>
-                  <Text style={styles.label}>Name:</Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between'
-                    }}
-                  >
-                    <View>
-                      <TextInput
-                        placeholder='Enter the recipe name here...'
-                        onChangeText={name => this.setState({ name })}
-                        value={this.state.name}
-                        returnKeyType='done'
-                      />
-                    </View>
-                    <View>
-                      <TouchableOpacity
-                        onPress={async () => {
-                          const { data } = await findOrCreateRecipe({
-                            variables: { name: this.state.name }
-                          })
-                          const item = {}
-                          item.item = data.findOrCreateRecipe
-                          navigation.navigate('FullRecipeScreen', item)
-                          this.setState({
-                            name: '',
-                            newRecipeDropdown: !this.state.newRecipeDropdown
-                          })
-                        }}
-                        color='black'
-                      >
-                        <Text
-                          style={{
-                            color: this.state.name ? 'black' : '#C7C7CD'
-                          }}
-                        >
-                          Submit
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View>
-              ) : null}
-              <TouchableOpacity onPress={this.toggleEdit}>
-                <Text style={styles.edit}>Edit / delete a recipe</Text>
-              </TouchableOpacity>
-            </View>
-          )
-        }}
-      </Mutation>
+      <TouchableOpacity onPress={() => navigation.navigate('NewRecipe')}>
+        <Text
+          style={[
+            styles.add,
+            message === 'Create your first recipe' && styles.createFirst
+          ]}
+        >
+          {!this.state.newRecipeDropdown ? message : 'Cancel'}
+        </Text>
+      </TouchableOpacity>
     )
   }
 }
@@ -115,21 +50,13 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontWeight: '400',
-    paddingVertical: 10
+    paddingBottom: 10
   },
   add: {
-    textAlign: 'left',
-    marginTop: 20,
-    marginBottom: 20,
-    marginLeft: 20,
-    fontSize: 13,
-    color: 'gray'
-  },
-  edit: {
     textAlign: 'right',
     marginTop: 20,
-    marginRight: 20,
     marginBottom: 20,
+    marginRight: 20,
     fontSize: 13,
     color: 'gray'
   },

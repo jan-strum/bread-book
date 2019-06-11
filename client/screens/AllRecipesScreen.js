@@ -5,6 +5,7 @@ import { Query } from 'react-apollo'
 import { FIND_ALL_RECIPES } from '../gql/queries'
 import SingleRecipe from '../components/SingleRecipe'
 import AddRecipe from '../components/AddRecipe'
+import AllRecipesHeader from '../components/AllRecipesHeader'
 
 export default class Recipes extends React.Component {
   static navigationOptions = {
@@ -15,10 +16,6 @@ export default class Recipes extends React.Component {
 
   renderItem = ({ item }) => {
     return <SingleRecipe item={item} navigation={this.props.navigation} />
-  }
-
-  addRecipe = () => {
-    this.setState({ newRecipeDropdown: !this.state.newRecipeDropdown })
   }
 
   render() {
@@ -32,7 +29,7 @@ export default class Recipes extends React.Component {
           }
           return data.findAllRecipes.length ? (
             <View style={styles.container}>
-              <AddRecipe
+              <AllRecipesHeader
                 navigation={this.props.navigation}
                 message='Add new recipe'
               />
