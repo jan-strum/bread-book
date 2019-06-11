@@ -51,6 +51,9 @@ export default class NewRecipe extends React.Component {
                   onChangeText={name => this.setState({ name })}
                   value={this.state.name}
                   returnKeyType='done'
+                  style={styles.input}
+                  multiline={true}
+                  blurOnSubmit={true}
                 />
               </View>
               <TouchableOpacity
@@ -71,7 +74,8 @@ export default class NewRecipe extends React.Component {
                 <Text
                   style={{
                     color: this.state.name ? 'black' : '#C7C7CD',
-                    textAlign: 'right'
+                    textAlign: 'right',
+                    fontSize: 18
                   }}
                 >
                   Submit
@@ -89,14 +93,18 @@ const styles = StyleSheet.create({
   form: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20
+    paddingHorizontal: 30
   },
   field: {
-    flexDirection: 'row',
     marginBottom: 10
   },
   label: {
-    fontWeight: '400',
-    marginRight: 20
+    marginBottom: 20,
+    fontSize: 30,
+    fontWeight: '400'
+  },
+  input: {
+    marginBottom: 20,
+    fontSize: 18
   }
 })

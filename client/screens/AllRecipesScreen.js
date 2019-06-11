@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, Text, StyleSheet } from 'react-native'
+import { View, Text } from 'react-native'
 import { Query } from 'react-apollo'
 
 import { FIND_ALL_RECIPES } from '../gql/queries'
@@ -36,7 +36,7 @@ export default class Recipes extends React.Component {
             recipe.isEditing = this.state.isEditing
           })
           return data.findAllRecipes.length ? (
-            <View style={styles.container}>
+            <View style={{ flex: 1 }}>
               <AllRecipesHeader
                 isEditing={this.state.isEditing}
                 toggleEdit={this.toggleEdit}
@@ -62,9 +62,3 @@ export default class Recipes extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-})
