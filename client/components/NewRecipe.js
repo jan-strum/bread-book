@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   label: {
-    // fontSize: 18,
     fontWeight: '400',
     marginRight: 20
   }

@@ -1,22 +1,11 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import AddRecipe from '../components/AddRecipe'
 import EditRecipe from '../components/EditRecipe'
 
 export default class AllRecipesHeader extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      isEditing: false
-    }
-  }
-
-  toggleEdit = () => {
-    this.setState({ isEditing: !this.state.isEditing })
-  }
-
   render() {
-    const { navigation, message } = this.props
+    const { navigation, message, isEditing, toggleEdit } = this.props
     return (
       <View
         style={{
@@ -24,7 +13,7 @@ export default class AllRecipesHeader extends React.Component {
           justifyContent: 'space-between'
         }}
       >
-        <EditRecipe isEditing={this.state.isEditing} />
+        <EditRecipe isEditing={isEditing} toggleEdit={toggleEdit} />
         <AddRecipe navigation={navigation} message={message} />
       </View>
     )

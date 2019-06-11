@@ -1,17 +1,11 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet
-} from 'react-native'
+import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 export default class EditRecipe extends React.Component {
   render() {
-    const { isEditing } = this.props
+    const { isEditing, toggleEdit } = this.props
     return (
-      <TouchableOpacity onPress={this.toggleEdit}>
+      <TouchableOpacity onPress={() => toggleEdit()}>
         <Text style={styles.edit}>
           {!isEditing ? 'Edit / delete a recipe' : 'Cancel'}
         </Text>

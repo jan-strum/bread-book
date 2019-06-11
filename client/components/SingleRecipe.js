@@ -48,6 +48,7 @@ export default class SingleRecipe extends React.Component {
               }
             ]}
             close={this.state.isClosed}
+            disabled={!item.isEditing}
           >
             <TouchableOpacity
               id={item.id}
