@@ -14,6 +14,19 @@ export default class SingleRecipe extends React.Component {
     }
   }
 
+  deletionAlert = (deleteRecipe, item) => {
+    Alert.alert('Are you sure you want to delete this recipe?', '', [
+      {
+        text: 'Yes',
+        onPress: () => deleteRecipe({ variables: { id: item.id } })
+      },
+      {
+        text: 'No',
+        onPress: () => this.setState({ isClosed: true })
+      }
+    ])
+  }
+
   render() {
     const { item, navigation } = this.props
     const { navigate } = navigation
@@ -29,21 +42,7 @@ export default class SingleRecipe extends React.Component {
                 text: 'Delete',
                 backgroundColor: 'lightgray',
                 onPress: () => {
-                  Alert.alert(
-                    'Are you sure you want to delete this recipe?',
-                    '',
-                    [
-                      {
-                        text: 'Yes',
-                        onPress: () =>
-                          deleteRecipe({ variables: { id: item.id } })
-                      },
-                      {
-                        text: 'No',
-                        onPress: () => this.setState({ isClosed: true })
-                      }
-                    ]
-                  )
+                  this.deletionAlert(deleteRecipe, item)
                 }
               }
             ]}
