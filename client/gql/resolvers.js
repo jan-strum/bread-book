@@ -1,4 +1,4 @@
-import { FIND_ALL_RECIPES } from './gql/queries'
+import { FIND_ALL_RECIPES } from './queries'
 
 export const resolvers = {
   Ingredient: {
