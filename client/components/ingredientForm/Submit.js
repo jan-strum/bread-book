@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { styles } from '../../styles/form'
+import { styles } from '../../styles/ingredientForm'
 
 const Submit = props => {
   const {
