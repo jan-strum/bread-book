@@ -2,8 +2,8 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Swipeout from 'react-native-swipeout'
 import { Mutation } from 'react-apollo'
-import { REMOVE_INGREDIENT } from '../gql/mutations'
-import { FIND_FULL_RECIPE } from '../gql/queries'
+import { REMOVE_INGREDIENT } from '../../gql/mutations'
+import { FIND_FULL_RECIPE } from '../../gql/queries'
 import SuperIngredient from './SuperIngredient'
 const shortid = require('shortid')
 

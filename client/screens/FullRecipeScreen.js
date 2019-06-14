@@ -3,7 +3,7 @@ import React from 'react'
 import { TouchableOpacity, Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import IngredientsTable from '../components/IngredientsTable'
+import IngredientsTable from '../components/ingredients/IngredientsTable'
 import { Query } from 'react-apollo'
 import { FIND_FULL_RECIPE } from '../gql/queries'
 import { dateFormatter, log } from '../utils'

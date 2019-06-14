@@ -6,14 +6,16 @@ import {
   createBottomTabNavigator
 } from 'react-navigation'
 
+import SettingsScreen from '../screens/SettingsScreen'
 import TabBarIcon from '../components/TabBarIcon'
+
 import AllIngredientsScreen from '../screens/AllIngredientsScreen'
+import IngredientsTable from '../components/ingredients/IngredientsTable'
+import AddIngredient from '../components/ingredients/ingredientForm/AddIngredient'
+
 import AllRecipesScreen from '../screens/AllRecipesScreen'
 import FullRecipeScreen from '../screens/FullRecipeScreen'
-import SettingsScreen from '../screens/SettingsScreen'
-import IngredientsTable from '../components/IngredientsTable'
-import AddIngredient from '../components/AddIngredient'
-import NewRecipe from '../components/NewRecipe'
+import NewRecipe from '../components/recipes/NewRecipe'
 
 const RecipesStack = createStackNavigator({
   AllRecipesScreen,

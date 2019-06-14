@@ -8,16 +8,16 @@ import {
   Text,
   Dimensions
 } from 'react-native'
-import Header from './ingredientForm/Header'
-import StringFields from './ingredientForm/StringFields'
-import HydrationField from './ingredientForm/HydrationField'
-import ComplexityField from './ingredientForm/ComplexityField'
-import Submit from './ingredientForm/Submit'
-import AddSubIngredient from './ingredientForm/AddSubIngredient'
-import { styles } from '../styles/ingredientForm'
+import Header from './Header'
+import StringFields from './StringFields'
+import HydrationField from './HydrationField'
+import ComplexityField from './ComplexityField'
+import Submit from './Submit'
+import AddSubIngredient from './AddSubIngredient'
+import { styles } from '../../../styles/ingredientForm'
 import { Mutation } from 'react-apollo'
-import { CREATE_INGREDIENT } from '../gql/mutations'
-import { FIND_FULL_RECIPE } from '../gql/queries'
+import { CREATE_INGREDIENT } from '../../../gql/mutations'
+import { FIND_FULL_RECIPE } from '../../../gql/queries'
 
 export default class AddIngredient extends React.Component {
   constructor() {

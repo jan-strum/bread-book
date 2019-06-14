@@ -3,9 +3,9 @@ import { View, Text } from 'react-native'
 import { Query } from 'react-apollo'
 
 import { FIND_ALL_RECIPES } from '../gql/queries'
-import SingleRecipe from '../components/SingleRecipe'
-import AddRecipe from '../components/AddRecipe'
-import AllRecipesHeader from '../components/AllRecipesHeader'
+import SingleRecipe from '../components/recipes/SingleRecipe'
+import AddRecipe from '../components/recipes/AddRecipe'
+import AllRecipesHeader from '../components/recipes/AllRecipesHeader'
 
 export default class Recipes extends React.Component {
   constructor() {

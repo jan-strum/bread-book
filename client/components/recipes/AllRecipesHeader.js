@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
-import AddRecipe from '../components/AddRecipe'
-import EditRecipe from '../components/EditRecipe'
+import AddRecipe from './AddRecipe'
+import EditRecipe from './EditRecipe'
 
 export default class AllRecipesHeader extends React.Component {
   render() {

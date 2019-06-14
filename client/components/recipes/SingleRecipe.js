@@ -2,9 +2,9 @@ import React from 'react'
 import { TouchableOpacity, Text, Alert, StyleSheet } from 'react-native'
 import Swipeout from 'react-native-swipeout'
 import { Mutation } from 'react-apollo'
-import { dateFormatter } from '../utils'
-import { FIND_ALL_RECIPES } from '../gql/queries'
-import { DELETE_RECIPE } from '../gql/mutations'
+import { dateFormatter } from '../../utils'
+import { FIND_ALL_RECIPES } from '../../gql/queries'
+import { DELETE_RECIPE } from '../../gql/mutations'
 
 export default class SingleRecipe extends React.Component {
   constructor() {
