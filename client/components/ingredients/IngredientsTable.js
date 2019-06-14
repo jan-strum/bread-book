@@ -21,7 +21,7 @@ export default class IngredientsTable extends React.Component {
 
   navigate = params => {
     const { navigation } = this.props
-    navigation.navigate('AddIngredient', params)
+    navigation.navigate('NewIngredientScreen', params)
   }
 
   render() {

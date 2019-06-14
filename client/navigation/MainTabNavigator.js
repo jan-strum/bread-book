@@ -9,20 +9,17 @@ import {
 import SettingsScreen from '../screens/SettingsScreen'
 import TabBarIcon from '../components/TabBarIcon'
 
-import AllIngredientsScreen from '../screens/AllIngredientsScreen'
-import IngredientsTable from '../components/ingredients/IngredientsTable'
-import AddIngredient from '../components/ingredients/ingredientForm/AddIngredient'
+import NewIngredientScreen from '../screens/NewIngredientScreen'
 
 import AllRecipesScreen from '../screens/AllRecipesScreen'
 import FullRecipeScreen from '../screens/FullRecipeScreen'
-import NewRecipe from '../components/recipes/NewRecipe'
+import NewRecipeScreen from '../screens/NewRecipeScreen'
 
 const RecipesStack = createStackNavigator({
   AllRecipesScreen,
-  NewRecipe,
   FullRecipeScreen,
-  IngredientsTable,
-  AddIngredient
+  NewRecipeScreen,
+  NewIngredientScreen
 })
 RecipesStack.navigationOptions = {
   tabBarLabel: 'Recipes',
@@ -30,24 +27,6 @@ RecipesStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  )
-}
-
-const IngredientsStack = createStackNavigator({
-  AllIngredientsScreen,
-  AddIngredient
-})
-IngredientsStack.navigationOptions = {
-  tabBarLabel: 'Ingredients',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
     />
   )
 }
@@ -68,6 +47,5 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   RecipesStack,
-  IngredientsStack,
   SettingsStack
 })

@@ -5,7 +5,7 @@ export default class AddRecipe extends React.Component {
   render() {
     const { navigation, message } = this.props
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('NewRecipe')}>
+      <TouchableOpacity onPress={() => navigation.navigate('NewRecipeScreen')}>
         <Text
           style={[
             styles.add,

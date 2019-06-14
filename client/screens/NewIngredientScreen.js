@@ -8,18 +8,18 @@ import {
   Text,
   Dimensions
 } from 'react-native'
-import Header from './Header'
-import StringFields from './StringFields'
-import HydrationField from './HydrationField'
-import ComplexityField from './ComplexityField'
-import Submit from './Submit'
-import AddSubIngredient from './AddSubIngredient'
-import { styles } from '../../../styles/ingredientForm'
+import Header from '../components/ingredients/ingredientForm/Header'
+import StringFields from '../components/ingredients/ingredientForm/StringFields'
+import HydrationField from '../components/ingredients/ingredientForm/HydrationField'
+import ComplexityField from '../components/ingredients/ingredientForm/ComplexityField'
+import Submit from '../components/ingredients/ingredientForm/Submit'
+import AddSubIngredient from '../components/ingredients/ingredientForm/AddSubIngredient'
+import { styles } from '../styles/ingredientForm'
 import { Mutation } from 'react-apollo'
-import { CREATE_INGREDIENT } from '../../../gql/mutations'
-import { FIND_FULL_RECIPE } from '../../../gql/queries'
+import { CREATE_INGREDIENT } from '../gql/mutations'
+import { FIND_FULL_RECIPE } from '../gql/queries'
 
-export default class AddIngredient extends React.Component {
+export default class NewIngredientScreen extends React.Component {
   constructor() {
     super()
     this.state = {
