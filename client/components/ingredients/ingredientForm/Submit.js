@@ -1,3 +1,4 @@
+/* eslint-disable nonblock-statement-body-position */
 /* eslint-disable complexity */
 import React from 'react'
 import { View, Text, TouchableOpacity, Alert } from 'react-native'
@@ -20,6 +21,19 @@ const Submit = props => {
     navigation,
     totalSubmit
   } = props
+  let alertPresent = false
+
+  const decimalCheck = () => {
+    const decimals = quantity.split('.')[1]
+    const decimalsLength = decimals ? decimals.length : 0
+    if (decimalsLength > 2)
+      Alert.alert(
+        'Please note that quantities are rounded to the nearest hundreth.',
+        '',
+        [{ text: 'OK' }]
+      )
+  }
+
   let emptyFields = ''
   let isValid = false
 
@@ -46,24 +60,9 @@ const Submit = props => {
   return !complexity || totalSubmit ? (
     <TouchableOpacity
       onPress={() => {
-        // let emptyFields = ''
-        // const nameMessage = 'You must give this ingredient a name.'
-        // const hydrationMessagge =
-        //   "If you specify this ingredient's hydration, you must also specify its quantity."
-
-        // if (!name) {
-        //   emptyFields += nameMessage
-        //   if (hydration !== null && !quantity) {
-        //     emptyFields += `\n${hydrationMessagge}`
-        //   }
-        // } else if (name && hydration !== null && !quantity) {
-        //   emptyFields += hydrationMessagge
-        // }
-        // if (emptyFields) {
-        //   console.log('hit')
+        decimalCheck()
         validationCheck()
         if (!isValid) return undefined
-        // }
 
         if (complexity) {
           subIngredients.forEach(subIngredient => {
