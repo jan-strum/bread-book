@@ -28,10 +28,11 @@ const Submit = props => {
         const nameMessage = 'You must give this ingredient a name.'
         const hydrationMessagge =
           "If you specify this ingredient's hydration, you must also specify its quantity."
-
+        console.log('hydration', hydration)
         if (!name) emptyFields += nameMessage
-        if (name && (hydration && !quantity)) emptyFields += hydrationMessagge
-        if (!name && (hydration && !quantity))
+        if (name && hydration !== null && !quantity)
+          emptyFields += hydrationMessagge
+        if (!name && hydration !== null && !quantity)
           emptyFields += `\n${hydrationMessagge}`
         if (emptyFields) {
           Alert.alert('Missing information:', emptyFields, [{ text: 'OK' }])
