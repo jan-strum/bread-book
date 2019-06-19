@@ -15,15 +15,36 @@ module.exports.createStore = () => {
   })
 
   const recipes = db.define('recipe', {
-    name: Sequelize.STRING
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: { notEmpty: true }
+    }
   })
 
   const ingredients = db.define('ingredient', {
-    name: Sequelize.STRING,
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: { notEmpty: true }
+    },
     description: Sequelize.TEXT,
-    hydration: { type: Sequelize.DECIMAL(10, 2) },
+    hydration: {
+      type: Sequelize.DECIMAL(10, 2),
+      defaultValue: null
+    },
     quantity: Sequelize.DECIMAL(10, 2),
-    isComplex: { type: Sequelize.BOOLEAN, defaultValue: false }
+    isComplex: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    }
+  })
+
+  ingredients.beforeValidate(ingredient => {
+    if (ingredient.hydration && !ingredient.quantity) {
+      const error = Error('Ingredients with hydrations must have a quantity.')
+      throw error
+    }
   })
 
   ingredients.belongsToMany(recipes, { through: 'recipes_ingredients' })

@@ -1,5 +1,6 @@
+/* eslint-disable complexity */
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Alert } from 'react-native'
 import { styles } from '../../../styles/ingredientForm'
 
 const Submit = props => {
@@ -11,7 +12,7 @@ const Submit = props => {
     isComplex,
     subIngredients
   } = props.state.ingredient
-  const complexity = props.state.complexity
+  const { complexity } = props.state
   const {
     recipeId,
     createIngredient,
@@ -23,6 +24,19 @@ const Submit = props => {
   return !complexity || totalSubmit ? (
     <TouchableOpacity
       onPress={() => {
+        let emptyFields = ''
+        const nameMessage = 'You must give this ingredient a name.'
+        const hydrationMessagge =
+          "If you specify this ingredient's hydration, you must also specify its quantity."
+
+        if (!name) emptyFields += nameMessage
+        if (name && (hydration && !quantity)) emptyFields += hydrationMessagge
+        if (!name && (hydration && !quantity))
+          emptyFields += `\n${hydrationMessagge}`
+        if (emptyFields) {
+          Alert.alert('Missing information:', emptyFields, [{ text: 'OK' }])
+          return undefined
+        }
         if (complexity) {
           subIngredients.forEach(subIngredient => {
             subIngredient.quantity = Number(subIngredient.quantity)
