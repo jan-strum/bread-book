@@ -45,7 +45,7 @@ export default class NewIngredientScreen extends React.Component {
         style={{ marginLeft: 10 }}
         onPress={() => navigation.navigate('FullRecipeScreen')}
       >
-        <Text style={{ color: 'gray' }}>&larr; Full Recipe</Text>
+        <Text style={{ color: 'gray' }}>&larr; Full recipe</Text>
       </TouchableOpacity>
     )
 

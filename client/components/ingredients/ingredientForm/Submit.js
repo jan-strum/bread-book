@@ -20,27 +20,50 @@ const Submit = props => {
     navigation,
     totalSubmit
   } = props
+  let emptyFields = ''
+  let isValid = false
+
+  const validationCheck = () => {
+    const nameMessage = 'You must give this ingredient a name.'
+    const hydrationMessagge =
+      "If you specify this ingredient's hydration, you must also specify its quantity."
+
+    if (!name) {
+      emptyFields += nameMessage
+      if (hydration !== null && !quantity) {
+        emptyFields += `\n${hydrationMessagge}`
+      }
+    } else if (name && hydration !== null && !quantity) {
+      emptyFields += hydrationMessagge
+    }
+    if (emptyFields) {
+      Alert.alert('Missing information:', emptyFields, [{ text: 'OK' }])
+    } else {
+      isValid = true
+    }
+  }
 
   return !complexity || totalSubmit ? (
     <TouchableOpacity
       onPress={() => {
-        let emptyFields = ''
-        const nameMessage = 'You must give this ingredient a name.'
-        const hydrationMessagge =
-          "If you specify this ingredient's hydration, you must also specify its quantity."
+        // let emptyFields = ''
+        // const nameMessage = 'You must give this ingredient a name.'
+        // const hydrationMessagge =
+        //   "If you specify this ingredient's hydration, you must also specify its quantity."
 
-        if (!name) {
-          emptyFields += nameMessage
-          if (hydration !== null && !quantity) {
-            emptyFields += `\n${hydrationMessagge}`
-          }
-        } else if (name && hydration !== null && !quantity) {
-          emptyFields += hydrationMessagge
-        }
-        if (emptyFields) {
-          Alert.alert('Missing information:', emptyFields, [{ text: 'OK' }])
-          return undefined
-        }
+        // if (!name) {
+        //   emptyFields += nameMessage
+        //   if (hydration !== null && !quantity) {
+        //     emptyFields += `\n${hydrationMessagge}`
+        //   }
+        // } else if (name && hydration !== null && !quantity) {
+        //   emptyFields += hydrationMessagge
+        // }
+        // if (emptyFields) {
+        //   console.log('hit')
+        validationCheck()
+        if (!isValid) return undefined
+        // }
 
         if (complexity) {
           subIngredients.forEach(subIngredient => {
