@@ -13,7 +13,7 @@ const Submit = props => {
     isComplex,
     subIngredients
   } = props.state.ingredient
-  const { complexity, isValid } = props.state
+  const { complexity, isValid, alertPresent } = props.state
   const {
     recipeId,
     createIngredient,
@@ -28,13 +28,10 @@ const Submit = props => {
   return !complexity || totalSubmit ? (
     <TouchableOpacity
       onPress={() => {
-        checkDecimals()
         validateFields()
         alertValidations()
 
-        if (!isValid) {
-          return undefined
-        }
+        if (!isValid) return undefined
 
         if (complexity) {
           subIngredients.forEach(subIngredient => {

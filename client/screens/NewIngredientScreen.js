@@ -118,28 +118,6 @@ export default class NewIngredientScreen extends React.Component {
     ingredient.subIngredients = updatedSubIngredients
     this.setState({ ingredient })
   }
-  checkDecimals = () => {
-    const { quantity } = this.state.ingredient
-    const { decimalsChecked } = this.state
-    const decimals = quantity.split('.')[1] // do this for hydration, and a forEach for subIngredients (if .length)
-    const decimalsLength = decimals ? decimals.length : 0
-
-    if (decimalsLength > 2 && !decimalsChecked) {
-      Alert.alert(
-        'Please note that quantities are rounded to the nearest hundreth.',
-        '',
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              this.setState({ decimalsChecked: true })
-              this.validateFields()
-            }
-          }
-        ]
-      )
-    }
-  }
   validateFields = () => {
     const { name, hydration, quantity } = this.state.ingredient
     let emptyFields = ''
@@ -218,7 +196,6 @@ export default class NewIngredientScreen extends React.Component {
               <HydrationField
                 state={this.state}
                 setHydration={this.setHydration}
-                // validateFields={this.validateFields}
               />
 
               <ComplexityField
@@ -230,7 +207,6 @@ export default class NewIngredientScreen extends React.Component {
                 state={this.state}
                 recipeId={recipeId}
                 createIngredient={createIngredient}
-                checkDecimals={this.checkDecimals}
                 validateFields={this.validateFields}
                 alertValidations={this.alertValidations}
                 clearFields={this.clearFields}
@@ -251,7 +227,6 @@ export default class NewIngredientScreen extends React.Component {
                       state={this.state}
                       recipeId={recipeId}
                       createIngredient={createIngredient}
-                      checkDecimals={this.checkDecimals}
                       validateFields={this.validateFields}
                       alertValidations={this.alertValidations}
                       clearFields={this.clearFields}
