@@ -23,9 +23,11 @@ export default class StringFields extends React.Component {
               <Text style={[styles.label, styles.text]}>{field + ':'}</Text>
               <TextInput
                 style={styles.text}
-                placeholder={`Enter the ${field
-                  .split(' ')[0]
-                  .toLowerCase()} here...`}
+                placeholder={
+                  field !== 'Amount (g)'
+                    ? `Enter the ${field.split(' ')[0].toLowerCase()} here`
+                    : '(Decimals are rounded to the nearest hundreth.)'
+                }
                 keyboardType={field === 'Amount (g)' ? 'numeric' : 'default'}
                 value={String(state.ingredient[stateField])}
                 returnKeyType={index !== 2 ? 'next' : 'done'}
