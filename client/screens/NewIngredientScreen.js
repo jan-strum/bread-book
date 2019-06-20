@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable nonblock-statement-body-position */
 /* eslint-disable react/no-unused-state */
 import React from 'react'
@@ -6,6 +7,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Text,
+  Alert,
   Dimensions
 } from 'react-native'
 import Header from '../components/ingredients/ingredientForm/Header'
@@ -34,7 +36,10 @@ export default class NewIngredientScreen extends React.Component {
       hydrationText: '',
       hydrationIndex: null,
       complexityIndex: null,
-      complexity: ''
+      complexity: '',
+      decimalsChecked: false,
+      emptyFields: '',
+      isValid: false
     }
   }
 
@@ -59,6 +64,8 @@ export default class NewIngredientScreen extends React.Component {
     const { ingredient } = { ...this.state }
     ingredient[field] = text
     this.setState({ ingredient })
+
+    this.validateFields()
   }
   setHydration = input => {
     const { ingredient } = { ...this.state }
@@ -76,6 +83,8 @@ export default class NewIngredientScreen extends React.Component {
         hydrationText: input
       })
     }
+
+    this.validateFields()
   }
   setComplexity = (complexityIndex, complexity) => {
     const { ingredient } = { ...this.state }
@@ -108,6 +117,54 @@ export default class NewIngredientScreen extends React.Component {
 
     ingredient.subIngredients = updatedSubIngredients
     this.setState({ ingredient })
+  }
+  checkDecimals = () => {
+    const { quantity } = this.state.ingredient
+    const { decimalsChecked } = this.state
+    const decimals = quantity.split('.')[1] // do this for hydration, and a forEach for subIngredients (if .length)
+    const decimalsLength = decimals ? decimals.length : 0
+
+    if (decimalsLength > 2 && !decimalsChecked) {
+      Alert.alert(
+        'Please note that quantities are rounded to the nearest hundreth.',
+        '',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              this.setState({ decimalsChecked: true })
+              this.validateFields()
+            }
+          }
+        ]
+      )
+    }
+  }
+  validateFields = () => {
+    const { name, hydration, quantity } = this.state.ingredient
+    let emptyFields = ''
+    const nameMessage = 'You must give this ingredient a name.'
+    const hydrationMessagge =
+      "If you specify this ingredient's hydration, you must also specify its quantity."
+
+    if (!name) {
+      emptyFields += nameMessage
+      if (hydration !== null && !quantity) {
+        emptyFields += `\n${hydrationMessagge}`
+      }
+    } else if (name && hydration !== null && !quantity) {
+      emptyFields += hydrationMessagge
+    }
+    this.setState({ emptyFields })
+    if (!emptyFields) {
+      this.setState({ isValid: true })
+    }
+  }
+  alertValidations = () => {
+    const { emptyFields } = this.state
+    if (emptyFields) {
+      Alert.alert('Missing information:', emptyFields, [{ text: 'OK' }])
+    }
   }
   clearFields = () => {
     const { ingredient } = { ...this.state }
@@ -161,6 +218,7 @@ export default class NewIngredientScreen extends React.Component {
               <HydrationField
                 state={this.state}
                 setHydration={this.setHydration}
+                // validateFields={this.validateFields}
               />
 
               <ComplexityField
@@ -172,6 +230,9 @@ export default class NewIngredientScreen extends React.Component {
                 state={this.state}
                 recipeId={recipeId}
                 createIngredient={createIngredient}
+                checkDecimals={this.checkDecimals}
+                validateFields={this.validateFields}
+                alertValidations={this.alertValidations}
                 clearFields={this.clearFields}
                 navigation={this.props.navigation}
               />
@@ -190,6 +251,9 @@ export default class NewIngredientScreen extends React.Component {
                       state={this.state}
                       recipeId={recipeId}
                       createIngredient={createIngredient}
+                      checkDecimals={this.checkDecimals}
+                      validateFields={this.validateFields}
+                      alertValidations={this.alertValidations}
                       clearFields={this.clearFields}
                       navigation={this.props.navigation}
                     />

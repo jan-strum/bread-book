@@ -68,6 +68,7 @@ export default class AddSubIngredient extends React.Component {
       state,
       recipeId,
       createIngredient,
+      checkDecimals,
       clearFields,
       navigation,
       screenWidth
@@ -102,6 +103,7 @@ export default class AddSubIngredient extends React.Component {
             state={state}
             recipeId={recipeId}
             createIngredient={createIngredient}
+            checkDecimals={checkDecimals}
             clearFields={clearFields}
             navigation={navigation}
             totalSubmit={true}
