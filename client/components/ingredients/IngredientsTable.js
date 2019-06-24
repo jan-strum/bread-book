@@ -6,7 +6,8 @@ export default class IngredientsTable extends React.Component {
   constructor() {
     super()
     this.state = {
-      isEditing: false
+      isEditing: false,
+      isDisplayed: false
     }
   }
 
@@ -19,6 +20,8 @@ export default class IngredientsTable extends React.Component {
 
   toggleEdit = () => this.setState({ isEditing: !this.state.isEditing })
 
+  toggleDetails = () => this.setState({ isDisplayed: !this.state.isDisplayed })
+
   navigate = params => {
     const { navigation } = this.props
     navigation.navigate('NewIngredientScreen', params)
@@ -27,7 +30,7 @@ export default class IngredientsTable extends React.Component {
   render() {
     const { ingredients, recipeId, name } = this.props
     return ingredients.length ? (
-      <View>
+      <TouchableOpacity onPress={() => this.toggleDetails()}>
         <Text style={styles.tableHeader}>Ingredients:</Text>
         <TouchableOpacity onPress={this.toggleEdit}>
           <Text style={styles.edit}>
@@ -43,6 +46,7 @@ export default class IngredientsTable extends React.Component {
             ingredients={ingredients}
             recipeId={recipeId}
             isEditing={this.state.isEditing}
+            isDisplayed={this.state.isDisplayed}
           />
         </View>
         {this.state.isEditing ? (
@@ -52,7 +56,7 @@ export default class IngredientsTable extends React.Component {
             <Text style={[styles.edit, { marginTop: 20 }]}>Add ingredient</Text>
           </TouchableOpacity>
         ) : null}
-      </View>
+      </TouchableOpacity>
     ) : (
       <TouchableOpacity
         onPress={() => {

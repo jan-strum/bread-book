@@ -9,6 +9,10 @@ export default class SubIngredient extends React.Component {
       subIngredientSelected: false
     }
   }
+
+  componentDidMount() {
+    this.setState({ subIngredientSelected: this.props.isDisplayed })
+  }
   selectSubIngredient = () => {
     this.setState({ subIngredientSelected: !this.state.subIngredientSelected })
   }
