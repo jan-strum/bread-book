@@ -16,7 +16,7 @@ import HydrationField from '../components/ingredients/ingredientForm/HydrationFi
 import ComplexityField from '../components/ingredients/ingredientForm/ComplexityField'
 import Submit from '../components/ingredients/ingredientForm/Submit'
 import AddSubIngredient from '../components/ingredients/ingredientForm/AddSubIngredient'
-import { styles } from '../styles/ingredientForm'
+import { styles } from '../styles/ingredientFormStyles'
 import { Mutation } from 'react-apollo'
 import { CREATE_INGREDIENT } from '../gql/mutations'
 import { FIND_FULL_RECIPE } from '../gql/queries'

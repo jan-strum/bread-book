@@ -6,7 +6,7 @@ import Header from './Header'
 import StringFields from './StringFields'
 import HydrationField from './HydrationField'
 import Submit from './Submit'
-import { styles } from '../../../styles/ingredientForm'
+import { styles } from '../../../styles/ingredientFormStyles'
 
 export default class AddSubIngredient extends React.Component {
   constructor() {

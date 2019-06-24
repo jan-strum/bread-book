@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import SubIngredient from './SubIngredient'
+import styles from '../../styles/ingredientStyles'
 
 export default class SuperIngredient extends React.Component {
   constructor() {
@@ -15,6 +16,7 @@ export default class SuperIngredient extends React.Component {
   }
 
   render() {
+    console.log('super')
     const { ingredient } = this.props
     const { hydration } = ingredient
 
@@ -66,35 +68,3 @@ export default class SuperIngredient extends React.Component {
     )
   }
 }
-
-export const styles = StyleSheet.create({
-  name: {
-    marginBottom: 10
-  },
-  description: {
-    marginTop: 5,
-    color: 'gray'
-  },
-  hydration: {
-    marginVertical: 5,
-    marginLeft: 5
-  },
-  row: {
-    flexDirection: 'row',
-    paddingLeft: 20,
-    justifyContent: 'space-between'
-  },
-  subIngredientsContainer: {
-    marginTop: 5
-  },
-  subIngredient: {
-    paddingHorizontal: 20
-  },
-  semiBold: {
-    marginVertical: 5,
-    color: '#505050'
-  },
-  gray: {
-    color: 'gray'
-  }
-})

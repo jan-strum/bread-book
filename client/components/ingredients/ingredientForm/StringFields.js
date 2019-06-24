@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TextInput } from 'react-native'
-import { styles } from '../../../styles/ingredientForm'
+import { styles } from '../../../styles/ingredientFormStyles'
 
 export default class StringFields extends React.Component {
   constructor() {
