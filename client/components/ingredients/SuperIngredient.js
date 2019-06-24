@@ -6,14 +6,12 @@ export default class SuperIngredient extends React.Component {
   constructor() {
     super()
     this.state = {
-      ingredientSelected: false,
-      subIngredientSelected: false
+      ingredientSelected: false
     }
   }
 
-  select = type => {
-    console.log('type', type)
-    this.setState({ [type]: !this.state[type] })
+  selectIngredient = () => {
+    this.setState({ ingredientSelected: !this.state.ingredientSelected })
   }
 
   render() {
@@ -26,52 +24,50 @@ export default class SuperIngredient extends React.Component {
     else if (typeof hydration === 'number') hydrationText = `${hydration}%`
 
     return (
-      <TouchableOpacity
-        onPress={() => this.select('ingredientSelected')}
-        style={{ flex: 1 }}
-      >
-        {!this.state.ingredientSelected ? (
-          <Text>
-            {ingredient.name}
-            <Text style={{ color: 'gray' }}>&#x2001;(...)</Text>
-          </Text>
-        ) : (
-          <View>
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity onPress={() => this.selectIngredient()}>
+          {!this.state.ingredientSelected ? (
             <Text>
               {ingredient.name}
-              <Text style={[styles.name, styles.gray]}>&#x2001;&uarr;</Text>
+              <Text style={{ color: 'gray' }}>&#x2001;(...)</Text>
             </Text>
-            {ingredient.description ? (
-              <Text style={styles.description}>{ingredient.description}</Text>
-            ) : null}
-            {hydrationText ? (
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.semiBold}>Hydration:</Text>
-                <Text style={[styles.gray, styles.hydration]}>
-                  {hydrationText}
-                </Text>
-              </View>
-            ) : null}
-            {ingredient.subIngredients.length ? (
-              <View style={styles.subIngredientsContainer}>
-                <Text style={styles.semiBold}>Composed of:</Text>
-                {ingredient.subIngredients.map(subIngredient => (
-                  <SubIngredient
-                    key={subIngredient.id}
-                    subIngredient={subIngredient}
-                    subIngredientSelected={this.state.subIngredientSelected}
-                  />
-                ))}
-              </View>
-            ) : null}
-          </View>
-        )}
-      </TouchableOpacity>
+          ) : (
+            <View>
+              <Text>
+                {ingredient.name}
+                <Text style={styles.gray}>&#x2001;&uarr;</Text>
+              </Text>
+              {ingredient.description ? (
+                <Text style={styles.description}>{ingredient.description}</Text>
+              ) : null}
+              {hydrationText ? (
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={styles.semiBold}>Hydration:</Text>
+                  <Text style={[styles.gray, styles.hydration]}>
+                    {hydrationText}
+                  </Text>
+                </View>
+              ) : null}
+              {ingredient.subIngredients.length ? (
+                <View style={styles.subIngredientsContainer}>
+                  <Text style={styles.semiBold}>Composed of:</Text>
+                  {ingredient.subIngredients.map(subIngredient => (
+                    <SubIngredient
+                      key={subIngredient.id}
+                      subIngredient={subIngredient}
+                    />
+                  ))}
+                </View>
+              ) : null}
+            </View>
+          )}
+        </TouchableOpacity>
+      </View>
     )
   }
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   name: {
     marginBottom: 10
   },
@@ -90,6 +86,9 @@ const styles = StyleSheet.create({
   },
   subIngredientsContainer: {
     marginTop: 5
+  },
+  subIngredient: {
+    paddingHorizontal: 20
   },
   semiBold: {
     marginVertical: 5,
