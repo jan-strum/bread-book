@@ -68,10 +68,11 @@ export default class AddSubIngredient extends React.Component {
       state,
       recipeId,
       createIngredient,
-      checkDecimals,
       clearFields,
       navigation,
-      screenWidth
+      screenWidth,
+      validateFields,
+      alertValidations
     } = this.props
 
     return (
@@ -103,7 +104,8 @@ export default class AddSubIngredient extends React.Component {
             state={state}
             recipeId={recipeId}
             createIngredient={createIngredient}
-            checkDecimals={checkDecimals}
+            validateFields={validateFields}
+            alertValidations={alertValidations}
             clearFields={clearFields}
             navigation={navigation}
             totalSubmit={true}

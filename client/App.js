@@ -9,11 +9,11 @@ import { resolvers } from './gql/resolvers'
 import { typeDefs } from './gql/schema'
 import { ApolloProvider } from 'react-apollo'
 
-// 192.168.0.4
+const ipAddress = '192.168.0.4'
 
 const cache = new InMemoryCache()
 const link = new HttpLink({
-  uri: 'http://10.1.5.180:4000/'
+  uri: `http://${ipAddress}:4000/`
 })
 
 cache.writeData({

@@ -26,7 +26,7 @@ export default class StringFields extends React.Component {
                 placeholder={
                   field !== 'Amount (g)'
                     ? `Enter the ${field.split(' ')[0].toLowerCase()} here`
-                    : '(Decimals are rounded to the nearest hundreth.)'
+                    : '(Decimals will be rounded to the nearest hundreth.)'
                 }
                 keyboardType={field === 'Amount (g)' ? 'numeric' : 'default'}
                 value={String(state.ingredient[stateField])}

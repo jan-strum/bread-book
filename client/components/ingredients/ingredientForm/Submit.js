@@ -13,11 +13,10 @@ const Submit = props => {
     isComplex,
     subIngredients
   } = props.state.ingredient
-  const { complexity, isValid, alertPresent } = props.state
+  const { complexity, isValid } = props.state
   const {
     recipeId,
     createIngredient,
-    checkDecimals,
     validateFields,
     alertValidations,
     clearFields,
