@@ -16,7 +16,6 @@ export default class SuperIngredient extends React.Component {
   }
 
   render() {
-    console.log('super')
     const { ingredient } = this.props
     const { hydration } = ingredient
 
@@ -39,17 +38,17 @@ export default class SuperIngredient extends React.Component {
                 {ingredient.name}
                 <Text style={styles.gray}>&#x2001;&uarr;</Text>
               </Text>
-              {ingredient.description ? (
+              {ingredient.description && (
                 <Text style={styles.description}>{ingredient.description}</Text>
-              ) : null}
-              {hydrationText ? (
+              )}
+              {hydrationText && (
                 <View style={{ flexDirection: 'row' }}>
                   <Text style={styles.semiBold}>Hydration:</Text>
                   <Text style={[styles.gray, styles.hydration]}>
                     {hydrationText}
                   </Text>
                 </View>
-              ) : null}
+              )}
               {ingredient.subIngredients.length ? (
                 <View style={styles.subIngredientsContainer}>
                   <Text style={styles.semiBold}>Composed of:</Text>

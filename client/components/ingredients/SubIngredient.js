@@ -42,19 +42,19 @@ export default class SubIngredient extends React.Component {
                 <Text style={[styles.gray]}>{subIngredient.quantity}</Text>
               </View>
               <View style={styles.subIngredient}>
-                {subIngredient.description ? (
+                {subIngredient.description && (
                   <Text style={[styles.description]}>
                     {subIngredient.description}
                   </Text>
-                ) : null}
-                {hydrationText ? (
+                )}
+                {hydrationText && (
                   <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.semiBold}>Hydration:</Text>
                     <Text style={[styles.gray, styles.hydration]}>
                       {hydrationText}
                     </Text>
                   </View>
-                ) : null}
+                )}
               </View>
             </View>
           )}
