@@ -1,16 +1,19 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import SubIngredient from './SubIngredient'
 
 export default class SuperIngredient extends React.Component {
   constructor() {
     super()
     this.state = {
-      selected: false
+      ingredientSelected: false,
+      subIngredientSelected: false
     }
   }
 
-  select = () => {
-    this.setState({ selected: !this.state.selected })
+  select = type => {
+    console.log('type', type)
+    this.setState({ [type]: !this.state[type] })
   }
 
   render() {
@@ -23,8 +26,11 @@ export default class SuperIngredient extends React.Component {
     else if (typeof hydration === 'number') hydrationText = `${hydration}%`
 
     return (
-      <TouchableOpacity onPress={this.select} style={{ flex: 1 }}>
-        {!this.state.selected ? (
+      <TouchableOpacity
+        onPress={() => this.select('ingredientSelected')}
+        style={{ flex: 1 }}
+      >
+        {!this.state.ingredientSelected ? (
           <Text>
             {ingredient.name}
             <Text style={{ color: 'gray' }}>&#x2001;(...)</Text>
@@ -50,10 +56,11 @@ export default class SuperIngredient extends React.Component {
               <View style={styles.subIngredientsContainer}>
                 <Text style={styles.semiBold}>Composed of:</Text>
                 {ingredient.subIngredients.map(subIngredient => (
-                  <View key={subIngredient.id} style={styles.row}>
-                    <Text style={[styles.gray]}>{subIngredient.name}</Text>
-                    <Text style={[styles.gray]}>{subIngredient.quantity}</Text>
-                  </View>
+                  <SubIngredient
+                    key={subIngredient.id}
+                    subIngredient={subIngredient}
+                    subIngredientSelected={this.state.subIngredientSelected}
+                  />
                 ))}
               </View>
             ) : null}
@@ -76,13 +83,13 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginLeft: 5
   },
-  subIngredientsContainer: {
-    marginTop: 5
-  },
   row: {
     flexDirection: 'row',
     paddingLeft: 20,
     justifyContent: 'space-between'
+  },
+  subIngredientsContainer: {
+    marginTop: 5
   },
   semiBold: {
     marginVertical: 5,
