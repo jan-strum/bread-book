@@ -2,7 +2,7 @@
 /* eslint-disable complexity */
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { styles } from './ingredientFormStyles'
+import { styles } from './ingredient-form-styles'
 
 const Submit = props => {
   const {

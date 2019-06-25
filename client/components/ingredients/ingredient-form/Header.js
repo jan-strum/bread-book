@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import { styles } from './ingredientFormStyles'
+import { styles } from './ingredient-form-styles'
 
 const Header = ({
   superIngredientName,

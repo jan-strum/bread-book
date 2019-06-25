@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 import SubIngredient from './SubIngredient'
-import styles from './ingredientStyles'
+import styles from './ingredient-styles'
 
 export default class SuperIngredient extends React.Component {
   constructor() {
