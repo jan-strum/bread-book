@@ -37,7 +37,9 @@ export default class IngredientsTable extends React.Component {
             {!this.state.isEditing ? 'Edit' : 'Done'}
           </Text>
         </TouchableOpacity>
-        <View style={styles.container}>
+        <View
+          style={[styles.container, !this.state.isEditing && styles.notEditing]}
+        >
           <View style={[styles.head, styles.row]}>
             <Text style={styles.bold}>Name</Text>
             <Text style={styles.bold}>Amount (g)</Text>
@@ -82,9 +84,11 @@ export default class IngredientsTable extends React.Component {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
-    marginBottom: 20,
     borderColor: '#bbb',
     borderWidth: StyleSheet.hairlineWidth
+  },
+  notEditing: {
+    marginBottom: 20
   },
   tableHeader: {
     marginTop: 25,
