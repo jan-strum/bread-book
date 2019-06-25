@@ -42,11 +42,13 @@ export default class SuperIngredient extends React.Component {
                 <Text style={styles.gray}>&#x2001;&uarr;</Text>
               </Text>
               {ingredient.description ? (
-                <Text style={styles.description}>{ingredient.description}</Text>
+                <Text style={[styles.field, styles.darkGray]}>
+                  {ingredient.description}
+                </Text>
               ) : null}
               {hydrationText ? (
-                <View style={{ flexDirection: 'row' }}>
-                  <Text style={styles.semiBold}>Hydration:</Text>
+                <View style={[styles.field, { flexDirection: 'row' }]}>
+                  <Text style={styles.darkGray}>Hydration:</Text>
                   <Text style={[styles.gray, styles.hydration]}>
                     {hydrationText}
                   </Text>
@@ -54,7 +56,7 @@ export default class SuperIngredient extends React.Component {
               ) : null}
               {ingredient.subIngredients.length ? (
                 <View style={styles.subIngredientsContainer}>
-                  <Text style={styles.semiBold}>Composed of:</Text>
+                  <Text style={styles.darkGray}>Composed of:</Text>
                   {ingredient.subIngredients.map(subIngredient => (
                     <SubIngredient
                       key={subIngredient.id}

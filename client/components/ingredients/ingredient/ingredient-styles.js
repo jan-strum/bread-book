@@ -4,12 +4,10 @@ const styles = StyleSheet.create({
   name: {
     marginBottom: 10
   },
-  description: {
-    marginTop: 5,
-    color: 'gray'
+  field: {
+    marginTop: 3
   },
   hydration: {
-    marginVertical: 5,
     marginLeft: 5
   },
   row: {
@@ -23,8 +21,7 @@ const styles = StyleSheet.create({
   subIngredient: {
     paddingHorizontal: 20
   },
-  semiBold: {
-    marginVertical: 5,
+  darkGray: {
     color: '#505050'
   },
   gray: {

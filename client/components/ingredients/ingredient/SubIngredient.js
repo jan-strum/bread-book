@@ -30,30 +30,30 @@ export default class SubIngredient extends React.Component {
         <TouchableOpacity onPress={() => this.selectSubIngredient()}>
           {!this.state.subIngredientSelected ? (
             <View style={styles.row}>
-              <Text style={styles.gray}>
+              <Text style={styles.darkGray}>
                 {subIngredient.name}
                 <Text style={styles.gray}>&#x2001;(...)</Text>
               </Text>
-              <Text style={[styles.gray]}>{subIngredient.quantity}</Text>
+              <Text style={[styles.darkGray]}>{subIngredient.quantity}</Text>
             </View>
           ) : (
-            <View>
+            <View style={{ paddingVertical: 5 }}>
               <View style={styles.row}>
-                <Text style={styles.gray}>
+                <Text style={styles.darkGray}>
                   {subIngredient.name}
                   <Text style={styles.gray}>&#x2001;&uarr;</Text>
                 </Text>
-                <Text style={[styles.gray]}>{subIngredient.quantity}</Text>
+                <Text style={[styles.darkGray]}>{subIngredient.quantity}</Text>
               </View>
               <View style={styles.subIngredient}>
                 {subIngredient.description && (
-                  <Text style={[styles.description]}>
+                  <Text style={[styles.field, styles.darkGray]}>
                     {subIngredient.description}
                   </Text>
                 )}
                 {hydrationText && (
-                  <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.semiBold}>Hydration:</Text>
+                  <View style={[styles.field, { flexDirection: 'row' }]}>
+                    <Text style={styles.darkGray}>Hydration:</Text>
                     <Text style={[styles.gray, styles.hydration]}>
                       {hydrationText}
                     </Text>
