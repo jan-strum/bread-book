@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { SingleIngredient } from './SingleIngredient'
+import { SingleIngredient } from '../ingredient/SingleIngredient'
 import styles from './IngredientsTable-styles'
 
 export default class IngredientsTable extends React.Component {
