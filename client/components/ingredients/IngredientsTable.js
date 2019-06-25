@@ -82,6 +82,7 @@ export default class IngredientsTable extends React.Component {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
+    marginBottom: 20,
     borderColor: '#bbb',
     borderWidth: StyleSheet.hairlineWidth
   },

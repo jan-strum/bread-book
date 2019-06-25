@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import { styles } from '../../../styles/ingredientFormStyles'
+import { styles } from './ingredientFormStyles'
 
 export default class HydrationField extends React.Component {
   constructor() {
